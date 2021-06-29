@@ -26,9 +26,7 @@ class MessageWrapper:
             else:
                 self._send_buffer = self._send_buffer[sent:]
 
-    def _create_message(
-        self, *, content_bytes
-    ):
+    def _create_message(self, *, content_bytes):
         message_hdr = struct.pack(">H", len(content_bytes))
         message = message_hdr + content_bytes
         return message

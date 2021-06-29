@@ -1,5 +1,6 @@
 import struct
 
+
 class Logon:
     def __init__(self):
         self.data1 = None
@@ -24,7 +25,7 @@ class Logon:
 
     def decode_binary_string(self, data):
         try:
-            s = struct.Struct('= 1s 1s H H I 6s 6s I 24s 24s 24s 24s Q I I H H 1s')
+            s = struct.Struct("= 1s 1s H H I 6s 6s I 24s 24s 24s 24s Q I I H H 1s")
             unpacked_data = s.unpack(data)
             print(unpacked_data)
             self.binary_data = data
@@ -32,10 +33,9 @@ class Logon:
         except Exception as e:
             print(e)
             return False
-    
+
     def parse_header(self, data):
         return True
-
 
     def parse_message(self, data):
         return self.decode_binary_string(data)

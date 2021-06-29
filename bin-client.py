@@ -11,11 +11,11 @@ sel = selectors.DefaultSelector()
 
 
 def create_request(value):
-    print(len(value.encode('utf-8')))
+    print(len(value.encode("utf-8")))
     return dict(
         type="binary/custom-client-binary-type",
         encoding="binary",
-        content=value.encode('utf-8'),
+        content=value.encode("utf-8"),
     )
 
 

@@ -1,6 +1,7 @@
 import struct
 import binascii
 
+
 class Collateral:
     def __init__(self):
         self.msgType1 = None
@@ -33,17 +34,17 @@ class Collateral:
 
     def decode_binary_string(self, data):
         try:
-            s = struct.Struct('= H H 6s I H d d d d d 1s d d d d d d d d d d d I I I')
+            s = struct.Struct("= H H 6s I H d d d d d 1s d d d d d d d d d d d I I I")
             unpacked_data = s.unpack(data[4:])
             print(unpacked_data)
             return True
         except Exception as e:
             print(e)
             return False
-    
+
     def parse_header(self, data):
         try:
-            s = struct.Struct('= 1s 1s H')
+            s = struct.Struct("= 1s 1s H")
             unpacked_data = s.unpack(data[:4])
             if unpacked_data[-1] == 161:
                 return True
@@ -52,7 +53,6 @@ class Collateral:
         except Exception as e:
             print(e)
             return False
-
 
     def parse_message(self, data):
         return self.decode_binary_string(data)

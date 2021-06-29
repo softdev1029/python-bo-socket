@@ -1,6 +1,7 @@
 import selectors
 import struct
 
+
 class MessageWrapper:
     def __init__(self, selector, sock, addr, msgObj):
         self.selector = selector
@@ -10,7 +11,7 @@ class MessageWrapper:
         self._send_buffer = None
         self.request = None
         self.msgObj = msgObj
-    
+
     def _set_selector_events_mask(self, mode):
         """Set selector to listen for events: mode is 'r', 'w', or 'rw'."""
         if mode == "r":
@@ -60,7 +61,7 @@ class MessageWrapper:
             self.process_request()
 
     def write(self):
-        if self._send_buffer is None: 
+        if self._send_buffer is None:
             self._send_buffer = self.msgObj.binary_data
             self._write()
 

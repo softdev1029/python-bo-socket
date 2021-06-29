@@ -20,12 +20,11 @@ def accept_wrapper(sock):
     # message_logon = libserverbin.MessageWrapper(sel, conn, addr, logon.Logon())
     # sel.register(conn, selectors.EVENT_READ, data=message_logon)
     collateral_req = collateralreq.CollateralReq()
-    collateral_req.set_data('f', '', 34, 0, 0, 100500, 0, 1, 0, 0, 1623152815)
+    collateral_req.set_data("f", "", 34, 0, 0, 100500, 0, 1, 0, 0, 1623152815)
     message_collateralreq = libserverbin.MessageWrapper(sel, conn, addr, collateral_req)
     sel.register(conn, selectors.EVENT_READ, data=message_collateralreq)
     # message_collateral = libserverbin.MessageWrapper(sel, conn, addr, collateral.Collateral())
     # sel.register(conn, selectors.EVENT_READ, data=message_collateral)
-    
 
 
 if len(sys.argv) != 3:
