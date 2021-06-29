@@ -9,6 +9,7 @@ import libserverbin
 import collateral
 import logon
 import collateralreq
+from auth.client_logon import ClientLogon
 
 sel = selectors.DefaultSelector()
 
@@ -20,10 +21,36 @@ def accept_wrapper(sock):
     conn.setblocking(False)
     # message_logon = libserverbin.MessageWrapper(sel, conn, addr, logon.Logon())
     # sel.register(conn, selectors.EVENT_READ, data=message_logon)
-    collateral_req = collateralreq.CollateralReq()
-    collateral_req.set_data("f", "", 34, 0, 0, 100500, 0, 1, 0, 0, 1623152815)
-    message_collateralreq = libserverbin.MessageWrapper(sel, conn, addr, collateral_req)
-    sel.register(conn, selectors.EVENT_READ, data=message_collateralreq)
+
+    # collateral_req = collateralreq.CollateralReq()
+    # collateral_req.set_data("f", "", 34, 0, 0, 100500, 0, 1, 0, 0, 1623152815)
+    # message_collateralreq = libserverbin.MessageWrapper(sel, conn, addr, collateral_req)
+    # sel.register(conn, selectors.EVENT_READ, data=message_collateralreq)
+
+    message = ClientLogon()
+    message.set_data(
+        "H",  # data1
+        "1",  # data2
+        143,  # data3
+        1,  # LogonType
+        253336,  # Account
+        "1F6A",  # 2FA
+        "BOU1",  # UserName
+        1,  # TradingSessionID
+        "1",  # PrimaryOESIP
+        "1",  # SecondaryOESIP
+        "1",  # PrimaryMDIP
+        "1",  # SecondaryIP
+        0,  # SendingTime
+        1500201,  # MsgSeqNum
+        432451,  # Key
+        0,  # LoginStatus
+        0,  # RejectReason
+        "",  # RiskMaster
+    )
+    message_wrapper = libserverbin.MessageWrapper(sel, conn, addr, message)
+    sel.register(conn, selectors.EVENT_READ, data=message_wrapper)
+
     # message_collateral = libserverbin.MessageWrapper(sel, conn, addr, collateral.Collateral())
     # sel.register(conn, selectors.EVENT_READ, data=message_collateral)
 

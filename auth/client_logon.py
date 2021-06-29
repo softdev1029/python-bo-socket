@@ -1,4 +1,5 @@
 import struct
+from utils.helper import print_bytes_hex
 
 
 class ClientLogon:
@@ -47,31 +48,31 @@ class ClientLogon:
         riskMaster,
     ):
         self.data = (
-            data1,
-            data2,
+            data1.encode("utf-8"),
+            data2.encode("utf-8"),
             data3,
             logonType,
             account,
-            twoFA,
-            userName,
+            twoFA.encode("utf-8"),
+            userName.encode("utf-8"),
             tradingSessionID,
-            primaryOrderEntryIP,
-            secondaryOrderEntryIP,
-            primaryMarketDataIP,
-            secondaryMarketDataIP,
+            primaryOrderEntryIP.encode("utf-8"),
+            secondaryOrderEntryIP.encode("utf-8"),
+            primaryMarketDataIP.encode("utf-8"),
+            secondaryMarketDataIP.encode("utf-8"),
             sendingTime,
             lastSeqNum,
             key,
             loginStatus,
             rejectReason,
-            riskMaster,
+            riskMaster.encode("utf-8"),
         )
 
     def encode_binary_string(self):
         try:
             s = struct.Struct("= 1s 1s H H I 6s 6s I 24s 24s 24s 24s Q I I H H 1s")
             self.binary_data = s.pack(*(self.data))
-            print("Encoded Client Logon message", self.binary_data)
+            print_bytes_hex("Encoded Client Logon message", self.binary_data, "")
             return True
         except Exception as e:
             print(e)
@@ -92,4 +93,5 @@ class ClientLogon:
         return True
 
     def parse_message(self, data):
-        return self.decode_binary_string(data)
+        self.encode_binary_string()
+        return True
