@@ -1,4 +1,5 @@
 import struct
+from utils.helper import print_bytes_hex
 
 
 class CollateralReq:
@@ -38,6 +39,7 @@ class CollateralReq:
         try:
             s = struct.Struct("= 1s 1s H H H I I H I I Q")
             self.binary_data = s.pack(*(self.data))
+            print_bytes_hex("Encoded Collateral Req message", self.binary_data, "")
             return True
         except Exception as e:
             print(e)

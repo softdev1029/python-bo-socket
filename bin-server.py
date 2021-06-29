@@ -15,6 +15,7 @@ sel = selectors.DefaultSelector()
 
 def accept_wrapper(sock):
     conn, addr = sock.accept()  # Should be ready to read
+
     print("accepted connection from", addr)
     conn.setblocking(False)
     # message_logon = libserverbin.MessageWrapper(sel, conn, addr, logon.Logon())
