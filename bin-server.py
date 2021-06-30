@@ -12,6 +12,7 @@ from trade.instrument_response import InstrumentResponse
 from trade.collateral_request import CollateralRequest
 from trade.collateral import Collateral
 from trade.risk_update_request import RiskUpdateRequest
+from trade.risk_user_symbol import RiskUserSymbol
 
 sel = selectors.DefaultSelector()
 
@@ -83,19 +84,51 @@ def accept_wrapper(sock):
     #     1500201,  # MsgSeqNum
     # )
 
-    message = RiskUpdateRequest()
+    # message = RiskUpdateRequest()
+    # message.set_data(
+    #     "w",  # data1
+    #     "",  # data2
+    #     34,  # data3
+    #     0,  # MessageType
+    #     2,  # ResponseType
+    #     10070,  # account
+    #     506,  # tradingSessionID
+    #     1,  # SymbolEnum
+    #     0,  # Key
+    #     1005231,  # MsgSeqNum
+    #     0,  # SendingTime
+    # )
+
+    message = RiskUserSymbol()
     message.set_data(
-        "w",  # data1
+        "N",  # data1
         "",  # data2
         34,  # data3
         0,  # MessageType
-        2,  # ResponseType
-        10070,  # account
-        506,  # tradingSessionID
+        0,  # Padding
+        "NAM1",  # UserName
+        100700,  # Account
         1,  # SymbolEnum
-        0,  # Key
-        1005231,  # MsgSeqNum
-        0,  # SendingTime
+        0,  # Leverage
+        3.0,  # LongPosition
+        5.0,  # ShortPosition
+        51000,  # LongCash
+        52000,  # ShortCash
+        0,  # SymbolDisabled
+        0,  # AccountEquity
+        0,  # InstrumentEquity
+        150000,  # ExecutedLongCash
+        3,  # ExecutedLongPosition
+        102000,  # ExecutedShortCash
+        2,  # ExecutedShortPosition
+        25,  # BTCEquity
+        500000,  # USDTEquty
+        1000,  # ETHEquity
+        1000000,  # USDEquity
+        400000,  # FLYEquity
+        1000,  # OpenOderRequestLimit
+        506,  # TradingSessionID
+        42431,  # MsgSeqNum
     )
     message_wrapper = libserverbin.MessageWrapper(sel, conn, addr, message)
     sel.register(conn, selectors.EVENT_READ, data=message_wrapper)
