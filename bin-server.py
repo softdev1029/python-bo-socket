@@ -6,11 +6,10 @@ import selectors
 import traceback
 
 import libserverbin
-import collateral
-import logon
-import collateralreq
 from auth.client_logon import ClientLogon
 from trade.instrument_request import InstrumentRequest
+from trade.collateral_request import CollateralRequest
+from trade.collateral import Collateral
 
 sel = selectors.DefaultSelector()
 
@@ -20,13 +19,9 @@ def accept_wrapper(sock):
 
     print("accepted connection from", addr)
     conn.setblocking(False)
-    # message_logon = libserverbin.MessageWrapper(sel, conn, addr, logon.Logon())
-    # sel.register(conn, selectors.EVENT_READ, data=message_logon)
 
-    # collateral_req = collateralreq.CollateralReq()
-    # collateral_req.set_data("f", "", 34, 0, 0, 100500, 0, 1, 0, 0, 1623152815)
-    # message_collateralreq = libserverbin.MessageWrapper(sel, conn, addr, collateral_req)
-    # sel.register(conn, selectors.EVENT_READ, data=message_collateralreq)
+    # message = CollateralRequest()
+    # message.set_data("f", "", 34, 0, 0, 100500, 0, 1, 0, 0, 1623152815)
 
     # message = ClientLogon()
     # message.set_data(
@@ -70,9 +65,6 @@ def accept_wrapper(sock):
 
     message_wrapper = libserverbin.MessageWrapper(sel, conn, addr, message)
     sel.register(conn, selectors.EVENT_READ, data=message_wrapper)
-
-    # message_collateral = libserverbin.MessageWrapper(sel, conn, addr, collateral.Collateral())
-    # sel.register(conn, selectors.EVENT_READ, data=message_collateral)
 
 
 if len(sys.argv) != 3:

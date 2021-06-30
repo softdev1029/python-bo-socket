@@ -1,8 +1,9 @@
 import struct
 from utils.helper import print_bytes_hex
+from base.message import Message
 
 
-class CollateralReq:
+class CollateralRequest(Message):
     def __init__(self):
         self.data = ()
         self.binary_data = None

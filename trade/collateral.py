@@ -1,8 +1,9 @@
 import struct
 import binascii
+from base.message import Message
 
 
-class Collateral:
+class Collateral(Message):
     def __init__(self):
         self.msgType1 = None
         self.msgType2 = None

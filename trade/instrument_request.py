@@ -1,8 +1,9 @@
 import struct
 from utils.helper import print_bytes_hex
+from base.message import Message
 
 
-class InstrumentRequest:
+class InstrumentRequest(Message):
     def __init__(self):
         self.data1 = None
         self.data2 = None
