@@ -8,6 +8,7 @@ import traceback
 import libserverbin
 from auth.client_logon import ClientLogon
 from trade.instrument_request import InstrumentRequest
+from trade.instrument_response import InstrumentResponse
 from trade.collateral_request import CollateralRequest
 from trade.collateral import Collateral
 
@@ -26,7 +27,7 @@ def accept_wrapper(sock):
     # message = ClientLogon()
     # message.set_data(
     #     "H",  # data1
-    #     "1",  # data2
+    #     "",  # data2
     #     143,  # data3
     #     1,  # LogonType
     #     253336,  # Account
@@ -45,20 +46,38 @@ def accept_wrapper(sock):
     #     "",  # RiskMaster
     # )
 
-    message = InstrumentRequest()
+    # message = InstrumentRequest()
+    # message.set_data(
+    #     "Y",  # data1
+    #     "",  # data2
+    #     62,  # data3
+    #     0,  # MessageType
+    #     0,  # RejectReason
+    #     100700,  # Account
+    #     2,  # RequestType
+    #     0,  # Key
+    #     "",  # SymbolName
+    #     0,  # SymbolType
+    #     0,  # SymbolEnum
+    #     506,  # TradingSessionID
+    #     0,  # SendingTime
+    #     1500201,  # MsgSeqNum
+    # )
+
+    message = InstrumentResponse()
     message.set_data(
         "Y",  # data1
         "",  # data2
         62,  # data3
-        0,  # MessageType
-        0,  # RejectReason
-        100700,  # Account
-        2,  # RequestType
-        0,  # Key
-        "",  # SymbolName
-        0,  # SymbolType
-        0,  # SymbolEnum
-        506,  # TradingSessionID
+        59,  # MessageType, not really required since a message of this type is defined in the first byte of the header
+        0,  # Padding
+        2,  # ResponseType
+        1,  # SymbolEnum
+        "BTCUSD",  # SymbolName
+        1,  # SymbolType
+        0.5,  # PriceIncrement
+        0.00001,  # MinSize
+        1000,  # MaxSize
         0,  # SendingTime
         1500201,  # MsgSeqNum
     )
