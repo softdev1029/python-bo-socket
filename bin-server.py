@@ -10,6 +10,7 @@ import collateral
 import logon
 import collateralreq
 from auth.client_logon import ClientLogon
+from trade.instrument_request import InstrumentRequest
 
 sel = selectors.DefaultSelector()
 
@@ -27,27 +28,46 @@ def accept_wrapper(sock):
     # message_collateralreq = libserverbin.MessageWrapper(sel, conn, addr, collateral_req)
     # sel.register(conn, selectors.EVENT_READ, data=message_collateralreq)
 
-    message = ClientLogon()
+    # message = ClientLogon()
+    # message.set_data(
+    #     "H",  # data1
+    #     "1",  # data2
+    #     143,  # data3
+    #     1,  # LogonType
+    #     253336,  # Account
+    #     "1F6A",  # 2FA
+    #     "BOU1",  # UserName
+    #     1,  # TradingSessionID
+    #     "1",  # PrimaryOESIP
+    #     "1",  # SecondaryOESIP
+    #     "1",  # PrimaryMDIP
+    #     "1",  # SecondaryIP
+    #     0,  # SendingTime
+    #     1500201,  # MsgSeqNum
+    #     432451,  # Key
+    #     0,  # LoginStatus
+    #     0,  # RejectReason
+    #     "",  # RiskMaster
+    # )
+
+    message = InstrumentRequest()
     message.set_data(
-        "H",  # data1
-        "1",  # data2
-        143,  # data3
-        1,  # LogonType
-        253336,  # Account
-        "1F6A",  # 2FA
-        "BOU1",  # UserName
-        1,  # TradingSessionID
-        "1",  # PrimaryOESIP
-        "1",  # SecondaryOESIP
-        "1",  # PrimaryMDIP
-        "1",  # SecondaryIP
+        "Y",  # data1
+        "",  # data2
+        62,  # data3
+        0,  # MessageType
+        0,  # RejectReason
+        100700,  # Account
+        2,  # RequestType
+        0,  # Key
+        "",  # SymbolName
+        0,  # SymbolType
+        0,  # SymbolEnum
+        506,  # TradingSessionID
         0,  # SendingTime
         1500201,  # MsgSeqNum
-        432451,  # Key
-        0,  # LoginStatus
-        0,  # RejectReason
-        "",  # RiskMaster
     )
+
     message_wrapper = libserverbin.MessageWrapper(sel, conn, addr, message)
     sel.register(conn, selectors.EVENT_READ, data=message_wrapper)
 
