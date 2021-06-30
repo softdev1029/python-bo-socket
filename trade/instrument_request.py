@@ -5,25 +5,6 @@ from base.message import Message
 
 class InstrumentRequest(Message):
     def __init__(self):
-        self.data1 = None
-        self.data2 = None
-        self.data3 = None
-        self.logonType = None
-        self.account = None
-        self.twoFA = None
-        self.userName = None
-        self.tradingSessionID = None
-        self.primaryOrderEntryIP = None
-        self.secondaryOrderEntryIP = None
-        self.primaryMarketDataIP = None
-        self.secondaryMarketDataIP = None
-        self.sendingTime = None
-        self.lastSeqNum = None
-        self.key = None
-        self.loginStatus = None
-        self.rejectReason = None
-        self.riskMaster = None
-
         self.data = ()
         self.binary_data = None
 

@@ -3,7 +3,7 @@ from utils.helper import print_bytes_hex
 from base.message import Message
 
 
-class InstrumentResponse(Message):
+class RiskUpdateRequest(Message):
     def __init__(self):
         self.data = ()
         self.binary_data = None
@@ -14,39 +14,33 @@ class InstrumentResponse(Message):
         data2,
         data3,
         messageType,
-        padding,
         responseType,
+        account,
+        tradingSessionID,
         symbolEnum,
-        symbolName,
-        symbolType,
-        priceIncrement,
-        minSize,
-        maxSize,
-        sendingTime,
+        key,
         msgSeqNum,
+        sendingTime,
     ):
         self.data = (
             data1.encode("utf-8"),
             data2.encode("utf-8"),
             data3,
             messageType,
-            padding,
             responseType,
+            account,
+            tradingSessionID,
             symbolEnum,
-            symbolName.encode("utf-8"),
-            symbolType,
-            priceIncrement,
-            minSize,
-            maxSize,
-            sendingTime,
+            key,
             msgSeqNum,
+            sendingTime,
         )
 
     def encode_binary_string(self):
         try:
-            s = struct.Struct("= 1s 1s H H H H H 24s H e e e Q I")
+            s = struct.Struct("= 1s 1s H H H I I H I I Q")
             self.binary_data = s.pack(*(self.data))
-            print_bytes_hex("Encoded Instrument Response message", self.binary_data, "")
+            print_bytes_hex("Encoded Risk Update Request message", self.binary_data, "")
             return True
         except Exception as e:
             print(e)
@@ -54,9 +48,9 @@ class InstrumentResponse(Message):
 
     def decode_binary_string(self, data):
         try:
-            s = struct.Struct("= 1s 1s H H H H H 24s H e e e Q I")
+            s = struct.Struct("= 1s 1s H H H I I H I I Q")
             unpacked_data = s.unpack(data)
-            print("Decoded Instrument Response message", unpacked_data)
+            print("Decoded Risk Update Request message", unpacked_data)
             self.binary_data = data
             return True
         except Exception as e:

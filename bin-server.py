@@ -11,6 +11,7 @@ from trade.instrument_request import InstrumentRequest
 from trade.instrument_response import InstrumentResponse
 from trade.collateral_request import CollateralRequest
 from trade.collateral import Collateral
+from trade.risk_update_request import RiskUpdateRequest
 
 sel = selectors.DefaultSelector()
 
@@ -64,24 +65,38 @@ def accept_wrapper(sock):
     #     1500201,  # MsgSeqNum
     # )
 
-    message = InstrumentResponse()
-    message.set_data(
-        "Y",  # data1
-        "",  # data2
-        62,  # data3
-        59,  # MessageType, not really required since a message of this type is defined in the first byte of the header
-        0,  # Padding
-        2,  # ResponseType
-        1,  # SymbolEnum
-        "BTCUSD",  # SymbolName
-        1,  # SymbolType
-        0.5,  # PriceIncrement
-        0.00001,  # MinSize
-        1000,  # MaxSize
-        0,  # SendingTime
-        1500201,  # MsgSeqNum
-    )
+    # message = InstrumentResponse()
+    # message.set_data(
+    #     "Y",  # data1
+    #     "",  # data2
+    #     62,  # data3
+    #     59,  # MessageType, not really required since a message of this type is defined in the first byte of the header
+    #     0,  # Padding
+    #     2,  # ResponseType
+    #     1,  # SymbolEnum
+    #     "BTCUSD",  # SymbolName
+    #     1,  # SymbolType
+    #     0.5,  # PriceIncrement
+    #     0.00001,  # MinSize
+    #     1000,  # MaxSize
+    #     0,  # SendingTime
+    #     1500201,  # MsgSeqNum
+    # )
 
+    message = RiskUpdateRequest()
+    message.set_data(
+        "w",  # data1
+        "",  # data2
+        34,  # data3
+        0,  # MessageType
+        2,  # ResponseType
+        10070,  # account
+        506,  # tradingSessionID
+        1,  # SymbolEnum
+        0,  # Key
+        1005231,  # MsgSeqNum
+        0,  # SendingTime
+    )
     message_wrapper = libserverbin.MessageWrapper(sel, conn, addr, message)
     sel.register(conn, selectors.EVENT_READ, data=message_wrapper)
 
