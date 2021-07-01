@@ -13,6 +13,7 @@ from trade.collateral_request import CollateralRequest
 from trade.collateral import Collateral
 from trade.risk_update_request import RiskUpdateRequest
 from trade.risk_user_symbol import RiskUserSymbol
+from transaction.new_limit_order import NewLimitOrder
 
 sel = selectors.DefaultSelector()
 
@@ -99,36 +100,80 @@ def accept_wrapper(sock):
     #     0,  # SendingTime
     # )
 
-    message = RiskUserSymbol()
+    # message = RiskUserSymbol()
+    # message.set_data(
+    #     "N",  # data1
+    #     "",  # data2
+    #     34,  # data3
+    #     0,  # MessageType
+    #     0,  # Padding
+    #     "NAM1",  # UserName
+    #     100700,  # Account
+    #     1,  # SymbolEnum
+    #     0,  # Leverage
+    #     3.0,  # LongPosition
+    #     5.0,  # ShortPosition
+    #     51000,  # LongCash
+    #     52000,  # ShortCash
+    #     0,  # SymbolDisabled
+    #     0,  # AccountEquity
+    #     0,  # InstrumentEquity
+    #     150000,  # ExecutedLongCash
+    #     3,  # ExecutedLongPosition
+    #     102000,  # ExecutedShortCash
+    #     2,  # ExecutedShortPosition
+    #     25,  # BTCEquity
+    #     500000,  # USDTEquty
+    #     1000,  # ETHEquity
+    #     1000000,  # USDEquity
+    #     400000,  # FLYEquity
+    #     1000,  # OpenOderRequestLimit
+    #     506,  # TradingSessionID
+    #     42431,  # MsgSeqNum
+    # )
+
+    message = NewLimitOrder()
     message.set_data(
-        "N",  # data1
-        "",  # data2
-        34,  # data3
-        0,  # MessageType
-        0,  # Padding
-        "NAM1",  # UserName
-        100700,  # Account
-        1,  # SymbolEnum
-        0,  # Leverage
-        3.0,  # LongPosition
-        5.0,  # ShortPosition
-        51000,  # LongCash
-        52000,  # ShortCash
-        0,  # SymbolDisabled
-        0,  # AccountEquity
-        0,  # InstrumentEquity
-        150000,  # ExecutedLongCash
-        3,  # ExecutedLongPosition
-        102000,  # ExecutedShortCash
-        2,  # ExecutedShortPosition
-        25,  # BTCEquity
-        500000,  # USDTEquty
-        1000,  # ETHEquity
-        1000000,  # USDEquity
-        400000,  # FLYEquity
-        1000,  # OpenOderRequestLimit
-        506,  # TradingSessionID
-        42431,  # MsgSeqNum
+        "T", # data1,
+        "", # data2,
+        238, # data3,
+        1, # messageType ORDER_NEW
+        0, # padding,
+        100700, # account,
+        46832151, # orderID,
+        1, # symbolEnum,
+        1, # OrderType LMT
+        1, # SymbolType SPOT
+        50100.5, # BOPrice,
+        1, # BOSide BUY
+        2.0, # BOOrderQty,
+        2, # TIF -> GTC
+        0, # StopLimitPrice,
+        "BTCUSD", # BOSymbol,
+        0, # OrigOrderID,
+        0, # BOCancelShares,
+        0, # ExecID,
+        0, # ExecShares,
+        0, # RemainingQuantity,
+        0, # ExecFee,
+        "", # ExpirationDate,
+        "", # TraderID,
+        0, # RejectReason,
+        1000, # SendingTime,
+        506, # TradingSessionID,
+        42341, # Key,
+        0, # DisplaySize,
+        0, # RefreshSize,
+        0, # Layers,
+        0, # SizeIncrement,
+        0, # PriceIncrement,
+        0, # PriceOffset,
+        0, # BOOrigPrice,
+        0, # ExecPrice,
+        79488880, # MsgSeqNum,
+        0, # TakeProfitPrice,
+        0, # TriggerType,
+        "", # Attributes,
     )
     message_wrapper = libserverbin.MessageWrapper(sel, conn, addr, message)
     sel.register(conn, selectors.EVENT_READ, data=message_wrapper)

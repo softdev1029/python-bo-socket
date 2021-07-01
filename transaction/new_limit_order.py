@@ -17,6 +17,39 @@ class NewLimitOrder(Message):
         padding,
         account,
         orderID,
+        symbolEnum,
+        OrderType,
+        SymbolType,
+        BOPrice,
+        BOSide,
+        BOOrderQty,
+        TIF,
+        StopLimitPrice,
+        BOSymbol,
+        OrigOrderID,
+        BOCancelShares,
+        ExecID,
+        ExecShares,
+        RemainingQuantity,
+        ExecFee,
+        ExpirationDate,
+        TraderID,
+        RejectReason,
+        SendingTime,
+        TradingSessionID,
+        Key,
+        DisplaySize,
+        RefreshSize,
+        Layers,
+        SizeIncrement,
+        PriceIncrement,
+        PriceOffset,
+        BOOrigPrice,
+        ExecPrice,
+        MsgSeqNum,
+        TakeProfitPrice,
+        TriggerType,
+        Attributes,
     ):
         self.data = (
             data1.encode("utf-8"),
@@ -26,19 +59,48 @@ class NewLimitOrder(Message):
             padding,
             account,
             orderID,
-
-
-
-            
+            symbolEnum,
+            OrderType,
+            SymbolType,
+            BOPrice,
+            BOSide,
+            BOOrderQty,
+            TIF,
+            StopLimitPrice,
+            BOSymbol.encode("utf-8"),
+            OrigOrderID,
+            BOCancelShares,
+            ExecID,
+            ExecShares,
+            RemainingQuantity,
+            ExecFee,
+            ExpirationDate.encode("utf-8"),
+            TraderID.encode("utf-8"),
+            RejectReason,
+            SendingTime,
+            TradingSessionID,
+            Key,
+            DisplaySize,
+            RefreshSize,
+            Layers,
+            SizeIncrement,
+            PriceIncrement,
+            PriceOffset,
+            BOOrigPrice,
+            ExecPrice,
+            MsgSeqNum,
+            TakeProfitPrice,
+            TriggerType,
+            Attributes.encode("utf-8"),
         )
 
     def encode_binary_string(self):
         try:
             s = struct.Struct(
-                "= 1s 1s H H H I Q"
+                "= 1s 1s H H H I Q H H H d H d H d 12s Q d Q d d d 12s 6s H Q i i d d h d d d d d q d H 12s"
             )
             self.binary_data = s.pack(*(self.data))
-            print_bytes_hex("Encoded Risk Update Request message", self.binary_data, "")
+            print_bytes_hex("Encoded New Limit Order message", self.binary_data, "")
             return True
         except Exception as e:
             print(e)
@@ -47,10 +109,10 @@ class NewLimitOrder(Message):
     def decode_binary_string(self, data):
         try:
             s = struct.Struct(
-                "= 1s 1s H H H I H d d d d d 1s d d d d d d d d d d d I I I"
+                "= 1s 1s H H H I Q H H H d H d H d 12s Q d Q d d d 12s 6s H Q i i d d h d d d d d q d H 12s"
             )
             unpacked_data = s.unpack(data)
-            print("Decoded Risk Update Request message", unpacked_data)
+            print("Decoded New Limit Order message", unpacked_data)
             self.binary_data = data
             return True
         except Exception as e:
