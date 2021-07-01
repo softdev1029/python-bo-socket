@@ -7,12 +7,12 @@ import traceback
 
 import libserverbin
 from auth.client_logon import ClientLogon
-from trade.instrument_request import InstrumentRequest
-from trade.instrument_response import InstrumentResponse
+from auth.instrument_request import InstrumentRequest
+from auth.instrument_response import InstrumentResponse
+from auth.risk_update_request import RiskUpdateRequest
+from auth.risk_user_symbol import RiskUserSymbol
 from trade.collateral_request import CollateralRequest
 from trade.collateral import Collateral
-from trade.risk_update_request import RiskUpdateRequest
-from trade.risk_user_symbol import RiskUserSymbol
 from transaction.new_limit_order import NewLimitOrder
 
 sel = selectors.DefaultSelector()
@@ -134,46 +134,46 @@ def accept_wrapper(sock):
 
     message = NewLimitOrder()
     message.set_data(
-        "T", # data1,
-        "", # data2,
-        238, # data3,
-        1, # messageType ORDER_NEW
-        0, # padding,
-        100700, # account,
-        46832151, # orderID,
-        1, # symbolEnum,
-        1, # OrderType LMT
-        1, # SymbolType SPOT
-        50100.5, # BOPrice,
-        1, # BOSide BUY
-        2.0, # BOOrderQty,
-        2, # TIF -> GTC
-        0, # StopLimitPrice,
-        "BTCUSD", # BOSymbol,
-        0, # OrigOrderID,
-        0, # BOCancelShares,
-        0, # ExecID,
-        0, # ExecShares,
-        0, # RemainingQuantity,
-        0, # ExecFee,
-        "", # ExpirationDate,
-        "", # TraderID,
-        0, # RejectReason,
-        1000, # SendingTime,
-        506, # TradingSessionID,
-        42341, # Key,
-        0, # DisplaySize,
-        0, # RefreshSize,
-        0, # Layers,
-        0, # SizeIncrement,
-        0, # PriceIncrement,
-        0, # PriceOffset,
-        0, # BOOrigPrice,
-        0, # ExecPrice,
-        79488880, # MsgSeqNum,
-        0, # TakeProfitPrice,
-        0, # TriggerType,
-        "", # Attributes,
+        "T",  # data1,
+        "",  # data2,
+        238,  # data3,
+        1,  # messageType ORDER_NEW
+        0,  # padding,
+        100700,  # account,
+        46832151,  # orderID,
+        1,  # symbolEnum,
+        1,  # OrderType LMT
+        1,  # SymbolType SPOT
+        50100.5,  # BOPrice,
+        1,  # BOSide BUY
+        2.0,  # BOOrderQty,
+        2,  # TIF -> GTC
+        0,  # StopLimitPrice,
+        "BTCUSD",  # BOSymbol,
+        0,  # OrigOrderID,
+        0,  # BOCancelShares,
+        0,  # ExecID,
+        0,  # ExecShares,
+        0,  # RemainingQuantity,
+        0,  # ExecFee,
+        "",  # ExpirationDate,
+        "",  # TraderID,
+        0,  # RejectReason,
+        1000,  # SendingTime,
+        506,  # TradingSessionID,
+        42341,  # Key,
+        0,  # DisplaySize,
+        0,  # RefreshSize,
+        0,  # Layers,
+        0,  # SizeIncrement,
+        0,  # PriceIncrement,
+        0,  # PriceOffset,
+        0,  # BOOrigPrice,
+        0,  # ExecPrice,
+        79488880,  # MsgSeqNum,
+        0,  # TakeProfitPrice,
+        0,  # TriggerType,
+        "",  # Attributes,
     )
     message_wrapper = libserverbin.MessageWrapper(sel, conn, addr, message)
     sel.register(conn, selectors.EVENT_READ, data=message_wrapper)
