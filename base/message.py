@@ -152,3 +152,135 @@ class Message:
                 if self.StopLimitPrice <= 0:
                     self.RejectReason = reject_code.STOP_PRICE_INVALID
                     return False
+
+        elif self.MessageType is message_type.ORDER_CANCEL:
+            if self.OrderType in [
+                order_type.LMT,
+                order_type.HIDDEN,
+                order_type.PEG,
+                order_type.PEG_HIDDEN,
+                order_type.OCO,
+                order_type.ICE,
+            ]:
+                se = self.SymbolEnum
+                if se < constant.SE_MIN_VALUE or se > constant.SE_MAX_VALUE:
+                    self.RejectReason = reject_code.SYMBOL_ENUM_INVALID
+                    return False
+
+                if self.BOPrice < order_type.ORDER_MIN_PRICE:
+                    self.RejectReason = reject_code.PRICE_INVALID
+                    return False
+
+                if self.BOOrigPrice < order_type.ORDER_MIN_PRICE:
+                    self.RejectReason = reject_code.ORIG_PRICE_INVALID
+                    return False
+
+                side = self.BOSide
+                if side < 1 or side > 3:
+                    self.RejectReason = reject_code.ORDER_SIDE_INVALID
+                    return False
+
+                if self.Account <= 0:
+                    self.RejectReason = reject_code.ACCOUNT_INVALID
+                    return False
+
+                if self.OrderID <= 0:
+                    self.RejectReason = reject_code.ORDERID_INVALID
+                    return False
+
+                if self.OrigOrderID <= 0:
+                    self.RejectReason = reject_code.ORIG_ORDER_ID_INVALID
+                    return False
+
+                if self.SendingTime <= 0:
+                    self.RejectReason = reject_code.SENDING_TIME_INVALID
+                    return False
+
+        elif self.MessageType is message_type.CANCEL_REPLACE:
+            if self.OrderType in [
+                order_type.LMT,
+                order_type.HIDDEN,
+                order_type.PEG,
+                order_type.PEG_HIDDEN,
+                order_type.OCO,
+                order_type.ICE,
+            ]:
+                attributes = self.Attributes
+                ds = attributes[attribute.DISPLAYSIZE_ATTRIBUTE]
+                if ds is "Y":
+                    if self.DisplaySize <= 0:
+                        self.RejectReason = reject_code.DISPLAY_SIZE_INVALID
+
+                    if self.RefreshSize <= 0:
+                        self.RejectReason = reject_code.REFRESH_SIZE_INVALID
+
+                se = self.SymbolEnum
+                if se < constant.SE_MIN_VALUE or se > constant.SE_MAX_VALUE:
+                    self.RejectReason = reject_code.SYMBOL_ENUM_INVALID
+                    return False
+
+                if self.BOPrice < constant.ORDER_MIN_PRICE:
+                    self.RejectReason = reject_code.PRICE_INVALID
+                    return False
+
+                if self.OrigOrderID < constant.ORDER_MIN_PRICE:
+                    self.RejectReason = reject_code.ORIG_PRICE_INVALID
+                    return False
+
+                side = self.BOSide
+                if side < 1 or side > 3:
+                    self.RejectReason = reject_code.ORDER_SIDE_INVALID
+                    return False
+
+                if self.Account <= 0:
+                    self.RejectReason = reject_code.ACCOUNT_INVALID
+                    return False
+
+                if self.OrderID <= 0:
+                    self.RejectReason = reject_code.ORDERID_INVALID
+                    return False
+
+                if self.OrigOrderID <= 0:
+                    self.RejectReason = reject_code.ORIG_ORDER_ID_INVALID
+                    return False
+
+                if self.SendingTime <= 0:
+                    self.RejectReason = reject_code.SENDING_TIME_INVALID
+                    return False
+
+            elif self.OrderType in [
+                order_type.STOP_MKT,
+                order_type.STOP_LMT,
+                order_type.SNIPER_MKT,
+                order_type.SNIPER_LIMIT,
+                order_type.TSM,
+                order_type.TSL,
+            ]:
+                se = self.SymbolEnum
+                if se < constant.SE_MIN_VALUE or se > constant.SE_MAX_VALUE:
+                    self.RejectReason = reject_code.SYMBOL_ENUM_INVALID
+                    return False
+                if self.StopLimitPrice < constant.ORDER_MIN_PRICE:
+                    self.RejectReason = reject_code.PRICE_INVALID
+                    return False
+
+                if self.OrigOrderID < constant.ORDER_MIN_PRICE:
+                    self.RejectReason = reject_code.ORIG_PRICE_INVALID
+                    return False
+
+                side = self.BOSide
+                if side < 1 or side > 3:
+                    self.RejectReason = reject_code.ORDER_SIDE_INVALID
+                    return False
+
+                if self.Account <= 0:
+                    self.RejectReason = reject_code.ACCOUNT_INVALID
+                    return False
+
+                if self.OrderID <= 0:
+                    self.RejectReason = reject_code.ORDERID_INVALID
+                    return False
+
+                if self.SendingTime <= 0:
+                    self.RejectReason = reject_code.SENDING_TIME_INVALID
+                    return False
