@@ -1,8 +1,4 @@
-import constant
-import reject_code
-import message_type
-import order_type
-import attribute
+from base import constant, reject_code, message_type, order_type, attribute
 
 
 class Message:
@@ -90,7 +86,7 @@ class Message:
                 order_type.ICE,
             ]:
                 ds = self.Attributes[attribute.DISPLAYSIZE_ATTRIBUTE]
-                if ds is "Y":
+                if ds == "Y":
                     if self.DisplaySize <= 0:
                         self.RejectReason = reject_code.DISPLAY_SIZE_INVALID
 
@@ -207,7 +203,7 @@ class Message:
             ]:
                 attributes = self.Attributes
                 ds = attributes[attribute.DISPLAYSIZE_ATTRIBUTE]
-                if ds is "Y":
+                if ds == "Y":
                     if self.DisplaySize <= 0:
                         self.RejectReason = reject_code.DISPLAY_SIZE_INVALID
 
