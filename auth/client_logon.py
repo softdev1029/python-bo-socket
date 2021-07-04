@@ -5,27 +5,61 @@ from base.message import Message
 
 class ClientLogon(Message):
     def __init__(self):
-        self.data1 = None
-        self.data2 = None
-        self.data3 = None
-        self.logonType = None
-        self.account = None
-        self.twoFA = None
-        self.userName = None
-        self.tradingSessionID = None
-        self.primaryOrderEntryIP = None
-        self.secondaryOrderEntryIP = None
-        self.primaryMarketDataIP = None
-        self.secondaryMarketDataIP = None
-        self.sendingTime = None
-        self.lastSeqNum = None
-        self.key = None
-        self.loginStatus = None
-        self.rejectReason = None
-        self.riskMaster = None
+        super(ClientLogon, self).__init__()
+
+        self.MessageType = 1000
+
+        self.LogonType = None
+        self.TwoFA = None
+        self.UserName = None
+        self.PrimaryOrderEntryIP = None
+        self.SecondaryOrderEntryIP = None
+        self.PrimaryMarketDataIP = None
+        self.SecondaryMarketDataIP = None
+        self.LastSeqNum = None
+        self.LoginStatus = None
+        self.RiskMaster = None
 
         self.data = ()
         self.binary_data = None
+
+    def _set_data(self, *args):
+        i = 0
+        self.Data1 = args[i]
+        i += 1
+        self.Data2 = args[i]
+        i += 1
+        self.Data3 = args[i]
+        i += 1
+        self.LogonType = args[i]
+        i += 1
+        self.Account = args[i]
+        i += 1
+        self.TwoFA = args[i]
+        i += 1
+        self.UserName = args[i]
+        i += 1
+        self.TradingSessionID = args[i]
+        i += 1
+        self.PrimaryOrderEntryIP = args[i]
+        i += 1
+        self.SecondaryOrderEntryIP = args[i]
+        i += 1
+        self.PrimaryMarketDataIP = args[i]
+        i += 1
+        self.SecondaryMarketDataIP = args[i]
+        i += 1
+        self.SendingTime = args[i]
+        i += 1
+        self.LastSeqNum = args[i]
+        i += 1
+        self.Key = args[i]
+        i += 1
+        self.LoginStatus = args[i]
+        i += 1
+        self.RejectReason = args[i]
+        i += 1
+        self.RiskMaster = args[i]
 
     def set_data(
         self,
@@ -83,8 +117,29 @@ class ClientLogon(Message):
         try:
             s = struct.Struct("= 1s 1s H H I 6s 6s I 24s 24s 24s 24s Q I I H H 1s")
             unpacked_data = s.unpack(data)
+            self._set_data(
+                unpacked_data[0],
+                unpacked_data[1],
+                unpacked_data[2],
+                unpacked_data[3],
+                unpacked_data[4],
+                unpacked_data[5],
+                unpacked_data[6],
+                unpacked_data[7],
+                unpacked_data[8],
+                unpacked_data[9],
+                unpacked_data[10],
+                unpacked_data[11],
+                unpacked_data[12],
+                unpacked_data[13],
+                unpacked_data[14],
+                unpacked_data[15],
+                unpacked_data[16],
+                unpacked_data[17],
+            )
+            is_valid = self.validate()
             print(
-                "Decoded Client Logon message",
+                "Decoded Client Logon message:",
                 "\n\tdata1\t\t\t\t",
                 unpacked_data[0],
                 "\n\tdata2\t\t\t\t",
