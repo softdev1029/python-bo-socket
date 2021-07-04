@@ -76,7 +76,7 @@ class RiskUserSymbol(Message):
                 "= 1s 1s H H H 6s I H d d d d d B d d d d d d d d d d d I I I"
             )
             self.binary_data = s.pack(*(self.data))
-            print_bytes_hex("Encoded Risk Update Request message", self.binary_data, "")
+            print_bytes_hex("Encoded Risk User Symbol message", self.binary_data, "")
             return True
         except Exception as e:
             print(e)
@@ -88,19 +88,12 @@ class RiskUserSymbol(Message):
                 "= 1s 1s H H H I H d d d d d 1s d d d d d d d d d d d I I I"
             )
             unpacked_data = s.unpack(data)
-            print("Decoded Risk Update Request message", unpacked_data)
+            print("Decoded Risk User Symbol message", unpacked_data)
             self.binary_data = data
             return True
         except Exception as e:
             print(e)
             return False
-
-    def parse_header(self, data):
-        return True
-
-    def parse_message(self, data):
-        self.decode(data)
-        return True
 
 
 def create_risk_user_symbol():

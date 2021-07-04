@@ -62,6 +62,7 @@ class Message:
         return True
 
     def parse_message(self, data):
+        self.decode(data)
         return True
 
     def validate(self):

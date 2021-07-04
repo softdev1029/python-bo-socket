@@ -74,6 +74,32 @@ class RiskUpdateRequest(Message):
         try:
             s = struct.Struct("= 1s 1s H H H I I H I I Q")
             unpacked_data = s.unpack(data)
+            print(
+                "Decoded Risk Update Request message:",
+                "\n\tdata1\t\t\t\t",
+                unpacked_data[0],
+                "\n\tdata2\t\t\t\t",
+                unpacked_data[1],
+                "\n\tdata3\t\t\t\t",
+                unpacked_data[2],
+                "\n\tmessageType\t\t\t",
+                unpacked_data[3],
+                "\n\tresponseType\t\t\t",
+                unpacked_data[4],
+                "\n\taccount\t\t\t\t",
+                unpacked_data[5],
+                "\n\ttradingSessionID\t\t",
+                unpacked_data[6],
+                "\n\tsymbolEnum\t\t\t",
+                unpacked_data[7],
+                "\n\tkey\t\t\t\t",
+                unpacked_data[8],
+                "\n\tmsgSeqNum\t\t\t",
+                unpacked_data[9],
+                "\n\tsendingTime\t\t\t",
+                unpacked_data[10],
+            )
+
             self.set_parsed_data(
                 unpacked_data[0],
                 unpacked_data[1],
@@ -87,43 +113,13 @@ class RiskUpdateRequest(Message):
                 unpacked_data[9],
                 unpacked_data[10],
             )
-            print(
-                "Decoded Risk Update Request message:",
-                "\n\tdata1\t\t\t\t",
-                unpacked_data[0],
-                "\n\tdata2\t\t\t\t",
-                unpacked_data[1],
-                "\n\tdata3\t\t\t\t",
-                unpacked_data[2],
-                "\n\tmessageType\t\t\t\t",
-                unpacked_data[3],
-                "\n\tresponseType\t\t\t\t",
-                unpacked_data[4],
-                "\n\taccount\t\t\t\t",
-                unpacked_data[5],
-                "\n\ttradingSessionID\t\t\t\t",
-                unpacked_data[6],
-                "\n\tsymbolEnum\t\t\t\t",
-                unpacked_data[7],
-                "\n\tkey\t\t\t\t",
-                unpacked_data[8],
-                "\n\tmsgSeqNum\t\t\t\t",
-                unpacked_data[9],
-                "\n\tsendingTime\t\t\t\t",
-                unpacked_data[10],
-            )
+            # is_valid = self.validate()
+            # print("Valid = ", is_valid)
             self.binary_data = data
             return True
         except Exception as e:
             print(e)
             return False
-
-    def parse_header(self, data):
-        return True
-
-    def parse_message(self, data):
-        # self.decode(data)
-        return True
 
 
 def create_risk_update_request():
