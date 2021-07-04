@@ -8,6 +8,89 @@ class NewLimitOrder(Message):
         self.data = ()
         self.binary_data = None
 
+    # 40 args
+    def set_parsed_data(self, *args):
+        i = 0
+        self.Data1 = args[i]
+        i += 1
+        self.Data2 = args[i]
+        i += 1
+        self.Data3 = args[i]
+        i += 1
+        self.MessageType = args[i]
+        i += 1
+        self.Padding = args[i]
+        i += 1
+        self.Account = args[i]
+        i += 1
+        self.OrderID = args[i]
+        i += 1
+        self.SymbolEnum = args[i]
+        i += 1
+        self.OrderType = args[i]
+        i += 1
+        self.SymbolType = args[i]
+        i += 1
+        self.BOPrice = args[i]
+        i += 1
+        self.BOSide = args[i]
+        i += 1
+        self.BOOrderQty = args[i]
+        i += 1
+        self.TIF = args[i]
+        i += 1
+        self.StopLimitPrice = args[i]
+        i += 1
+        self.BOSymbol = args[i]
+        i += 1
+        self.OrigOrderID = args[i]
+        i += 1
+        self.BOCancelShares = args[i]
+        i += 1
+        self.ExecID = args[i]
+        i += 1
+        self.ExecShares = args[i]
+        i += 1
+        self.RemainingQuantity = args[i]
+        i += 1
+        self.ExecFee = args[i]
+        i += 1
+        self.ExpirationDate = args[i]
+        i += 1
+        self.TraderID = args[i]
+        i += 1
+        self.RejectReason = args[i]
+        i += 1
+        self.SendingTime = args[i]
+        i += 1
+        self.TradingSessionID = args[i]
+        i += 1
+        self.Key = args[i]
+        i += 1
+        self.DisplaySize = args[i]
+        i += 1
+        self.RefreshSize = args[i]
+        i += 1
+        self.Layers = args[i]
+        i += 1
+        self.SizeIncrement = args[i]
+        i += 1
+        self.PriceIncrement = args[i]
+        i += 1
+        self.PriceOffset = args[i]
+        i += 1
+        self.BOOrigPrice = args[i]
+        i += 1
+        self.ExecPrice = args[i]
+        i += 1
+        self.MsgSeqNum = args[i]
+        i += 1
+        self.TakeProfitPrice = args[i]
+        i += 1
+        self.TriggerType = args[i]
+        i += 1
+        self.Attributes = args[i]
+
     def set_data(
         self,
         data1,
@@ -112,7 +195,66 @@ class NewLimitOrder(Message):
                 "= 1s 1s H H H I Q H H H d H d H d 12s Q d Q d d d 12s 6s H Q i i d d h d d d d d q d H 12s"
             )
             unpacked_data = s.unpack(data)
-            print("Decoded New Limit Order message", unpacked_data)
+            self.set_parsed_data(
+                unpacked_data[0],
+                unpacked_data[1],
+                unpacked_data[2],
+                unpacked_data[3],
+                unpacked_data[4],
+                unpacked_data[5],
+                unpacked_data[6],
+                unpacked_data[7],
+                unpacked_data[8],
+                unpacked_data[9],
+                unpacked_data[10],
+                unpacked_data[11],
+                unpacked_data[12],
+                unpacked_data[13],
+                unpacked_data[14],
+                unpacked_data[15],
+                unpacked_data[16],
+                unpacked_data[17],
+                unpacked_data[18],
+                unpacked_data[19],
+                unpacked_data[20],
+                unpacked_data[21],
+                unpacked_data[22],
+                unpacked_data[23],
+                unpacked_data[24],
+                unpacked_data[25],
+                unpacked_data[26],
+                unpacked_data[27],
+                unpacked_data[28],
+                unpacked_data[29],
+                unpacked_data[30],
+                unpacked_data[31],
+                unpacked_data[32],
+                unpacked_data[33],
+                unpacked_data[34],
+                unpacked_data[35],
+                unpacked_data[36],
+                unpacked_data[37],
+                unpacked_data[38],
+                unpacked_data[39],
+            )
+            print(
+                "Decoded New Limit Order message",
+                "\n\tData1\t\t\t",
+                self.Data1,
+                "\n\tMessageLength\t\t\t",
+                self.Data3,
+                "\n\tMessageType\t\t",
+                self.MessageType,
+                "\n\tAccount\t\t\t",
+                self.Account,
+                "\n\tOrderID\t\t\t",
+                self.OrderID,
+                "\n\tSymbolEnum\t\t",
+                self.SymbolEnum,
+            )
+
+            is_valid = self.validate()
+            print("Valid:", is_valid)
             self.binary_data = data
             return True
         except Exception as e:

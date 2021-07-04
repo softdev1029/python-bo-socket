@@ -117,27 +117,6 @@ class ClientLogon(Message):
         try:
             s = struct.Struct("= 1s 1s H H I 6s 6s I 24s 24s 24s 24s Q I I H H 1s")
             unpacked_data = s.unpack(data)
-            self.set_parsed_data(
-                unpacked_data[0],
-                unpacked_data[1],
-                unpacked_data[2],
-                unpacked_data[3],
-                unpacked_data[4],
-                unpacked_data[5],
-                unpacked_data[6],
-                unpacked_data[7],
-                unpacked_data[8],
-                unpacked_data[9],
-                unpacked_data[10],
-                unpacked_data[11],
-                unpacked_data[12],
-                unpacked_data[13],
-                unpacked_data[14],
-                unpacked_data[15],
-                unpacked_data[16],
-                unpacked_data[17],
-            )
-            is_valid = self.validate()
             print(
                 "Decoded Client Logon message:",
                 "\n\tdata1\t\t\t\t",
@@ -177,6 +156,27 @@ class ClientLogon(Message):
                 "\n\triskMaster\t\t\t",
                 unpacked_data[17],
             )
+            self.set_parsed_data(
+                unpacked_data[0],
+                unpacked_data[1],
+                unpacked_data[2],
+                unpacked_data[3],
+                unpacked_data[4],
+                unpacked_data[5],
+                unpacked_data[6],
+                unpacked_data[7],
+                unpacked_data[8],
+                unpacked_data[9],
+                unpacked_data[10],
+                unpacked_data[11],
+                unpacked_data[12],
+                unpacked_data[13],
+                unpacked_data[14],
+                unpacked_data[15],
+                unpacked_data[16],
+                unpacked_data[17],
+            )
+            # is_valid = self.validate()
             self.binary_data = data
             return True
         except Exception as e:

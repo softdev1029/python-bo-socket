@@ -284,6 +284,7 @@ class Message:
                 if self.SendingTime <= 0:
                     self.RejectReason = reject_code.SENDING_TIME_INVALID
                     return False
+        return True
 
 
 def create_base_message():
