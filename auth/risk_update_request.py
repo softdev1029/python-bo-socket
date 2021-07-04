@@ -5,8 +5,32 @@ from base.message import Message
 
 class RiskUpdateRequest(Message):
     def __init__(self):
-        self.data = ()
-        self.binary_data = None
+        super(RiskUpdateRequest, self).__init__()
+
+    # 11 args
+    def set_parsed_data(self, *args):
+        i = 0
+        self.Data1 = args[i]
+        i += 1
+        self.Data2 = args[i]
+        i += 1
+        self.Data3 = args[i]
+        i += 1
+        self.MessageType = args[i]
+        i += 1
+        self.ResponseType = args[i]
+        i += 1
+        self.Account = args[i]
+        i += 1
+        self.TradingSessionID = args[i]
+        i += 1
+        self.SymbolEnum = args[i]
+        i += 1
+        self.Key = args[i]
+        i += 1
+        self.MsgSeqNum = args[i]
+        i += 1
+        self.SendingTime = args[i]
 
     def set_data(
         self,
@@ -50,7 +74,44 @@ class RiskUpdateRequest(Message):
         try:
             s = struct.Struct("= 1s 1s H H H I I H I I Q")
             unpacked_data = s.unpack(data)
-            print("Decoded Risk Update Request message", unpacked_data)
+            self.set_parsed_data(
+                unpacked_data[0],
+                unpacked_data[1],
+                unpacked_data[2],
+                unpacked_data[3],
+                unpacked_data[4],
+                unpacked_data[5],
+                unpacked_data[6],
+                unpacked_data[7],
+                unpacked_data[8],
+                unpacked_data[9],
+                unpacked_data[10],
+            )
+            print(
+                "Decoded Risk Update Request message:",
+                "\n\tdata1\t\t\t\t",
+                unpacked_data[0],
+                "\n\tdata2\t\t\t\t",
+                unpacked_data[1],
+                "\n\tdata3\t\t\t\t",
+                unpacked_data[2],
+                "\n\tmessageType\t\t\t\t",
+                unpacked_data[3],
+                "\n\tresponseType\t\t\t\t",
+                unpacked_data[4],
+                "\n\taccount\t\t\t\t",
+                unpacked_data[5],
+                "\n\ttradingSessionID\t\t\t\t",
+                unpacked_data[6],
+                "\n\tsymbolEnum\t\t\t\t",
+                unpacked_data[7],
+                "\n\tkey\t\t\t\t",
+                unpacked_data[8],
+                "\n\tmsgSeqNum\t\t\t\t",
+                unpacked_data[9],
+                "\n\tsendingTime\t\t\t\t",
+                unpacked_data[10],
+            )
             self.binary_data = data
             return True
         except Exception as e:
@@ -61,7 +122,7 @@ class RiskUpdateRequest(Message):
         return True
 
     def parse_message(self, data):
-        self.decode(data)
+        # self.decode(data)
         return True
 
 

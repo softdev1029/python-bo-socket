@@ -23,13 +23,13 @@ def start_connection(host, port):
     sel.register(lsock, selectors.EVENT_READ, data=None)
 
 
-def accept_wrapper(sock):
+def accept_wrapper(sock, message_type):
     conn, addr = sock.accept()  # Should be ready to read
 
     print("accepted connection from", addr)
     conn.setblocking(False)
 
-    message = create_message("client_logon")
+    message = create_message(message_type)
 
     message_wrapper = server_message_wrapper.ServerMessageWrapper(
         sel, conn, addr, message
@@ -37,11 +37,12 @@ def accept_wrapper(sock):
     sel.register(conn, selectors.EVENT_READ, data=message_wrapper)
 
 
-if len(sys.argv) != 3:
-    print("usage:", sys.argv[0], "<host> <port>")
+if len(sys.argv) != 4:
+    print("usage:", sys.argv[0], "<host> <port> <message_type>")
     sys.exit(1)
 
 host, port = sys.argv[1], int(sys.argv[2])
+message_type = sys.argv[3]
 
 start_connection(host, port)
 
@@ -50,7 +51,7 @@ try:
         events = sel.select(timeout=None)
         for key, mask in events:
             if key.data is None:
-                accept_wrapper(key.fileobj)
+                accept_wrapper(key.fileobj, message_type)
             else:
                 message = key.data
                 try:

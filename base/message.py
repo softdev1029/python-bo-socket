@@ -3,6 +3,9 @@ from constant import constant, reject_code, message_type, order_type, attribute
 
 class Message:
     def __init__(self):
+        self.data = ()
+        self.binary_data = None
+
         self.Data1 = None
         self.Data2 = None
         self.Data3 = None

@@ -23,7 +23,7 @@ class ClientLogon(Message):
         self.data = ()
         self.binary_data = None
 
-    def _set_data(self, *args):
+    def set_parsed_data(self, *args):
         i = 0
         self.Data1 = args[i]
         i += 1
@@ -117,7 +117,7 @@ class ClientLogon(Message):
         try:
             s = struct.Struct("= 1s 1s H H I 6s 6s I 24s 24s 24s 24s Q I I H H 1s")
             unpacked_data = s.unpack(data)
-            self._set_data(
+            self.set_parsed_data(
                 unpacked_data[0],
                 unpacked_data[1],
                 unpacked_data[2],
