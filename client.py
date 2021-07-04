@@ -5,39 +5,38 @@ import socket
 import selectors
 import traceback
 
-import libclientbin
+import client_message_wrapper
+
+from base.create_message import create_message
 
 sel = selectors.DefaultSelector()
 
 
-def create_request(value):
-    print(len(value.encode("utf-8")))
-    return dict(
-        type="binary/custom-client-binary-type",
-        encoding="binary",
-        content=value.encode("utf-8"),
-    )
-
-
-def start_connection(host, port, request):
+def start_connection(host, port, message_type):
     addr = (host, port)
     print("\nstarting connection to", addr, " ...\n")
+
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.setblocking(False)
     sock.connect_ex(addr)
+
+    msgObj = create_message(message_type)
+
     events = selectors.EVENT_READ | selectors.EVENT_WRITE
-    message = libclientbin.MessageWrapper(sel, sock, addr, request)
-    sel.register(sock, events, data=message)
+    message_wrapper = client_message_wrapper.ClientMessageWrapper(
+        sel, sock, addr, msgObj
+    )
+    sel.register(sock, events, data=message_wrapper)
 
 
 if len(sys.argv) != 4:
-    print("usage:", sys.argv[0], "<host> <port> <value>")
+    print("usage:", sys.argv[0], "<host> <port> <message_type>")
     sys.exit(1)
 
 host, port = sys.argv[1], int(sys.argv[2])
-value = sys.argv[3]
-request = create_request(value)
-start_connection(host, port, request)
+message_type = sys.argv[3]
+
+start_connection(host, port, message_type)
 
 try:
     while True:

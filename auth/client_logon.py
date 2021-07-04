@@ -69,7 +69,7 @@ class ClientLogon(Message):
             riskMaster.encode("utf-8"),
         )
 
-    def encode_binary_string(self):
+    def encode(self):
         try:
             s = struct.Struct("= 1s 1s H H I 6s 6s I 24s 24s 24s 24s Q I I H H 1s")
             self.binary_data = s.pack(*(self.data))
@@ -79,11 +79,49 @@ class ClientLogon(Message):
             print(e)
             return False
 
-    def decode_binary_string(self, data):
+    def decode(self, data):
         try:
             s = struct.Struct("= 1s 1s H H I 6s 6s I 24s 24s 24s 24s Q I I H H 1s")
             unpacked_data = s.unpack(data)
-            print("Decoded Client Logon message", unpacked_data)
+            print(
+                "Decoded Client Logon message",
+                "\n\tdata1\t\t\t\t",
+                unpacked_data[0],
+                "\n\tdata2\t\t\t\t",
+                unpacked_data[1],
+                "\n\tdata3\t\t\t\t",
+                unpacked_data[2],
+                "\n\tlogonType\t\t\t",
+                unpacked_data[3],
+                "\n\taccount\t\t\t\t",
+                unpacked_data[4],
+                "\n\ttwoFA\t\t\t\t",
+                unpacked_data[5],
+                "\n\tuserName\t\t\t",
+                unpacked_data[6],
+                "\n\ttradingSessionID\t\t",
+                unpacked_data[7],
+                "\n\tprimaryOrderEntryIP\t\t",
+                unpacked_data[8],
+                "\n\tsecondaryOrderEntryIP\t\t",
+                unpacked_data[9],
+                "\n\tprimaryMarketDataIP\t\t",
+                unpacked_data[10],
+                "\n\tsecondaryMarketDataIP\t\t",
+                unpacked_data[11],
+                "\n\tsendingTime\t\t\t",
+                unpacked_data[12],
+                "\n\tlastSeqNum\t\t\t",
+                unpacked_data[13],
+                "\n\tkey\t\t\t\t",
+                unpacked_data[14],
+                "\n\tloginStatus\t\t\t",
+                unpacked_data[15],
+                "\n\trejectReason\t\t\t",
+                unpacked_data[16],
+                "\n\triskMaster\t\t\t",
+                unpacked_data[17],
+            )
             self.binary_data = data
             return True
         except Exception as e:
@@ -94,5 +132,30 @@ class ClientLogon(Message):
         return True
 
     def parse_message(self, data):
-        self.encode_binary_string()
+        self.decode(data)
         return True
+
+
+def create_client_logon():
+    message = ClientLogon()
+    message.set_data(
+        "H",  # data1
+        "",  # data2
+        143,  # data3
+        1,  # LogonType
+        253336,  # Account
+        "1F6A",  # 2FA
+        "BOU1",  # UserName
+        1,  # TradingSessionID
+        "1",  # PrimaryOESIP
+        "1",  # SecondaryOESIP
+        "1",  # PrimaryMDIP
+        "1",  # SecondaryIP
+        0,  # SendingTime
+        1500201,  # MsgSeqNum
+        432451,  # Key
+        0,  # LoginStatus
+        0,  # RejectReason
+        "",  # RiskMaster
+    )
+    return message

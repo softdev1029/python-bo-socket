@@ -33,7 +33,7 @@ class Collateral(Message):
         self.msgSeqNum = None
         self.binary_data = None
 
-    def decode_binary_string(self, data):
+    def decode(self, data):
         try:
             s = struct.Struct("= H H 6s I H d d d d d 1s d d d d d d d d d d d I I I")
             unpacked_data = s.unpack(data[4:])
@@ -56,4 +56,4 @@ class Collateral(Message):
             return False
 
     def parse_message(self, data):
-        return self.decode_binary_string(data)
+        return self.decode(data)

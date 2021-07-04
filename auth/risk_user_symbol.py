@@ -70,7 +70,7 @@ class RiskUserSymbol(Message):
             msgSeqNum,
         )
 
-    def encode_binary_string(self):
+    def encode(self):
         try:
             s = struct.Struct(
                 "= 1s 1s H H H 6s I H d d d d d B d d d d d d d d d d d I I I"
@@ -82,7 +82,7 @@ class RiskUserSymbol(Message):
             print(e)
             return False
 
-    def decode_binary_string(self, data):
+    def decode(self, data):
         try:
             s = struct.Struct(
                 "= 1s 1s H H H I H d d d d d 1s d d d d d d d d d d d I I I"
@@ -99,5 +99,40 @@ class RiskUserSymbol(Message):
         return True
 
     def parse_message(self, data):
-        self.encode_binary_string()
+        self.decode(data)
         return True
+
+
+def create_risk_user_symbol():
+    message = RiskUserSymbol()
+    message.set_data(
+        "N",  # data1
+        "",  # data2
+        34,  # data3
+        0,  # MessageType
+        0,  # Padding
+        "NAM1",  # UserName
+        100700,  # Account
+        1,  # SymbolEnum
+        0,  # Leverage
+        3.0,  # LongPosition
+        5.0,  # ShortPosition
+        51000,  # LongCash
+        52000,  # ShortCash
+        0,  # SymbolDisabled
+        0,  # AccountEquity
+        0,  # InstrumentEquity
+        150000,  # ExecutedLongCash
+        3,  # ExecutedLongPosition
+        102000,  # ExecutedShortCash
+        2,  # ExecutedShortPosition
+        25,  # BTCEquity
+        500000,  # USDTEquty
+        1000,  # ETHEquity
+        1000000,  # USDEquity
+        400000,  # FLYEquity
+        1000,  # OpenOderRequestLimit
+        506,  # TradingSessionID
+        42431,  # MsgSeqNum
+    )
+    return message

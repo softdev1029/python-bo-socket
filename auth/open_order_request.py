@@ -34,7 +34,7 @@ class OpenOrderRequest(Message):
             MsgSeqNum,
         )
 
-    def encode_binary_string(self):
+    def encode(self):
         try:
             s = struct.Struct("= 1s 1s h h i h 12s i q i")
             self.binary_data = s.pack(*(self.data))
@@ -44,7 +44,7 @@ class OpenOrderRequest(Message):
             print(e)
             return False
 
-    def decode_binary_string(self, data):
+    def decode(self, data):
         try:
             s = struct.Struct("= 1s 1s h h i h 12s i q i")
             unpacked_data = s.unpack(data)
@@ -59,5 +59,22 @@ class OpenOrderRequest(Message):
         return True
 
     def parse_message(self, data):
-        self.encode_binary_string()
+        self.decode(data)
         return True
+
+
+def create_open_order_request():
+    message = OpenOrderRequest()
+    message.set_data(
+        "E",  # data1
+        "",  # data2
+        40,  # data3
+        0,  # MessageType
+        10070,  # account
+        0,  # SymbolEnum
+        "BTCUSD",  # SymbolName
+        506,  # TradingSessionID
+        0,  # SendingTime
+        1500201,  # MsgSeqNum
+    )
+    return message

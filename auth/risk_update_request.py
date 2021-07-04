@@ -36,7 +36,7 @@ class RiskUpdateRequest(Message):
             sendingTime,
         )
 
-    def encode_binary_string(self):
+    def encode(self):
         try:
             s = struct.Struct("= 1s 1s H H H I I H I I Q")
             self.binary_data = s.pack(*(self.data))
@@ -46,7 +46,7 @@ class RiskUpdateRequest(Message):
             print(e)
             return False
 
-    def decode_binary_string(self, data):
+    def decode(self, data):
         try:
             s = struct.Struct("= 1s 1s H H H I I H I I Q")
             unpacked_data = s.unpack(data)
@@ -61,5 +61,23 @@ class RiskUpdateRequest(Message):
         return True
 
     def parse_message(self, data):
-        self.encode_binary_string()
+        self.decode(data)
         return True
+
+
+def create_risk_update_request():
+    message = RiskUpdateRequest()
+    message.set_data(
+        "w",  # data1
+        "",  # data2
+        34,  # data3
+        0,  # MessageType
+        2,  # ResponseType
+        10070,  # account
+        506,  # tradingSessionID
+        1,  # SymbolEnum
+        0,  # Key
+        1005231,  # MsgSeqNum
+        0,  # SendingTime
+    )
+    return message

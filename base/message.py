@@ -1,4 +1,4 @@
-from base import constant, reject_code, message_type, order_type, attribute
+from constant import constant, reject_code, message_type, order_type, attribute
 
 
 class Message:
@@ -49,10 +49,10 @@ class Message:
     def set_data(self, *args):
         pass
 
-    def encode_binary_string(self):
+    def encode(self):
         return False
 
-    def decode_binary_string(self, data):
+    def decode(self, data):
         return False
 
     def parse_header(self, data):
@@ -280,3 +280,8 @@ class Message:
                 if self.SendingTime <= 0:
                     self.RejectReason = reject_code.SENDING_TIME_INVALID
                     return False
+
+
+def create_base_message():
+    message = Message()
+    return message

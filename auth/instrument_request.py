@@ -42,7 +42,7 @@ class InstrumentRequest(Message):
             msgSeqNum,
         )
 
-    def encode_binary_string(self):
+    def encode(self):
         try:
             s = struct.Struct("= 1s 1s H H I I H I 24s H H I Q I")
             self.binary_data = s.pack(*(self.data))
@@ -52,7 +52,7 @@ class InstrumentRequest(Message):
             print(e)
             return False
 
-    def decode_binary_string(self, data):
+    def decode(self, data):
         try:
             s = struct.Struct("= 1s 1s H H I H I H I 24s H H I Q I")
             unpacked_data = s.unpack(data)
@@ -67,5 +67,26 @@ class InstrumentRequest(Message):
         return True
 
     def parse_message(self, data):
-        self.encode_binary_string()
+        self.decode(data)
         return True
+
+
+def create_instrument_request():
+    message = InstrumentRequest()
+    message.set_data(
+        "Y",  # data1
+        "",  # data2
+        62,  # data3
+        0,  # MessageType
+        0,  # RejectReason
+        100700,  # Account
+        2,  # RequestType
+        0,  # Key
+        "",  # SymbolName
+        0,  # SymbolType
+        0,  # SymbolEnum
+        506,  # TradingSessionID
+        0,  # SendingTime
+        1500201,  # MsgSeqNum
+    )
+    return message

@@ -42,7 +42,7 @@ class InstrumentResponse(Message):
             msgSeqNum,
         )
 
-    def encode_binary_string(self):
+    def encode(self):
         try:
             s = struct.Struct("= 1s 1s H H H H H 24s H e e e Q I")
             self.binary_data = s.pack(*(self.data))
@@ -52,7 +52,7 @@ class InstrumentResponse(Message):
             print(e)
             return False
 
-    def decode_binary_string(self, data):
+    def decode(self, data):
         try:
             s = struct.Struct("= 1s 1s H H H H H 24s H e e e Q I")
             unpacked_data = s.unpack(data)
@@ -67,5 +67,26 @@ class InstrumentResponse(Message):
         return True
 
     def parse_message(self, data):
-        self.encode_binary_string()
+        self.decode(data)
         return True
+
+
+def create_instrument_response():
+    message = InstrumentResponse()
+    message.set_data(
+        "Y",  # data1
+        "",  # data2
+        62,  # data3
+        59,  # MessageType, not really required since a message of this type is defined in the first byte of the header
+        0,  # Padding
+        2,  # ResponseType
+        1,  # SymbolEnum
+        "BTCUSD",  # SymbolName
+        1,  # SymbolType
+        0.5,  # PriceIncrement
+        0.00001,  # MinSize
+        1000,  # MaxSize
+        0,  # SendingTime
+        1500201,  # MsgSeqNum
+    )
+    return message
