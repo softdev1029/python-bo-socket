@@ -238,10 +238,10 @@ class NewLimitOrder(Message):
                 unpacked_data[39],
             )
             print(
-                "Decoded New Limit Order message",
+                "\nDecoded New Limit Order message:",
                 "\n\tData1\t\t\t",
                 self.Data1,
-                "\n\tMessageLength\t\t\t",
+                "\n\tMessageLength\t\t",
                 self.Data3,
                 "\n\tMessageType\t\t",
                 self.MessageType,
@@ -255,6 +255,8 @@ class NewLimitOrder(Message):
 
             is_valid = self.validate()
             print("Valid:", is_valid)
+            if is_valid is False:
+                self.print_reject_reason()
             self.binary_data = data
             return True
         except Exception as e:
@@ -283,7 +285,7 @@ def create_new_limit_order():
         1,  # OrderType LMT
         1,  # SymbolType SPOT
         50100.5,  # BOPrice,
-        1,  # BOSide BUY
+        14,  # BOSide BUY
         2.0,  # BOOrderQty,
         2,  # TIF -> GTC
         0,  # StopLimitPrice,

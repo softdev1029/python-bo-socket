@@ -65,6 +65,145 @@ class Message:
         self.decode(data)
         return True
 
+    def print_reject_reason(self):
+        print("Reject Code: ", self.RejectReason)
+        msg = "Reject Reason: "
+        if self.RejectReason == reject_code.ORDER_NOT_FOUND:
+            msg += "ORDER_NOT_FOUND"
+        elif self.RejectReason == reject_code.USER_NOT_FOUND:
+            msg += "USER_NOT_FOUND"
+        elif self.RejectReason == reject_code.ACCOUNT_NOT_FOUND:
+            msg += "ACCOUNT_NOT_FOUND"
+        elif self.RejectReason == reject_code.INVALID_KEY:
+            msg += "INVALID_KEY"
+        elif self.RejectReason == reject_code.ACCOUNT_DISABLED:
+            msg += "ACCOUNT_DISABLED"
+        elif self.RejectReason == reject_code.TRADING_SESSION_INVALID:
+            msg += "TRADING_SESSION_INVALID"
+        elif self.RejectReason == reject_code.RISK_ACCOUNT_NOT_FOUND:
+            msg += "RISK_ACCOUNT_NOT_FOUND"
+        elif self.RejectReason == reject_code.RISK_SYMBOL_NOT_FOUND:
+            msg += "RISK_SYMBOL_NOT_FOUND"
+        elif self.RejectReason == reject_code.MES_NOT_AVAILABLE_TRADING_DISABLED:
+            msg += "MES_NOT_AVAILABLE_TRADING_DISABLED"
+        elif self.RejectReason == reject_code.OES_NOT_AVAILABLE_TRADING_DISABLED:
+            msg += "OES_NOT_AVAILABLE_TRADING_DISABLED"
+        elif self.RejectReason == reject_code.MDS_NOT_AVAILABLE_TRADING_DISABLED:
+            msg += "MDS_NOT_AVAILABLE_TRADING_DISABLED"
+        elif self.RejectReason == reject_code.MSG_TYPE_INVALID:
+            msg += "MSG_TYPE_INVALID"
+        elif self.RejectReason == reject_code.ORD_TYPE_INVALID:
+            msg += "ORD_TYPE_INVALID"
+        elif self.RejectReason == reject_code.PRICE_INVALID:
+            msg += "PRICE_INVALID"
+        elif self.RejectReason == reject_code.SIZE_INVALID:
+            msg += "SIZE_INVALID"
+        elif self.RejectReason == reject_code.STOP_PRICE_INVALID:
+            msg += "STOP_PRICE_INVALID"
+        elif self.RejectReason == reject_code.STOP_SIZE_INVALID:
+            msg += "STOP_SIZE_INVALID"
+        elif self.RejectReason == reject_code.ORDER_SIDE_INVALID:
+            msg += "ORDER_SIDE_INVALID"
+        elif self.RejectReason == reject_code.ACCOUNT_INVALID:
+            msg += "ACCOUNT_INVALID"
+        elif self.RejectReason == reject_code.ORDERID_INVALID:
+            msg += "ORDERID_INVALID"
+        elif self.RejectReason == reject_code.SENDING_TIME_INVALID:
+            msg += "SENDING_TIME_INVALID"
+        elif self.RejectReason == reject_code.ORIG_PRICE_INVALID:
+            msg += "ORIG_PRICE_INVALID"
+        elif self.RejectReason == reject_code.ORIG_SIZE_INVALID:
+            msg += "ORIG_SIZE_INVALID"
+        if (
+            self.RejectReason
+            == reject_code.ICE_SIZEINCREMENT_TIMES_LAYERS_NOT_EQUAL_ORDQTY
+        ):
+            msg += "ICE_SIZEINCREMENT_TIMES_LAYERS_NOT_EQUAL_ORDQTY"
+        elif self.RejectReason == reject_code.ORIG_ORDER_ID_INVALID:
+            msg += "ORIG_ORDER_ID_INVALID"
+        elif self.RejectReason == reject_code.SYMBOL_ENUM_INVALID:
+            msg += "SYMBOL_ENUM_INVALID"
+        elif self.RejectReason == reject_code.SIZE_INCREMENT_INVALID:
+            msg += "SIZE_INCREMENT_INVALID"
+        elif self.RejectReason == reject_code.PRICE_OFFSET_INVALID:
+            msg += "PRICE_OFFSET_INVALID"
+        elif self.RejectReason == reject_code.PRICE_INCREMENT_INVALID:
+            msg += "PRICE_INCREMENT_INVALID"
+        elif self.RejectReason == reject_code.EXCEEDED_MAX_LAYERS:
+            msg += "EXCEEDED_MAX_LAYERS"
+        elif self.RejectReason == reject_code.DISPLAY_SIZE_INVALID:
+            msg += "DISPLAY_SIZE_INVALID"
+        elif self.RejectReason == reject_code.REFRESH_SIZE_INVALID:
+            msg += "REFRESH_SIZE_INVALID"
+        elif self.RejectReason == reject_code.INVALID_SECURITY_KEY:
+            msg += "INVALID_SECURITY_KEY"
+        elif self.RejectReason == reject_code.USER_ALREADY_LOGGED_IN:
+            msg += "USER_ALREADY_LOGGED_IN"
+        elif self.RejectReason == reject_code.INVALID_FIELD_VALUE:
+            msg += "INVALID_FIELD_VALUE"
+        if (
+            self.RejectReason
+            == reject_code.PERCENTAGE_MOVE_EXCEEDED_COOLING_OFF_PERIOD_IN_FORCE
+        ):
+            msg += "PERCENTAGE_MOVE_EXCEEDED_COOLING_OFF_PERIOD_IN_FORCE"
+        elif (
+            self.RejectReason == reject_code.INSTRUMET_WOULD_CAUSE_MARGIN_TO_BE_EXCEEDED
+        ):
+            msg += "INSTRUMET_WOULD_CAUSE_MARGIN_TO_BE_EXCEEDED"
+        elif self.RejectReason == reject_code.INSTRUMENT_MARGIN_EXCEEDED:
+            msg += "INSTRUMENT_MARGIN_EXCEEDED"
+        elif self.RejectReason == reject_code.MARGIN_BUY_ORDER_CANCELLATION_IN_PROGRESS:
+            msg += "MARGIN_BUY_ORDER_CANCELLATION_IN_PROGRESS"
+        elif (
+            self.RejectReason == reject_code.MARGIN_SELL_ORDER_CANCELLATION_IN_PROGRESS
+        ):
+            msg += "MARGIN_SELL_ORDER_CANCELLATION_IN_PROGRESS"
+        if (
+            self.RejectReason
+            == reject_code.MARGIN_LONG_POSITION_LIQUIDATION_IN_PROGRESS
+        ):
+            msg += "MARGIN_LONG_POSITION_LIQUIDATION_IN_PROGRESS"
+        if (
+            self.RejectReason
+            == reject_code.MARGIN_SHORT_POSITION_LIQUIDATION_IN_PROGRESS
+        ):
+            msg += "MARGIN_SHORT_POSITION_LIQUIDATION_IN_PROGRESS"
+        elif self.RejectReason == reject_code.OUTSTANDING_OPEN_REQUESTS_EXCEEDED:
+            msg += "OUTSTANDING_OPEN_REQUESTS_EXCEEDED"
+        elif self.RejectReason == reject_code.NO_RISK_DATA:
+            msg += "NO_RISK_DATA"
+        elif self.RejectReason == reject_code.DUPLICATE_ORDER_ID:
+            msg += "DUPLICATE_ORDER_ID"
+        elif self.RejectReason == reject_code.EXCEEDS_OPEN_ORDER_REQUESTS:
+            msg += "EXCEEDS_OPEN_ORDER_REQUESTS"
+        elif self.RejectReason == reject_code.NOT_ENOUGH_EQUITY_TO_COMPLETE:
+            msg += "NOT_ENOUGH_EQUITY_TO_COMPLETE"
+        elif self.RejectReason == reject_code.MATCHING_ENGINE_REJECTED:
+            msg += "MATCHING_ENGINE_REJECTED"
+        elif self.RejectReason == reject_code.NONE:
+            msg += "NONE"
+        elif self.RejectReason == reject_code.ACCEPTED:
+            msg += "ACCEPTED"
+        elif self.RejectReason == reject_code.KEY_INVALID:
+            msg += "KEY_INVALID"
+        elif self.RejectReason == reject_code.MSG_SEQ_NUM_INVALID:
+            msg += "MSG_SEQ_NUM_INVALID"
+        elif self.RejectReason == reject_code.USER_ALREADY_LGGGED_IN:
+            msg += "USER_ALREADY_LGGGED_IN"
+        elif self.RejectReason == reject_code.ORIG_ORDER_NOT_FOUND:
+            msg += "ORIG_ORDER_NOT_FOUND"
+        elif self.RejectReason == reject_code.USER_ALREADY_LGGGED_IN:
+            msg += "USER_ALREADY_LGGGED_IN"
+        elif self.RejectReason == reject_code.INVALID_LOGON_TYPE:
+            msg += "INVALID_LOGON_TYPE"
+        elif self.RejectReason == reject_code.CANT_EXECUTE_AGAINST_EXCHANGE_ORDER:
+            msg += "CANT_EXECUTE_AGAINST_EXCHANGE_ORDER"
+        elif self.RejectReason == reject_code.NO_MARKET_MAKER_VOLUME:
+            msg += "NO_MARKET_MAKER_VOLUME"
+        else:
+            msg += "UNKNOWN_REJCT"
+        print(msg)
+
     def validate(self):
         if (
             self.MessageType < constant.MSGTYPE_MIN_VALUE
@@ -94,7 +233,7 @@ class Message:
                     if self.DisplaySize <= 0:
                         self.RejectReason = reject_code.DISPLAY_SIZE_INVALID
 
-                if self.RejectReason <= 0:
+                elif self.RejectReason <= 0:
                     self.RejectReason = reject_code.REFRESH_SIZE_INVALID
 
                 se = self.SymbolEnum
