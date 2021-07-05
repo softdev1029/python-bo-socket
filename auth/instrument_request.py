@@ -54,7 +54,7 @@ class InstrumentRequest(Message):
 
     def decode(self, data):
         try:
-            s = struct.Struct("= 1s 1s H H I H I H I 24s H H I Q I")
+            s = struct.Struct("= 1s 1s H H I I H I 24s H H I Q I")
             unpacked_data = s.unpack(data)
             print("Decoded Instrument Request message", unpacked_data)
             self.binary_data = data

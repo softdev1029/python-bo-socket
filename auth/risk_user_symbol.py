@@ -85,7 +85,7 @@ class RiskUserSymbol(Message):
     def decode(self, data):
         try:
             s = struct.Struct(
-                "= 1s 1s H H H I H d d d d d 1s d d d d d d d d d d d I I I"
+                "= 1s 1s H H H 6s I H d d d d d B d d d d d d d d d d d I I I"
             )
             unpacked_data = s.unpack(data)
             print("Decoded Risk User Symbol message", unpacked_data)
