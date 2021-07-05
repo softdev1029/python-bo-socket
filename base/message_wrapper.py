@@ -96,4 +96,4 @@ class MessageWrapper:
             self._request_queued = True
 
     def parse_header(self, data):
-        return chr(self._recv_buffer[0])
+        return (chr(self._recv_buffer[0]), self._recv_buffer[2])

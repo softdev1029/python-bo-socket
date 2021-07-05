@@ -56,4 +56,6 @@ def get_all_message_types_string():
 
 
 def get_message_type_from_header(key):
-    return MESSAGE_TYPES[key]
+    if key in MESSAGE_TYPES.keys():
+        return MESSAGE_TYPES[key]
+    return ""
