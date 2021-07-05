@@ -7,12 +7,19 @@ import traceback
 
 import client_message_wrapper
 
-from base.create_message import create_message
+from base.create_message import (
+    create_message,
+    get_all_message_types_string,
+    is_valid_message_type,
+    MESSAGE_TYPES,
+)
 
 sel = selectors.DefaultSelector()
 
+message_type = ""
 
-def start_connection(host, port, message_type):
+
+def start_connection(host, port):
     addr = (host, port)
     print("\nstarting connection to", addr, " ...\n")
 
@@ -29,20 +36,38 @@ def start_connection(host, port, message_type):
     sel.register(sock, events, data=message_wrapper)
 
 
-if len(sys.argv) != 4:
-    print("usage:", sys.argv[0], "<host> <port> <message_type>")
+if len(sys.argv) != 3:
+    print("usage:", sys.argv[0], "<host> <port>")
     sys.exit(1)
 
 host, port = sys.argv[1], int(sys.argv[2])
-message_type = sys.argv[3]
 
-start_connection(host, port, message_type)
+start_connection(host, port)
 
 try:
     while True:
+        message_type = ""
+        while is_valid_message_type(message_type) is False:
+
+            try:
+                message_type_num = int(
+                    input(
+                        get_all_message_types_string()
+                        + "\nEnter a valid message type: "
+                    )
+                )
+
+                if message_type_num > 0 and message_type_num <= len(MESSAGE_TYPES):
+                    message_type = MESSAGE_TYPES[message_type_num - 1]
+            except Exception:
+                pass
+
+        print("message type", message_type)
         events = sel.select(timeout=1)
         for key, mask in events:
             message = key.data
+            message.msgObj = create_message(message_type)
+            print(message.msgObj)
             try:
                 message.process_events(mask)
             except Exception:
