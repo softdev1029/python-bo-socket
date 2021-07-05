@@ -114,7 +114,7 @@ class Message:
             msg += "ORIG_PRICE_INVALID"
         elif self.RejectReason == reject_code.ORIG_SIZE_INVALID:
             msg += "ORIG_SIZE_INVALID"
-        if (
+        elif (
             self.RejectReason
             == reject_code.ICE_SIZEINCREMENT_TIMES_LAYERS_NOT_EQUAL_ORDQTY
         ):
@@ -141,7 +141,7 @@ class Message:
             msg += "USER_ALREADY_LOGGED_IN"
         elif self.RejectReason == reject_code.INVALID_FIELD_VALUE:
             msg += "INVALID_FIELD_VALUE"
-        if (
+        elif (
             self.RejectReason
             == reject_code.PERCENTAGE_MOVE_EXCEEDED_COOLING_OFF_PERIOD_IN_FORCE
         ):
@@ -158,12 +158,12 @@ class Message:
             self.RejectReason == reject_code.MARGIN_SELL_ORDER_CANCELLATION_IN_PROGRESS
         ):
             msg += "MARGIN_SELL_ORDER_CANCELLATION_IN_PROGRESS"
-        if (
+        elif (
             self.RejectReason
             == reject_code.MARGIN_LONG_POSITION_LIQUIDATION_IN_PROGRESS
         ):
             msg += "MARGIN_LONG_POSITION_LIQUIDATION_IN_PROGRESS"
-        if (
+        elif (
             self.RejectReason
             == reject_code.MARGIN_SHORT_POSITION_LIQUIDATION_IN_PROGRESS
         ):

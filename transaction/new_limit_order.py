@@ -251,6 +251,8 @@ class NewLimitOrder(Message):
                 self.OrderID,
                 "\n\tSymbolEnum\t\t",
                 self.SymbolEnum,
+                "\n\tBOSide\t\t\t",
+                self.BOSide,
             )
 
             is_valid = self.validate()
@@ -285,7 +287,7 @@ def create_new_limit_order():
         1,  # OrderType LMT
         1,  # SymbolType SPOT
         50100.5,  # BOPrice,
-        14,  # BOSide BUY
+        3,  # BOSide BUY
         2.0,  # BOOrderQty,
         2,  # TIF -> GTC
         0,  # StopLimitPrice,
