@@ -47,27 +47,23 @@ start_connection(host, port)
 try:
     while True:
         message_type = ""
-        while is_valid_message_type(message_type) is False:
+        message_type_key = ""
+        while is_valid_message_type(message_type_key) is False:
 
             try:
-                message_type_num = int(
-                    input(
-                        get_all_message_types_string()
-                        + "\nEnter a valid message type: "
-                    )
+                message_type_key = input(
+                    get_all_message_types_string() + "\nEnter a valid message type: "
                 )
-
-                if message_type_num > 0 and message_type_num <= len(MESSAGE_TYPES):
-                    message_type = MESSAGE_TYPES[message_type_num - 1]
             except Exception:
                 pass
 
-        print("message type", message_type)
+        message_type = MESSAGE_TYPES[message_type_key]
         events = sel.select(timeout=1)
         for key, mask in events:
             message = key.data
             message.msgObj = create_message(message_type)
-            print(message.msgObj)
+            print("\n")
+
             try:
                 message.process_events(mask)
             except Exception:

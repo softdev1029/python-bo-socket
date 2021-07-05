@@ -94,3 +94,6 @@ class MessageWrapper:
             message = self.msgObj.binary_data
             self._send_buffer += message
             self._request_queued = True
+
+    def parse_header(self, data):
+        return chr(self._recv_buffer[0])

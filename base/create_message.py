@@ -9,16 +9,15 @@ from trade.collateral_request import CollateralRequest, create_collateral_reques
 from trade.collateral import Collateral
 from transaction.new_limit_order import NewLimitOrder, create_new_limit_order
 
-MESSAGE_TYPES = [
-    "client_logon",
-    "instrument_request",
-    "instrument_response",
-    "risk_update_request",
-    "risk_user_symbol",
-    "open_order_request",
-    "collateral_request",
-    "new_limit_order",
-]
+MESSAGE_TYPES = {
+    "H": "client_logon",
+    "Y": "instrument_request",
+    "w": "risk_update_request",
+    "N": "risk_user_symbol",
+    "E": "open_order_request",
+    "f": "collateral_request",
+    "T": "new_limit_order",
+}
 
 
 def create_message(message_type):
@@ -43,14 +42,18 @@ def create_message(message_type):
     return message
 
 
-def is_valid_message_type(message_type):
-    if message_type in MESSAGE_TYPES:
+def is_valid_message_type(message_type_key):
+    if message_type_key in MESSAGE_TYPES.keys():
         return True
     return False
 
 
 def get_all_message_types_string():
     res = ""
-    for i in range(len(MESSAGE_TYPES)):
-        res += str(i + 1) + "\t" + MESSAGE_TYPES[i] + "\n"
+    for i in MESSAGE_TYPES:
+        res += i + "\t" + MESSAGE_TYPES[i] + "\n"
     return res
+
+
+def get_message_type_from_header(key):
+    return MESSAGE_TYPES[key]

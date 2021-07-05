@@ -1,3 +1,4 @@
+from base.create_message import create_message, get_message_type_from_header
 import selectors
 import struct
 from base.message_wrapper import MessageWrapper
@@ -21,11 +22,13 @@ class ServerMessageWrapper(MessageWrapper):
 
     def process_request(self):
         data = self._recv_buffer
-        if self.msgObj.parse_header(data):
-            ret = self.msgObj.parse_message(data)
-            if not ret:
-                print("Not parse message")
-            if self.msgObj.binary_data is not None:
-                self._set_selector_events_mask("w")
+        header = self.parse_header(data)
+        self.msgObj = create_message(get_message_type_from_header(header))
+
+        ret = self.msgObj.parse_message(data)
+        if not ret:
+            print("Not parse message")
         else:
-            print("Not parse header")
+            self._recv_buffer = b""
+        # if self.msgObj.binary_data is not None:
+        #     self._set_selector_events_mask("w")
