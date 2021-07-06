@@ -198,10 +198,10 @@ def create_client_logon():
         "",  # data2
         143,  # data3
         1,  # LogonType
-        253336,  # Account
+        100700,  # Account
         "1F6A",  # 2FA
-        "BOU1",  # UserName
-        1,  # TradingSessionID
+        "BOU7",  # UserName
+        506,  # TradingSessionID
         "1",  # PrimaryOESIP
         "1",  # SecondaryOESIP
         "1",  # PrimaryMDIP
