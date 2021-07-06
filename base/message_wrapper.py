@@ -113,7 +113,7 @@ class MessageWrapper:
                 )
             else:
                 msg_type = get_message_type_from_header(msg_key)
-                print("Message type is", msg_type)
+                print("\nMessage type is", msg_type)
                 print("Buffer size is", len(data), "required len is", msg_len)
                 if msg_type == "":
                     print("Invalid message type", msg_key)
