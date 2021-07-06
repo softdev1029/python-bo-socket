@@ -1,5 +1,5 @@
 import selectors
-import struct
+from base.create_message import create_message, get_message_type_from_header
 
 
 class MessageWrapper:
@@ -97,3 +97,34 @@ class MessageWrapper:
 
     def parse_header(self, data):
         return (chr(self._recv_buffer[0]), self._recv_buffer[2])
+
+    def process_request(self):
+        data = self._recv_buffer
+        if len(data) < 3:
+            print("Invalid buffer, length is", len(data))
+        else:
+            (msg_key, msg_len) = self.parse_header(data)
+            if len(data) < msg_len:
+                print(
+                    "Invalid buffer, length is",
+                    len(data),
+                    "requied len is",
+                    msg_len,
+                )
+            else:
+                msg_type = get_message_type_from_header(msg_key)
+                print("Message type is", msg_type)
+                print("Buffer size is", len(data), "required len is", msg_len)
+                if msg_type == "":
+                    print("Invalid message type", msg_key)
+                else:
+                    self.msgObj = create_message(msg_type)
+                    parsing_data = data[:msg_len]
+
+                    ret = self.msgObj.parse_message(parsing_data)
+                    if not ret:
+                        print("Not parse message")
+                    else:
+                        self._recv_buffer = self._recv_buffer[msg_len:]
+                        return True
+        return False
