@@ -9,6 +9,15 @@ from trade.collateral_request import CollateralRequest, create_collateral_reques
 from trade.collateral import Collateral
 from transaction.new_limit_order import NewLimitOrder, create_new_limit_order
 
+REQUEST_MESSAGE_TYPES = {
+    "H": "client_logon",
+    "Y": "instrument_request",
+    "w": "risk_update_request",
+    "E": "open_order_request",
+    "f": "collateral_request",
+    "T": "new_limit_order",
+}
+
 MESSAGE_TYPES = {
     "H": "client_logon",
     "Y": "instrument_request",
@@ -48,10 +57,10 @@ def is_valid_message_type(message_type_key):
     return False
 
 
-def get_all_message_types_string():
+def get_all_request_message_types_string():
     res = ""
-    for i in MESSAGE_TYPES:
-        res += i + "\t" + MESSAGE_TYPES[i] + "\n"
+    for i in REQUEST_MESSAGE_TYPES:
+        res += i + "\t" + REQUEST_MESSAGE_TYPES[i] + "\n"
     return res
 
 

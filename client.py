@@ -9,9 +9,9 @@ import client_message_wrapper
 
 from base.create_message import (
     create_message,
-    get_all_message_types_string,
+    get_all_request_message_types_string,
     is_valid_message_type,
-    MESSAGE_TYPES,
+    REQUEST_MESSAGE_TYPES,
 )
 
 sel = selectors.DefaultSelector()
@@ -52,12 +52,13 @@ try:
 
             try:
                 message_type_key = input(
-                    get_all_message_types_string() + "\nEnter a valid message type: "
+                    get_all_request_message_types_string()
+                    + "\nEnter a valid message type: "
                 )
             except Exception:
                 pass
 
-        message_type = MESSAGE_TYPES[message_type_key]
+        message_type = REQUEST_MESSAGE_TYPES[message_type_key]
         events = sel.select(timeout=1)
         for key, mask in events:
             message = key.data

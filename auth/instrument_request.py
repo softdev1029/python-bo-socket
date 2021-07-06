@@ -76,7 +76,7 @@ def create_instrument_request():
     message.set_data(
         "Y",  # data1
         "",  # data2
-        62,  # data3
+        64,  # data3
         0,  # MessageType
         0,  # RejectReason
         100700,  # Account
