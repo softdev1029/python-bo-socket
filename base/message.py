@@ -58,12 +58,8 @@ class Message:
     def decode(self, data):
         return False
 
-    def parse_header(self, data):
-        return True
-
     def parse_message(self, data):
-        self.decode(data)
-        return True
+        return self.decode(data)
 
     def print_reject_reason(self):
         print("Reject Code: ", self.RejectReason)

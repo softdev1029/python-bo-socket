@@ -21,7 +21,7 @@ class ServerMessageController(MessageController):
             message.set_data(
                 "H",  # data1
                 "",  # data2
-                143,  # data3
+                256,  # data3
                 1,  # LogonType
                 100700,  # Account
                 "1F6A",  # 2FA
