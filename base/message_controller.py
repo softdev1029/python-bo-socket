@@ -5,7 +5,7 @@ RECV_NO_ERROR = -1
 RECV_ERROR_NOT_ENOUGH_HEADER = 0
 RECV_ERROR_NOT_ENOUGH_BODY = 1
 RECV_ERROR_INVALID_MSG_TYPE = 2
-RECV_ERROR_UNKNOWN_PARSE = 3
+RECV_ERROR_PARSE = 3
 RECV_ERROR_UNKNOWN = 4
 
 
@@ -84,6 +84,7 @@ class MessageController:
 
         # here, _recv_buffer should be empty
         # otherwise, we need to check reason
+        self._recv_buffer = b""
 
     def write(self):
         if self.is_send:
@@ -143,8 +144,8 @@ class MessageController:
 
                     ret = self.msgObj.parse_message(parsing_data)
                     if not ret:
-                        print("Not parse message")
-                        return (False, RECV_ERROR_UNKNOWN_PARSE)
+                        print("Parse error")
+                        return (False, RECV_ERROR_PARSE)
                     else:
                         self._recv_buffer = self._recv_buffer[msg_len:]
                         return (True, RECV_NO_ERROR)

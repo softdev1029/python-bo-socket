@@ -15,13 +15,13 @@ class ServerMessageController(MessageController):
         self._set_selector_events_mask("w")
 
     def write(self):
-        for i in range(2):
+        for i in range(1):
             # time.sleep(3)
             message = ClientLogon()
             message.set_data(
                 "H",  # data1
                 "",  # data2
-                256,  # data3
+                143,  # data3
                 1,  # LogonType
                 100700,  # Account
                 "1F6A",  # 2FA
