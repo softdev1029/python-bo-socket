@@ -16,7 +16,7 @@ class ServerMessageWrapper(MessageWrapper):
 
     def write(self):
         for i in range(2):
-            time.sleep(3)
+            # time.sleep(3)
             message = ClientLogon()
             message.set_data(
                 "H",  # data1
@@ -38,8 +38,9 @@ class ServerMessageWrapper(MessageWrapper):
                 0,  # RejectReason
                 "",  # RiskMaster
             )
-            self.msgObj.encode()
             self.msgObj = message
+            self.msgObj.encode()
+            self._send_buffer = self.msgObj.binary_data
             self._write()
 
         self._set_selector_events_mask("r")
