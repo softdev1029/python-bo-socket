@@ -1,16 +1,16 @@
 from auth.client_logon import ClientLogon
-from base.message_wrapper import MessageWrapper
+from base.message_controller import MessageController
 import time
 
 
-class ServerMessageWrapper(MessageWrapper):
+class ServerMessageController(MessageController):
     def __init__(self, sel, sock, addr, msgObj):
-        super(ServerMessageWrapper, self).__init__(sel, sock, addr, msgObj)
+        super(ServerMessageController, self).__init__(sel, sock, addr, msgObj)
 
         self._response_created = None
 
     def read(self):
-        super(ServerMessageWrapper, self).read()
+        super(ServerMessageController, self).read()
 
         self._set_selector_events_mask("w")
 

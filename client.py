@@ -5,7 +5,7 @@ import socket
 import selectors
 import traceback
 
-import client_message_wrapper
+import client_message_controller
 
 from base.create_message import (
     create_message,
@@ -30,7 +30,7 @@ def start_connection(host, port):
     msgObj = create_message(message_type)
 
     events = selectors.EVENT_READ | selectors.EVENT_WRITE
-    message_wrapper = client_message_wrapper.ClientMessageWrapper(
+    message_wrapper = client_message_wrapper.ClientMessageController(
         sel, sock, addr, msgObj
     )
     sel.register(sock, events, data=message_wrapper)

@@ -5,7 +5,7 @@ import socket
 import selectors
 import traceback
 
-import server_message_wrapper
+import server_message_controller
 
 from base.create_message import create_message
 
@@ -31,7 +31,9 @@ def accept_wrapper(
     print("accepted connection from", addr)
     conn.setblocking(False)
 
-    message_wrapper = server_message_wrapper.ServerMessageWrapper(sel, conn, addr, None)
+    message_wrapper = server_message_wrapper.ServerMessageController(
+        sel, conn, addr, None
+    )
     sel.register(conn, selectors.EVENT_READ, data=message_wrapper)
 
 

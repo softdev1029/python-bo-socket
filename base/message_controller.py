@@ -9,7 +9,7 @@ RECV_ERROR_UNKNOWN_PARSE = 3
 RECV_ERROR_UNKNOWN = 4
 
 
-class MessageWrapper:
+class MessageController:
     def __init__(self, sel, sock, addr, msgObj):
         self.selector = sel
         self.sock = sock
