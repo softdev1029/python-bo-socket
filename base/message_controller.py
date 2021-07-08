@@ -20,7 +20,7 @@ class MessageController:
 
         self.msgObj = msgObj
 
-        self._request_queued = False
+        self.is_send = False
 
     def _set_selector_events_mask(self, mode):
         """Set selector to listen for events: mode is 'r', 'w', or 'rw'."""
@@ -60,7 +60,7 @@ class MessageController:
                 pass
             else:
                 self._send_buffer = self._send_buffer[sent:]
-                self._request_queued = False
+                self.is_send = False
 
     def process_events(self, mask):
         if mask & selectors.EVENT_READ:
@@ -73,10 +73,12 @@ class MessageController:
 
         while need_read:
             recv_len = self._read()
+            if recv_len == 0:
+                print("No more receive data\n")
 
             need_read = recv_len > 0
 
-            ret = True
+            ret = need_read
             while ret:
                 (ret, reason) = self.process_request()
 
@@ -84,7 +86,7 @@ class MessageController:
         # otherwise, we need to check reason
 
     def write(self):
-        if not self._request_queued:
+        if self.is_send:
             self.queue_request()
 
         self._write()
@@ -152,4 +154,3 @@ class MessageController:
         if self.msgObj.encode() is True:
             message = self.msgObj.binary_data
             self._send_buffer += message
-            self._request_queued = True

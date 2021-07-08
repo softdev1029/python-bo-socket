@@ -63,11 +63,16 @@ def create_message(message_type):
 def is_valid_message_type(message_type_key):
     if message_type_key in MESSAGE_TYPES.keys():
         return True
+
+    if message_type_key == "0":
+        return True
+
     return False
 
 
 def get_all_request_message_types_string():
     res = ""
+    res += "0\tGo To Receive Mode\n"
     for i in REQUEST_MESSAGE_TYPES:
         res += i + "\t" + REQUEST_MESSAGE_TYPES[i] + "\n"
     return res

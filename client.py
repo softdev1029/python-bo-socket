@@ -58,12 +58,17 @@ try:
             except Exception:
                 pass
 
-        message_type = REQUEST_MESSAGE_TYPES[message_type_key]
         events = sel.select(timeout=1)
         for key, mask in events:
             message_controller = key.data
-            message_controller.msgObj = create_message(message_type)
-            print("\n")
+            if message_type_key == "0":
+                pass
+            else:
+                message_type = REQUEST_MESSAGE_TYPES[message_type_key]
+
+                message_controller.msgObj = create_message(message_type)
+                message_controller.is_send = True
+                print("\n")
 
             try:
                 message_controller.process_events(mask)
