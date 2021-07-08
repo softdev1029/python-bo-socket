@@ -1,3 +1,4 @@
+from auth.client_logon import ClientLogon
 from base.message_wrapper import MessageWrapper
 
 
@@ -8,17 +9,33 @@ class ServerMessageWrapper(MessageWrapper):
         self._response_created = None
 
     def read(self):
-        self._read()
+        super(ServerMessageWrapper, self).read()
 
-        ret = True
-        while len(self._recv_buffer) > 0 and ret:
-            ret = self.process_request()
-        self._recv_buffer = b""
-
-        if self.msgObj.binary_data is not None:
-            self._send_buffer = self.msgObj.binary_data
-            self._set_selector_events_mask("w")
+        message = ClientLogon()
+        message.set_data(
+            "H",  # data1
+            "",  # data2
+            143,  # data3
+            1,  # LogonType
+            100700,  # Account
+            "1F6A",  # 2FA
+            "BOU7",  # UserName
+            506,  # TradingSessionID
+            "1",  # PrimaryOESIP
+            "1",  # SecondaryOESIP
+            "1",  # PrimaryMDIP
+            "1",  # SecondaryIP
+            0,  # SendingTime
+            1500201,  # MsgSeqNum
+            432451,  # Key
+            0,  # LoginStatus
+            0,  # RejectReason
+            "",  # RiskMaster
+        )
+        self.msgObj.encode()
+        self.msgObj = message
+        self._set_selector_events_mask("w")
 
     def write(self):
         self._write()
-        self._send_buffer = b""
+        self._set_selector_events_mask("r")

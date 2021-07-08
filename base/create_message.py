@@ -9,42 +9,51 @@ from trade.collateral_request import CollateralRequest, create_collateral_reques
 from trade.collateral import Collateral
 from transaction.new_limit_order import NewLimitOrder, create_new_limit_order
 
+MSG_CLIENT_LOGON = "client_logon"
+MSG_INSTRUMENT_REQUEST = "instrument_request"
+MSG_INSTRUMENT_RESPONSE = "instrument_response"
+MSG_RISK_UPDATE_REQUEST = "risk_update_request"
+MSG_RISK_USER_SYMBOL = "risk_user_symbol"
+MSG_OPEN_ORDER_REQUEST = "open_order_request"
+MSG_COLLATERAL_REQUEST = "collateral_request"
+MSG_NEW_LIMIT_ORDER = "new_limit_order"
+
 REQUEST_MESSAGE_TYPES = {
-    "H": "client_logon",
-    "Y": "instrument_request",
-    "w": "risk_update_request",
-    "E": "open_order_request",
-    "f": "collateral_request",
-    "T": "new_limit_order",
+    "H": MSG_CLIENT_LOGON,
+    "Y": MSG_INSTRUMENT_REQUEST,
+    "w": MSG_RISK_UPDATE_REQUEST,
+    "E": MSG_OPEN_ORDER_REQUEST,
+    "f": MSG_COLLATERAL_REQUEST,
+    "T": MSG_NEW_LIMIT_ORDER,
 }
 
 MESSAGE_TYPES = {
-    "H": "client_logon",
-    "Y": "instrument_request",
-    "w": "risk_update_request",
-    "N": "risk_user_symbol",
-    "E": "open_order_request",
-    "f": "collateral_request",
-    "T": "new_limit_order",
+    "H": MSG_CLIENT_LOGON,
+    "Y": MSG_INSTRUMENT_REQUEST,
+    "w": MSG_RISK_UPDATE_REQUEST,
+    "N": MSG_RISK_USER_SYMBOL,
+    "E": MSG_OPEN_ORDER_REQUEST,
+    "f": MSG_COLLATERAL_REQUEST,
+    "T": MSG_NEW_LIMIT_ORDER,
 }
 
 
 def create_message(message_type):
-    if message_type == "client_logon":
+    if message_type == MSG_CLIENT_LOGON:
         message = create_client_logon()
-    elif message_type == "instrument_request":
+    elif message_type == MSG_INSTRUMENT_REQUEST:
         message = create_instrument_request()
-    elif message_type == "instrument_response":
+    elif message_type == MSG_INSTRUMENT_RESPONSE:
         message = create_instrument_response()
-    elif message_type == "risk_update_request":
+    elif message_type == MSG_RISK_UPDATE_REQUEST:
         message = create_risk_update_request()
-    elif message_type == "risk_user_symbol":
+    elif message_type == MSG_RISK_USER_SYMBOL:
         message = create_risk_user_symbol()
-    elif message_type == "open_order_request":
+    elif message_type == MSG_OPEN_ORDER_REQUEST:
         message = create_open_order_request()
-    elif message_type == "collateral_request":
+    elif message_type == MSG_COLLATERAL_REQUEST:
         message = create_collateral_request()
-    elif message_type == "new_limit_order":
+    elif message_type == MSG_NEW_LIMIT_ORDER:
         message = create_new_limit_order()
     else:
         message = create_base_message()

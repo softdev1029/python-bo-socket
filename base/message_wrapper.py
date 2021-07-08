@@ -69,7 +69,19 @@ class MessageWrapper:
             self.write()
 
     def read(self):
-        self._read()
+        need_read = True
+
+        while need_read:
+            recv_len = self._read()
+
+            need_read = recv_len > 0
+
+            ret = True
+            while ret:
+                (ret, reason) = self.process_request()
+
+        # here, _recv_buffer should be empty
+        # otherwise, we need to check reason
 
     def write(self):
         if not self._request_queued:
@@ -97,12 +109,6 @@ class MessageWrapper:
         finally:
             # Delete reference to socket object for garbage collection
             self.sock = None
-
-    def queue_request(self):
-        if self.msgObj.encode() is True:
-            message = self.msgObj.binary_data
-            self._send_buffer += message
-            self._request_queued = True
 
     def parse_header(self, data):
         return (chr(self._recv_buffer[0]), self._recv_buffer[2])
@@ -141,3 +147,9 @@ class MessageWrapper:
                         self._recv_buffer = self._recv_buffer[msg_len:]
                         return (True, RECV_NO_ERROR)
         return (False, RECV_ERROR_UNKNOWN)
+
+    def queue_request(self):
+        if self.msgObj.encode() is True:
+            message = self.msgObj.binary_data
+            self._send_buffer += message
+            self._request_queued = True
