@@ -1,6 +1,13 @@
 import selectors
 from base.create_message import create_message, get_message_type_from_header
 
+RECV_NO_ERROR = -1
+RECV_ERROR_NOT_ENOUGH_HEADER = 0
+RECV_ERROR_NOT_ENOUGH_BODY = 1
+RECV_ERROR_INVALID_MSG_TYPE = 2
+RECV_ERROR_UNKNOWN_PARSE = 3
+RECV_ERROR_UNKNOWN = 4
+
 
 class MessageWrapper:
     def __init__(self, sel, sock, addr, msgObj):
@@ -27,16 +34,18 @@ class MessageWrapper:
             raise ValueError(f"Invalid events mask mode {repr(mode)}.")
         self.selector.modify(self.sock, events, data=self)
 
+    # returns the length of received data
     def _read(self):
         try:
             # Should be ready to read
             data = self.sock.recv(4096)
         except BlockingIOError:
             # Resource temporarily unavailable (errno EWOULDBLOCK)
-            pass
+            return 0
         else:
             if data:
                 self._recv_buffer += data
+                return len(data)
             else:
                 raise RuntimeError("Peer closed.")
 
@@ -102,6 +111,7 @@ class MessageWrapper:
         data = self._recv_buffer
         if len(data) < 3:
             print("Invalid buffer, length is", len(data))
+            return (False, RECV_ERROR_NOT_ENOUGH_HEADER)
         else:
             (msg_key, msg_len) = self.parse_header(data)
             if len(data) < msg_len:
@@ -111,12 +121,14 @@ class MessageWrapper:
                     "requied len is",
                     msg_len,
                 )
+                return (False, RECV_ERROR_NOT_ENOUGH_BODY)
             else:
                 msg_type = get_message_type_from_header(msg_key)
                 print("\nMessage type is", msg_type)
                 print("Buffer size is", len(data), "required len is", msg_len)
                 if msg_type == "":
                     print("Invalid message type", msg_key)
+                    return (False, RECV_ERROR_INVALID_MSG_TYPE)
                 else:
                     self.msgObj = create_message(msg_type)
                     parsing_data = data[:msg_len]
@@ -124,7 +136,8 @@ class MessageWrapper:
                     ret = self.msgObj.parse_message(parsing_data)
                     if not ret:
                         print("Not parse message")
+                        return (False, RECV_ERROR_UNKNOWN_PARSE)
                     else:
                         self._recv_buffer = self._recv_buffer[msg_len:]
-                        return True
-        return False
+                        return (True, RECV_NO_ERROR)
+        return (False, RECV_ERROR_UNKNOWN)

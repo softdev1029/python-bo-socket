@@ -6,9 +6,16 @@ class ClientMessageWrapper(MessageWrapper):
         super(ClientMessageWrapper, self).__init__(sel, sock, addr, msgObj)
 
     def read(self):
-        self._read()
+        need_read = True
 
-        ret = True
-        while len(self._recv_buffer) > 0 and ret:
-            ret = self.process_request()
-        self._recv_buffer = b""
+        while need_read:
+            recv_len = self._read()
+
+            need_read = recv_len > 0
+
+            ret = True
+            while ret:
+                (ret, reason) = self.process_request()
+
+        # here, _recv_buffer should be empty
+        # otherwise, we need to check reason

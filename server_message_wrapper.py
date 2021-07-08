@@ -16,8 +16,9 @@ class ServerMessageWrapper(MessageWrapper):
         self._recv_buffer = b""
 
         if self.msgObj.binary_data is not None:
+            self._send_buffer = self.msgObj.binary_data
             self._set_selector_events_mask("w")
 
     def write(self):
-        self._send_buffer = self.msgObj.binary_data
         self._write()
+        self._send_buffer = b""
