@@ -43,17 +43,5 @@ class Collateral(Message):
             print(e)
             return False
 
-    def parse_header(self, data):
-        try:
-            s = struct.Struct("= 1s 1s H")
-            unpacked_data = s.unpack(data[:4])
-            if unpacked_data[-1] == 161:
-                return True
-            else:
-                return False
-        except Exception as e:
-            print(e)
-            return False
-
     def parse_message(self, data):
         return self.decode(data)

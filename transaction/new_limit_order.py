@@ -15,7 +15,7 @@ class NewLimitOrder(Message):
         i += 1
         self.Data2 = args[i]
         i += 1
-        self.Data3 = args[i]
+        self.MessageLen = args[i]
         i += 1
         self.MessageType = args[i]
         i += 1
@@ -242,7 +242,7 @@ class NewLimitOrder(Message):
                 "\n\tData1\t\t\t",
                 self.Data1,
                 "\n\tMessageLength\t\t",
-                self.Data3,
+                self.MessageLen,
                 "\n\tMessageType\t\t",
                 self.MessageType,
                 "\n\tAccount\t\t\t",

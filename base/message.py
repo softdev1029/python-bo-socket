@@ -8,7 +8,7 @@ class Message:
 
         self.Data1 = None
         self.Data2 = None
-        self.Data3 = None
+        self.MessageLen = None
         self.MessageType = None
         self.Padding = None
         self.Account = None

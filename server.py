@@ -5,7 +5,7 @@ import socket
 import selectors
 import traceback
 
-import server_message_controller
+import responser_socket_controller
 
 from base.create_message import create_message
 
@@ -31,10 +31,10 @@ def accept_wrapper(
     print("accepted connection from", addr)
     conn.setblocking(False)
 
-    message_controller = server_message_controller.ServerMessageController(
+    socket_controller = responser_socket_controller.ResponserSocketController(
         sel, conn, addr, None
     )
-    sel.register(conn, selectors.EVENT_READ, data=message_controller)
+    sel.register(conn, selectors.EVENT_READ, data=socket_controller)
 
 
 if len(sys.argv) != 3:
@@ -54,15 +54,15 @@ try:
                     key.fileobj,
                 )
             else:
-                message_controller = key.data
+                socket_controller = key.data
                 try:
-                    message_controller.process_events(mask)
+                    socket_controller.process_events(mask)
                 except Exception:
                     print(
                         "main: error: exception for",
-                        f"{message_controller.addr}:\n{traceback.format_exc()}",
+                        f"{socket_controller.addr}:\n{traceback.format_exc()}",
                     )
-                    message_controller.close()
+                    socket_controller.close()
 except KeyboardInterrupt:
     print("caught keyboard interrupt, exiting")
 finally:

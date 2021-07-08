@@ -29,7 +29,7 @@ class ClientLogon(Message):
         i += 1
         self.Data2 = args[i]
         i += 1
-        self.Data3 = args[i]
+        self.MessageLen = args[i]
         i += 1
         self.LogonType = args[i]
         i += 1

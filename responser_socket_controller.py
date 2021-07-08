@@ -1,16 +1,16 @@
 from auth.client_logon import ClientLogon
-from base.message_controller import MessageController
+from base.socket_controller import SocketController
 import time
 
 
-class ServerMessageController(MessageController):
+class ResponserSocketController(SocketController):
     def __init__(self, sel, sock, addr, msgObj):
-        super(ServerMessageController, self).__init__(sel, sock, addr, msgObj)
+        super(ResponserSocketController, self).__init__(sel, sock, addr, msgObj)
 
         self._response_created = None
 
     def read(self):
-        super(ServerMessageController, self).read()
+        super(ResponserSocketController, self).read()
 
         self._set_selector_events_mask("w")
 

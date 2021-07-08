@@ -5,7 +5,7 @@ import socket
 import selectors
 import traceback
 
-import client_message_controller
+import initiator_socket_controller
 
 from base.create_message import (
     create_message,
@@ -30,10 +30,10 @@ def start_connection(host, port):
     msgObj = create_message(message_type)
 
     events = selectors.EVENT_READ | selectors.EVENT_WRITE
-    message_controller = client_message_controller.ClientMessageController(
+    socket_controller = initiator_socket_controller.InitiatorSocketController(
         sel, sock, addr, msgObj
     )
-    sel.register(sock, events, data=message_controller)
+    sel.register(sock, events, data=socket_controller)
 
 
 if len(sys.argv) != 3:
@@ -60,24 +60,24 @@ try:
 
         events = sel.select(timeout=1)
         for key, mask in events:
-            message_controller = key.data
+            socket_controller = key.data
             if message_type_key == "0":
                 pass
             else:
                 message_type = REQUEST_MESSAGE_TYPES[message_type_key]
 
-                message_controller.msgObj = create_message(message_type)
-                message_controller.is_send = True
+                socket_controller.msgObj = create_message(message_type)
+                socket_controller.is_send = True
                 print("\n")
 
             try:
-                message_controller.process_events(mask)
+                socket_controller.process_events(mask)
             except Exception:
                 print(
                     "main: error: exception for",
-                    f"{message_controller.addr}:\n{traceback.format_exc()}",
+                    f"{socket_controller.addr}:\n{traceback.format_exc()}",
                 )
-                message_controller.close()
+                socket_controller.close()
         # Check for a socket being monitored to continue.
         if not sel.get_map():
             break
