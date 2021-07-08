@@ -30,10 +30,10 @@ def start_connection(host, port):
     msgObj = create_message(message_type)
 
     events = selectors.EVENT_READ | selectors.EVENT_WRITE
-    message_wrapper = client_message_wrapper.ClientMessageController(
+    message_controller = client_message_controller.ClientMessageController(
         sel, sock, addr, msgObj
     )
-    sel.register(sock, events, data=message_wrapper)
+    sel.register(sock, events, data=message_controller)
 
 
 if len(sys.argv) != 3:
@@ -61,18 +61,18 @@ try:
         message_type = REQUEST_MESSAGE_TYPES[message_type_key]
         events = sel.select(timeout=1)
         for key, mask in events:
-            message = key.data
-            message.msgObj = create_message(message_type)
+            message_controller = key.data
+            message_controller.msgObj = create_message(message_type)
             print("\n")
 
             try:
-                message.process_events(mask)
+                message_controller.process_events(mask)
             except Exception:
                 print(
                     "main: error: exception for",
-                    f"{message.addr}:\n{traceback.format_exc()}",
+                    f"{message_controller.addr}:\n{traceback.format_exc()}",
                 )
-                message.close()
+                message_controller.close()
         # Check for a socket being monitored to continue.
         if not sel.get_map():
             break

@@ -31,10 +31,10 @@ def accept_wrapper(
     print("accepted connection from", addr)
     conn.setblocking(False)
 
-    message_wrapper = server_message_wrapper.ServerMessageController(
+    message_controller = server_message_controller.ServerMessageController(
         sel, conn, addr, None
     )
-    sel.register(conn, selectors.EVENT_READ, data=message_wrapper)
+    sel.register(conn, selectors.EVENT_READ, data=message_controller)
 
 
 if len(sys.argv) != 3:
@@ -54,15 +54,15 @@ try:
                     key.fileobj,
                 )
             else:
-                message = key.data
+                message_controller = key.data
                 try:
-                    message.process_events(mask)
+                    message_controller.process_events(mask)
                 except Exception:
                     print(
                         "main: error: exception for",
-                        f"{message.addr}:\n{traceback.format_exc()}",
+                        f"{message_controller.addr}:\n{traceback.format_exc()}",
                     )
-                    message.close()
+                    message_controller.close()
 except KeyboardInterrupt:
     print("caught keyboard interrupt, exiting")
 finally:
