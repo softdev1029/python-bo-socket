@@ -7,68 +7,52 @@ class RiskUserSymbol(Message):
     def __init__(self):
         self.data = ()
         self.binary_data = None
-
-    def set_data(
-        self,
-        data1,
-        data2,
-        data3,
-        messageType,
-        padding,
-        userName,
-        account,
-        symbolEnum,
-        leverage,
-        longPosition,
-        shortPosition,
-        longCash,
-        shortCash,
-        symbolDisabled,
-        accountEquity,
-        instrumentEquity,
-        executedLongCash,
-        executedLongPosition,
-        executedShortCash,
-        executedShortPosition,
-        BTCEquity,
-        USDTEquity,
-        ETHEquity,
-        USDEquity,
-        FLYEquity,
-        openOrderRequestLimit,
-        tradingSessionID,
-        msgSeqNum,
-    ):
-        self.data = (
-            data1.encode("utf-8"),
-            data2.encode("utf-8"),
-            data3,
-            messageType,
-            padding,
-            userName.encode("utf-8"),
-            account,
-            symbolEnum,
-            leverage,
-            longPosition,
-            shortPosition,
-            longCash,
-            shortCash,
-            symbolDisabled,
-            accountEquity,
-            instrumentEquity,
-            executedLongCash,
-            executedLongPosition,
-            executedShortCash,
-            executedShortPosition,
-            BTCEquity,
-            USDTEquity,
-            ETHEquity,
-            USDEquity,
-            FLYEquity,
-            openOrderRequestLimit,
-            tradingSessionID,
-            msgSeqNum,
+        self.decoded_data = {}
+        self._names = (
+            "data1",
+            "data2",
+            "data3",
+            "messageType",
+            "padding",
+            "userName",
+            "account",
+            "symbolEnum",
+            "leverage",
+            "longPosition",
+            "shortPosition",
+            "longCash",
+            "shortCash",
+            "symbolDisabled",
+            "accountEquity",
+            "instrumentEquity",
+            "executedLongCash",
+            "executedLongPosition",
+            "executedShortCash",
+            "executedShortPosition",
+            "BTCEquity",
+            "USDTEquity",
+            "ETHEquity",
+            "USDEquity",
+            "FLYEquity",
+            "openOrderRequestLimit",
+            "tradingSessionID",
+            "msgSeqNum",
         )
+
+    def set_data(self, *data):
+        if len(data) == len(self._names):
+            self.data = [
+                d if not isinstance(d, str) else d.encode("utf-8") for d in data
+            ]
+        else:
+            raise Exception("Message has not valid length")
+
+    def get_data(self, *data):
+
+        self.decoded_data = {
+            self._names[i]: d if not isinstance(d, bytes) else d.decode("utf-8")
+            for i, d in enumerate(data)
+        }
 
     def encode(self):
         try:
@@ -88,7 +72,8 @@ class RiskUserSymbol(Message):
                 "= 1s 1s H H H 6s I H d d d d d B d d d d d d d d d d d I I I"
             )
             unpacked_data = s.unpack(data)
-            print("Decoded Risk User Symbol message", unpacked_data)
+            self.get_data(*unpacked_data)
+            print("Decoded Risk User Symbol message", self.decoded_data)
             self.binary_data = data
             return True
         except Exception as e:
