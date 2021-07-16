@@ -29,3 +29,17 @@ create_message(message_type)
         sel, sock, addr, msgObj
     )
 ```
+
+## Process message
+
+`process_message` requires `byte_buffer` parameter.
+
+```
+process_message(byte_buffer)
+```
+
+- RECV_NO_ERROR: the message is correct
+- RECV_ERROR_NOT_ENOUGH_HEADER: the header length is not enough
+- RECV_ERROR_NOT_ENOUGH_BODY: the length indicated in the header is different from the buffer length
+- RECV_ERROR_INVALID_MSG_TYPE: the message type is invalid
+- RECV_ERROR_PARSE: the parsing error happens
