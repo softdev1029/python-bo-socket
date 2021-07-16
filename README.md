@@ -108,3 +108,7 @@ process_message(byte_buffer)
 - RECV_ERROR_NOT_ENOUGH_BODY: the length indicated in the header is different from the buffer length
 - RECV_ERROR_INVALID_MSG_TYPE: the message type is invalid
 - RECV_ERROR_PARSE: the parsing error happens
+
+# Note
+
+- The user is responsible for the destruction of the message.
