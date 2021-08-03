@@ -55,3 +55,8 @@ ORIG_ORDER_NOT_FOUND = 54
 INVALID_LOGON_TYPE = 55
 CANT_EXECUTE_AGAINST_EXCHANGE_ORDER = 56
 NO_MARKET_MAKER_VOLUME = 57
+
+from constant import reject_code as module_self
+
+DICT = {k: mt for k, mt in module_self.__dict__.items() if not k.startswith('_') and not k.startswith('module_self')}
+INVDICT = {mt: k for k, mt in module_self.__dict__.items() if not k.startswith('_') and not k.startswith('module_self') and k != 'DICT'}

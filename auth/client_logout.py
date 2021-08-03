@@ -2,12 +2,12 @@
 client logon module
 """
 from base.message import Message
-import json
+import numpy as np
 import datetime as dt
 
 send_msg = {
 	"msg1": "H",
-	"LogonType": 1,
+	"LogonType": 2,
 	"Account": None,
 	"UserName": None,
 	"TradingSessionID": None,
@@ -20,7 +20,7 @@ send_msg = {
 
 response_oes_msg = {
 	"msg1": "H",
-	"LogonType": 1,
+	"LogonType": 2,
 	"Account": None,
 	"UserName": None,
 	"TradingSessionID": None,
@@ -33,22 +33,28 @@ response_oes_msg = {
 }
 
 
-class ClientLogon(Message):
-	def __init__(self, account: int, username: str, key: int, tradingsessionID: int) -> None:
-		super(ClientLogon, self).__init__()
+class ClientLogout(Message):
+	def __init__(self) -> None:
+		super(ClientLogout, self).__init__()
 
 		self.send_data = send_msg
-		self.send_data['Account'] = account
-		self.send_data['UserName'] = username
-		self.send_data['SendingTime'] = int(dt.datetime.utcnow().timestamp() * 1e9)
-		self.send_data['TradingSessionID'] = tradingsessionID
-		self.send_data['Key'] = key
-		self.send_data['MsgSeqID'] = 0
-		self.send_data['RiskMaster'] = 'N'
 		self.receive_data = response_oes_msg
 
-def create_client_logon():
+	def set_logon_values(self, logonObj):
+		"""
+		setting data corresponding logon parameters for given session
+		:param logonObj:
+		:return:
+		"""
+		self.send_data['Account'] = logonObj.receive_data['Account']
+		self.send_data['SendingTime'] = int(dt.datetime.utcnow().timestamp() * 1e9)
+		self.send_data['OrderID'] = np.random.randint(1, 100000000)
+		self.send_data['Key'] = logonObj.receive_data['Key']
+		self.send_data['MsgSeqID'] = 0
+		self.send_data['TradingSessionID'] = logonObj.receive_data['TradingSessionID']
 
-	# message = ClientLogon(account=90001, username="MTX01", key=123456, tradingsessionID=901)
-	message = ClientLogon(account=100700, username="BOU7", key=123456, tradingsessionID=506)
+
+def create_client_logout():
+
+	message = ClientLogout()
 	return message

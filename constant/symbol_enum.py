@@ -1,22 +1,9 @@
-LMT = 1
-MKT = 2
-STOP_MKT = 3
-STOP_LMT = 4
-PEG = 5
-HIDDEN = 6
-PEG_HIDDEN = 7
-OCO = 8
-ICE = 9
-OCO_ICE = 10
-BRACKET = 11
-SNIPER_MKT = 12
-SNIPER_LIMIT = 13
-TSM = 14
-TSL = 15
-TPSL_MARKET = 16
-TPSL_LIMIT = 17
+BTCUSD = 1
+USDUSDT = 2
+FLYUSDT = 3
+BTCUSDT = 4
 
-from constant import order_type as module_self
+from constant import symbol_enum as module_self
 
 DICT = {k: mt for k, mt in module_self.__dict__.items() if not k.startswith('_') and not k.startswith('module_self')}
 INVDICT = {mt: k for k, mt in module_self.__dict__.items() if not k.startswith('_') and not k.startswith('module_self') and k != 'DICT'}

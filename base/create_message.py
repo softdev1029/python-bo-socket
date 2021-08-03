@@ -1,84 +1,65 @@
-from base.message import create_base_message
+from base.message import Message
 from auth.client_logon import ClientLogon, create_client_logon
-from auth.instrument_request import InstrumentRequest, create_instrument_request
-from auth.instrument_response import InstrumentResponse, create_instrument_response
-from auth.risk_update_request import RiskUpdateRequest, create_risk_update_request
-from auth.risk_user_symbol import RiskUserSymbol, create_risk_user_symbol
-from auth.open_order_request import OpenOrderRequest, create_open_order_request
-from trade.collateral_request import CollateralRequest, create_collateral_request
-from trade.collateral import Collateral
-from transaction.new_limit_order import NewLimitOrder, create_new_limit_order
-
-MSG_CLIENT_LOGON = "client_logon"
-MSG_INSTRUMENT_REQUEST = "instrument_request"
-MSG_INSTRUMENT_RESPONSE = "instrument_response"
-MSG_RISK_UPDATE_REQUEST = "risk_update_request"
-MSG_RISK_USER_SYMBOL = "risk_user_symbol"
-MSG_OPEN_ORDER_REQUEST = "open_order_request"
-MSG_COLLATERAL_REQUEST = "collateral_request"
-MSG_NEW_LIMIT_ORDER = "new_limit_order"
-
-REQUEST_MESSAGE_TYPES = {
-    "H": MSG_CLIENT_LOGON,
-    "Y": MSG_INSTRUMENT_REQUEST,
-    "w": MSG_RISK_UPDATE_REQUEST,
-    "E": MSG_OPEN_ORDER_REQUEST,
-    "f": MSG_COLLATERAL_REQUEST,
-    "T": MSG_NEW_LIMIT_ORDER,
-}
-
-MESSAGE_TYPES = {
-    "H": MSG_CLIENT_LOGON,
-    "Y": MSG_INSTRUMENT_REQUEST,
-    "w": MSG_RISK_UPDATE_REQUEST,
-    "N": MSG_RISK_USER_SYMBOL,
-    "E": MSG_OPEN_ORDER_REQUEST,
-    "f": MSG_COLLATERAL_REQUEST,
-    "T": MSG_NEW_LIMIT_ORDER,
-}
+from auth.client_logout import ClientLogout, create_client_logout
+from instrument.instrument_request import InstrumentRequest, create_instrument_request
+# from auth.risk_update_request import RiskUpdateRequest, create_risk_update_request
+from risk.risk_user_symbol import RiskUserSymbol, create_risk_user_symbol
+from transaction.open_order_request import OpenOrderRequest, create_open_order_request
+from risk.collateral_update import CollateralUpdate, create_collateral_update
+# from trade.collateral import Collateral
+from transaction.order import Order, create_new_order
+from constant import message_type
 
 
-def create_message(message_type):
-    if message_type == MSG_CLIENT_LOGON:
-        message = create_client_logon()
-    elif message_type == MSG_INSTRUMENT_REQUEST:
-        message = create_instrument_request()
-    elif message_type == MSG_INSTRUMENT_RESPONSE:
-        message = create_instrument_response()
-    elif message_type == MSG_RISK_UPDATE_REQUEST:
-        message = create_risk_update_request()
-    elif message_type == MSG_RISK_USER_SYMBOL:
-        message = create_risk_user_symbol()
-    elif message_type == MSG_OPEN_ORDER_REQUEST:
-        message = create_open_order_request()
-    elif message_type == MSG_COLLATERAL_REQUEST:
-        message = create_collateral_request()
-    elif message_type == MSG_NEW_LIMIT_ORDER:
-        message = create_new_limit_order()
-    else:
-        message = create_base_message()
-    return message
+MESSAGE_TYPES_KEYS = {mt['header']: mt['desc'] for k, mt in message_type.DICT.items()}
+
+
+def create_message(message_type_desc):
+	if message_type_desc == message_type.MSG_CLIENT_LOGON['desc']:
+		message = create_client_logon()
+	elif message_type_desc == message_type.MSG_CLIENT_LOGOUT['desc']:
+		message = create_client_logout()
+	elif message_type_desc == message_type.MSG_INSTRUMENT_REQUEST['desc']:
+		message = create_instrument_request()
+	elif message_type_desc == message_type.MSG_INSTRUMENT_RESPONSE['desc']:
+		message = create_instrument_request()
+	elif message_type_desc == message_type.MSG_RISK_UPDATE_REQUEST['desc']:
+		message = create_risk_user_symbol()
+	elif message_type_desc == message_type.MSG_COLLATERAL_RESPONSE['desc']:
+		message = create_collateral_update()
+	elif message_type_desc == message_type.MSG_RISK_USER_SYMBOL['desc']:
+		message = create_risk_user_symbol()
+	elif message_type_desc == message_type.MSG_OPEN_ORDER_REQUEST['desc']:
+		message = create_open_order_request()
+	elif message_type_desc == message_type.MSG_COLLATERAL_REQUEST['desc']:
+		message = create_collateral_update()
+	elif message_type_desc == message_type.MSG_NEW_ORDER['desc']:
+		message = create_new_order()
+	else:
+		message = Message()
+	return message
 
 
 def is_valid_message_type(message_type_key):
-    if message_type_key in MESSAGE_TYPES.keys():
-        return True
+	if message_type_key in MESSAGE_TYPES_KEYS.keys():
+		return True
 
-    if message_type_key == "0":
-        return True
+	if message_type_key == "0":
+		return True
 
-    return False
+	return False
 
 
 def get_all_request_message_types_string():
-    res = ""
-    res += "0\tGo To Receive Mode\n"
-    for i in REQUEST_MESSAGE_TYPES:
-        res += i + "\t" + REQUEST_MESSAGE_TYPES[i] + "\n"
-    return res
+	res = ""
+	res += "0\tGo To Receive Mode\n"
+	for k, mt in message_type.DICT.items():
+		if mt['request'] is True:
+			res += k + "\t" + mt['header'] + "\n"
+	return res
 
 
 def get_message_type_from_header(key):
-    if key in MESSAGE_TYPES.keys():
-        return MESSAGE_TYPES[key]
-    return ""
+	if key in MESSAGE_TYPES_KEYS.keys():
+		return MESSAGE_TYPES_KEYS[key]
+	return ""

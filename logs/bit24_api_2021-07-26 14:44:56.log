@@ -1,0 +1,159 @@
+2021-07-26 16:44:57,147 [MainThread  ] [/Users/mac/bit24/codes_py/bit24_api/client_ws.py] [DEBUG]  starting connection to  ws://113.197.36.50:32043   ...
+2021-07-26 16:44:57,471 [MainThread  ] [websocket           ] [DEBUG]  --- request header ---
+2021-07-26 16:44:57,471 [MainThread  ] [websocket           ] [DEBUG]  GET / HTTP/1.1
+Upgrade: websocket
+Host: 113.197.36.50:32043
+Origin: http://113.197.36.50:32043
+Sec-WebSocket-Key: b8exohwvuOjYDQXnFueFKw==
+Sec-WebSocket-Version: 13
+Connection: Upgrade
+
+
+2021-07-26 16:44:57,471 [MainThread  ] [websocket           ] [DEBUG]  -----------------------
+2021-07-26 16:44:57,472 [MainThread  ] [websocket           ] [DEBUG]  --- response header ---
+2021-07-26 16:44:57,846 [MainThread  ] [websocket           ] [DEBUG]  HTTP/1.1 101 Switching Protocols
+2021-07-26 16:44:57,846 [MainThread  ] [websocket           ] [DEBUG]  Upgrade: websocket
+2021-07-26 16:44:57,846 [MainThread  ] [websocket           ] [DEBUG]  Connection: Upgrade
+2021-07-26 16:44:57,847 [MainThread  ] [websocket           ] [DEBUG]  Sec-WebSocket-Accept: RhYq3lV2IpVe47Z86Div1bnaLcg=
+2021-07-26 16:44:57,847 [MainThread  ] [websocket           ] [DEBUG]  -----------------------
+2021-07-26 16:44:57,847 [MainThread  ] [/Users/mac/bit24/codes_py/bit24_api/client_ws.py] [DEBUG]  Sending:  {'msg1': 'H', 'LogonType': 1, 'Account': 100700, 'UserName': 'BOU7', 'TradingSessionID': 506, 'SendingTime': 1627303497847848960, 'MsgSeqID': 0, 'Key': 123456, 'RiskMaster': 'N'}
+2021-07-26 16:44:57,848 [MainThread  ] [websocket           ] [DEBUG]  send: b'\x81\xfe\x00\xa1?1q\x85D\x13\x1c\xf6X\x00S\xbf\x1dyS\xa9\x1d}\x1e\xe2P_%\xfcOTS\xbf\x0e\x1dS\xc4\\R\x1e\xf0QES\xbf\x0e\x01A\xb2\x0f\x01]\xa7jB\x14\xf7qP\x1c\xe0\x1d\x0bS\xc7pdF\xa7\x13\x13%\xf7^U\x18\xebXb\x14\xf6LX\x1e\xebvuS\xbf\n\x01G\xa9\x1db\x14\xeb[X\x1f\xe2kX\x1c\xe0\x1d\x0b@\xb3\r\x06B\xb5\x0c\x05H\xb2\x07\x05F\xbd\x0b\tH\xb3\x0f\x1dS\xc8LV"\xe0Nx5\xa7\x05\x01]\xa7tT\x08\xa7\x05\x00C\xb6\x0b\x04G\xa9\x1dc\x18\xf6T|\x10\xf6KT\x03\xa7\x05\x13?\xa7B'
+2021-07-26 16:44:58,188 [Thread-1    ] [/Users/mac/bit24/codes_py/bit24_api/client_ws.py] [DEBUG]  
+Message type is  client_logon
+2021-07-26 16:44:58,188 [Thread-1    ] [/Users/mac/bit24/codes_py/bit24_api/client_ws.py] [DEBUG]  Buffer size is  12
+2021-07-26 16:44:58,188 [Thread-1    ] [/Users/mac/bit24/codes_py/bit24_api/client_ws.py] [DEBUG]  Response:  {'msg1': 'H', 'MsgLen': 161, 'LogonType': 1, 'Account': 100700, 'UserName': 'BOU7', 'TradingSessionID': 506, 'SendingTime': 1627310698141624617, 'MsgSeqID': 0, 'Key': 123456, 'LoginStatus': 1, 'RejectReason': 50, 'RiskMaster': 'N', 'msg1_text': 'client_logon', 'SendingTime_text': '2021-07-26T16:44:58.141625', 'RejectReason_text': 'ACCEPTED'}
+2021-07-26 16:44:58,188 [Thread-1    ] [/Users/mac/bit24/codes_py/bit24_api/client_ws.py] [DEBUG]  Text response:  msg1 : client_logon
+SendingTime : 2021-07-26T16:44:58.141625
+RejectReason : ACCEPTED
+
+2021-07-26 16:44:58,257 [MainThread  ] [/Users/mac/bit24/codes_py/bit24_api/client_ws.py] [DEBUG]  Sending:  {'msg1': 'e', 'UpdateType': 2, 'Account': 100700, 'TradingSessionID': 506, 'SymbolEnum': 4, 'Key': 123456, 'MsgSeqID': 0, 'SendingTime': 1627303498257740032, 'OrderID': 68458139}
+2021-07-26 16:44:58,258 [MainThread  ] [websocket           ] [DEBUG]  send: b"\x81\xfe\x00\xa1\xe85\x1e\xa2\x93\x17s\xd1\x8f\x04<\x98\xcaP<\x8e\xca`n\xc6\x89A{\xf6\x91E{\x80\xd2\x072\x80\xa9V}\xcd\x9d[j\x80\xd2\x04.\x92\xdf\x05.\x8e\xcaal\xc3\x8c\\p\xc5\xbbPm\xd1\x81Zp\xeb\xac\x17$\x97\xd8\x032\x80\xbbLs\xc0\x87Y[\xcc\x9dX<\x98\xdc\x19<\xe9\x8dL<\x98\xd9\x07-\x96\xdd\x032\x80\xa5Fy\xf1\x8dDW\xe6\xca\x0f.\x8e\xcaf{\xcc\x8c\\p\xc5\xbc\\s\xc7\xca\x0f/\x94\xda\x02-\x92\xdb\x01'\x9a\xda\x00)\x95\xdc\x05.\x91\xda\x19<\xed\x9aQ{\xd0\xa1q<\x98\xde\r*\x97\xd0\x04-\x9b\x95"
+2021-07-26 16:45:01,330 [MainThread  ] [/Users/mac/bit24/codes_py/bit24_api/client_ws.py] [DEBUG]  Could not get response in 3 sec. Ignore
+2021-07-26 16:45:01,331 [MainThread  ] [/Users/mac/bit24/codes_py/bit24_api/client_ws.py] [DEBUG]  Sending:  {'msg1': 'f', 'UpdateType': 2, 'Account': 100700, 'TradingSessionID': 506, 'SymbolEnum': 4, 'Key': 123456, 'MsgSeqID': 0, 'SendingTime': 1627303501331136000, 'OrderID': 777953}
+2021-07-26 16:45:01,331 [MainThread  ] [websocket           ] [DEBUG]  send: b'\x81\xfe\x00\x9fl\xa2\xcc\x91\x17\x80\xa1\xe2\x0b\x93\xee\xabN\xc4\xee\xbdN\xf7\xbc\xf5\r\xd6\xa9\xc5\x15\xd2\xa9\xb3V\x90\xe0\xb3-\xc1\xaf\xfe\x19\xcc\xb8\xb3V\x93\xfc\xa1[\x92\xfc\xbdN\xf6\xbe\xf0\x08\xcb\xa2\xf6?\xc7\xbf\xe2\x05\xcd\xa2\xd8(\x80\xf6\xa4\\\x94\xe0\xb3?\xdb\xa1\xf3\x03\xce\x89\xff\x19\xcf\xee\xabX\x8e\xee\xda\t\xdb\xee\xab]\x90\xff\xa5Y\x94\xe0\xb3!\xd1\xab\xc2\t\xd3\x85\xd5N\x98\xfc\xbdN\xf1\xa9\xff\x08\xcb\xa2\xf68\xcb\xa1\xf4N\x98\xfd\xa7^\x95\xff\xa1_\x97\xfc\xa0_\x91\xfd\xa0_\x94\xfc\xa1\\\x8e\xee\xde\x1e\xc6\xa9\xe3%\xe6\xee\xab[\x95\xfb\xa8Y\x91\xb1'
+2021-07-26 16:45:01,682 [Thread-1    ] [/Users/mac/bit24/codes_py/bit24_api/client_ws.py] [DEBUG]  
+Message type is  collateral_response
+2021-07-26 16:45:01,682 [Thread-1    ] [/Users/mac/bit24/codes_py/bit24_api/client_ws.py] [DEBUG]  Buffer size is  13
+2021-07-26 16:45:01,682 [Thread-1    ] [/Users/mac/bit24/codes_py/bit24_api/client_ws.py] [DEBUG]  Response:  {'msg1': 'h', 'MessageType': 31, 'UserName': 'BOU7', 'Account': 100700, 'SymbolEnum': 4, 'BTCEquity': 100.0, 'USDTEquity': 10000000.0, 'FLYEquity': 50000000.0, 'USDEquity': 10000000.0, 'ETHEquity': 2000.0, 'TradingSessionID': 506, 'LastSeqNum': 20101010, 'SendingTime': 1627310701636472036, 'msg1_text': 'collateral_response', 'SendingTime_text': '2021-07-26T16:45:01.636472', 'BTCEquity_text': 100.0, 'USDTEquity_text': 10000000.0, 'FLYEquity_text': 50000000.0, 'USDEquity_text': 10000000.0, 'ETHEquity_text': 2000.0}
+2021-07-26 16:45:01,682 [Thread-1    ] [/Users/mac/bit24/codes_py/bit24_api/client_ws.py] [DEBUG]  Text response:  msg1 : collateral_response
+SendingTime : 2021-07-26T16:45:01.636472
+BTCEquity : 100.0
+USDTEquity : 10000000.0
+FLYEquity : 50000000.0
+USDEquity : 10000000.0
+ETHEquity : 2000.0
+
+2021-07-26 16:45:01,742 [MainThread  ] [/Users/mac/bit24/codes_py/bit24_api/client_ws.py] [DEBUG]  Text sending:  SymbolEnum : BTCUSDT
+OrderID : 48713298
+OrigOrderID : None
+StopLimitPrice : 20001
+Layers : 5
+SizeIncrement : 4
+PriceIncrement : 2
+PriceOffset : 1
+BOPrice : 30001
+BOOrderQty : 0.1
+OrderType : PEG
+BOSide : SELL
+TIF : GTC
+MessageType : ORDER_NEW
+
+2021-07-26 16:45:01,742 [MainThread  ] [/Users/mac/bit24/codes_py/bit24_api/client_ws.py] [DEBUG]  Sending:  {'msg1': 'T', 'MessageType': 1, 'UpdateType': 2, 'Account': 100700, 'TraderID': 'BOU7', 'SendingTime': 1627303501741934080, 'OrderID': 48713298, 'Key': 123456, 'MsgSeqID': 0, 'TradingSessionID': 506, 'BOPrice': 30001, 'BOSymbol': 'BTCUSDT', 'BOOrderQty': 0.1, 'BOSide': 2, 'TIF': 2, 'OrderType': 5, 'OrigOrderID': None, 'StopLimitPrice': 20001, 'Layers': 5, 'SizeIncrement': 4, 'PriceIncrement': 2, 'PriceOffset': 1, 'SymbolEnum': 4}
+2021-07-26 16:45:01,742 [MainThread  ] [websocket           ] [DEBUG]  send: b"\x81\xfe\x01\x84\x1d3\xa5\xd2f\x11\xc8\xa1z\x02\x87\xe8?g\x87\xfe?~\xc0\xa1nR\xc2\xb7IJ\xd5\xb7?\t\x94\xfe?f\xd5\xb6|G\xc0\x86dC\xc0\xf0'\x01\x89\xf0\\P\xc6\xbdh]\xd1\xf0'\x02\x95\xe2*\x03\x95\xfe?g\xd7\xb3yV\xd7\x9bY\x11\x9f\xf0_|\xf0\xe5?\x1f\x87\x81x]\xc1\xbbsT\xf1\xbbpV\x87\xe8,\x05\x97\xe5.\x03\x96\xe7-\x02\x92\xe6,\n\x96\xe6-\x0b\x95\xfe?|\xd7\xb6xA\xec\x96?\t\x91\xea*\x02\x96\xe0$\x0b\x89\xf0VV\xdc\xf0'\x02\x97\xe1)\x06\x93\xfe?~\xd6\xb5NV\xd4\x9bY\x11\x9f\xe21\x11\xf1\xa0|W\xcc\xbcz`\xc0\xa1nZ\xca\xbcTw\x87\xe8(\x03\x93\xfe?q\xea\x82oZ\xc6\xb7?\t\x96\xe2-\x03\x94\xfe?q\xea\x81d^\xc7\xbdq\x11\x9f\xf0_g\xe6\x87Nw\xf1\xf01\x11\xe7\x9dRA\xc1\xb7ob\xd1\xab?\t\x95\xfc,\x1f\x87\x90R`\xcc\xb6x\x11\x9f\xe01\x11\xf1\x9b[\x11\x9f\xe01\x11\xea\xa0yV\xd7\x86dC\xc0\xf0'\x06\x89\xf0RA\xcc\xb5RA\xc1\xb7oz\xe1\xf0']\xd0\xbeq\x1f\x87\x81i\\\xd5\x9et^\xcc\xa6MA\xcc\xb1x\x11\x9f\xe0-\x03\x95\xe31\x11\xe9\xb3dV\xd7\xa1?\t\x90\xfe?`\xcc\xa8xz\xcb\xb1oV\xc8\xb7sG\x87\xe8)\x1f\x87\x82oZ\xc6\xb7T]\xc6\xa0x^\xc0\xbci\x11\x9f\xe01\x11\xf5\xa0tP\xc0\x9d{U\xd6\xb7i\x11\x9f\xe31\x11\xf6\xabpQ\xca\xbeX]\xd0\xbf?\t\x91\xaf"
+2021-07-26 16:45:02,125 [Thread-1    ] [/Users/mac/bit24/codes_py/bit24_api/client_ws.py] [DEBUG]  
+Message type is  new_order
+2021-07-26 16:45:02,125 [Thread-1    ] [/Users/mac/bit24/codes_py/bit24_api/client_ws.py] [DEBUG]  Buffer size is  19
+2021-07-26 16:45:02,125 [Thread-1    ] [/Users/mac/bit24/codes_py/bit24_api/client_ws.py] [DEBUG]  Response:  {'msg1': 'T', 'MessageType': 14, 'UpdateType': 78, 'Account': 100700, 'OrderID': 48713298, 'SymbolEnum': 4, 'OrderType': 5, 'BOPrice': 30001.0, 'BOSide': 2, 'BOOrderQty': 0.1, 'TIF': 2, 'DisplaySize': 0.0, 'RefreshSize': 0.0, 'BOSymbol': 'BTCUSDT', 'TraderID': 'BOU7', 'SendingTime': 1627303501741934080, 'TradingSessionID': 506, 'Key': 123456, 'MsgSeqID': 0, 'msg1_text': 'new_order', 'SendingTime_text': '2021-07-26T14:45:01.741934', 'SymbolEnum_text': 'BTCUSDT', 'OrderID_text': 48713298, 'BOPrice_text': 30001.0, 'BOOrderQty_text': 0.1, 'OrderType_text': 'PEG', 'BOSide_text': 'SELL', 'TIF_text': 'GTC', 'MessageType_text': 'ORDER_ACK'}
+2021-07-26 16:45:02,126 [Thread-1    ] [/Users/mac/bit24/codes_py/bit24_api/client_ws.py] [DEBUG]  Text response:  msg1 : new_order
+SendingTime : 2021-07-26T14:45:01.741934
+SymbolEnum : BTCUSDT
+OrderID : 48713298
+BOPrice : 30001.0
+BOOrderQty : 0.1
+OrderType : PEG
+BOSide : SELL
+TIF : GTC
+MessageType : ORDER_ACK
+
+2021-07-26 16:45:02,151 [MainThread  ] [/Users/mac/bit24/codes_py/bit24_api/client_ws.py] [DEBUG]  Sending:  {'msg1': 'e', 'UpdateType': 2, 'Account': 100700, 'TradingSessionID': 506, 'SymbolEnum': 4, 'Key': 123456, 'MsgSeqID': 0, 'SendingTime': 1627303502151490816, 'OrderID': 9563917}
+2021-07-26 16:45:02,151 [MainThread  ] [websocket           ] [DEBUG]  send: b"\x81\xfe\x00\xa0N\xa9uj5\x8b\x18\x19)\x98WPl\xccWFl\xfc\x05\x0e/\xdd\x10>7\xd9\x10Ht\x9bYH\x0f\xca\x16\x05;\xc7\x01Ht\x98EZy\x99EFl\xfd\x07\x0b*\xc0\x1b\r\x1d\xcc\x06\x19'\xc6\x1b#\n\x8bO_~\x9fYH\x1d\xd0\x18\x08!\xc50\x04;\xc4WPz\x85W!+\xd0WP\x7f\x9bF^{\x9fYH\x03\xda\x129+\xd8<.l\x93EFl\xfa\x10\x04*\xc0\x1b\r\x1a\xc0\x18\x0fl\x93D\\|\x9eFZ}\x9cEX\x7f\x9cD^w\x99M[x\x85W%<\xcd\x10\x18\x07\xedWPw\x9cCYw\x98B\x17"
+2021-07-26 16:45:02,485 [Thread-1    ] [/Users/mac/bit24/codes_py/bit24_api/client_ws.py] [DEBUG]  
+Message type is  new_order
+2021-07-26 16:45:02,486 [Thread-1    ] [/Users/mac/bit24/codes_py/bit24_api/client_ws.py] [DEBUG]  Buffer size is  19
+2021-07-26 16:45:02,486 [Thread-1    ] [/Users/mac/bit24/codes_py/bit24_api/client_ws.py] [DEBUG]  Response:  {'msg1': 'T', 'MessageType': 1, 'UpdateType': 78, 'Account': 100700, 'OrderID': 48713298, 'SymbolEnum': 4, 'OrderType': 5, 'BOPrice': 30001.0, 'BOSide': 2, 'BOOrderQty': 0.1, 'TIF': 2, 'DisplaySize': 0.0, 'RefreshSize': 0.0, 'BOSymbol': 'BTCUSDT', 'TraderID': 'BOU7', 'SendingTime': 1627303501741934080, 'TradingSessionID': 506, 'Key': 123456, 'MsgSeqID': 0, 'msg1_text': 'new_order', 'SendingTime_text': '2021-07-26T14:45:01.741934', 'SymbolEnum_text': 'BTCUSDT', 'OrderID_text': 48713298, 'BOPrice_text': 30001.0, 'BOOrderQty_text': 0.1, 'OrderType_text': 'PEG', 'BOSide_text': 'SELL', 'TIF_text': 'GTC', 'MessageType_text': 'ORDER_NEW'}
+2021-07-26 16:45:02,486 [Thread-1    ] [/Users/mac/bit24/codes_py/bit24_api/client_ws.py] [DEBUG]  Text response:  msg1 : new_order
+SendingTime : 2021-07-26T14:45:01.741934
+SymbolEnum : BTCUSDT
+OrderID : 48713298
+BOPrice : 30001.0
+BOOrderQty : 0.1
+OrderType : PEG
+BOSide : SELL
+TIF : GTC
+MessageType : ORDER_NEW
+
+2021-07-26 16:45:02,561 [MainThread  ] [/Users/mac/bit24/codes_py/bit24_api/client_ws.py] [DEBUG]  Text sending:  SymbolEnum : BTCUSDT
+OrderID : 15291251
+OrigOrderID : 48713298
+StopLimitPrice : 20001
+Layers : 5
+SizeIncrement : 4
+PriceIncrement : 2
+PriceOffset : 1
+BOPrice : 30001
+BOOrderQty : 0.1
+OrderType : PEG
+BOSide : BUY
+TIF : GTC
+MessageType : ORDER_NEW
+
+2021-07-26 16:45:02,561 [MainThread  ] [/Users/mac/bit24/codes_py/bit24_api/client_ws.py] [DEBUG]  Sending:  {'msg1': 'T', 'MessageType': 1, 'UpdateType': 2, 'Account': 100700, 'TraderID': 'BOU7', 'SendingTime': 1627303502561575936, 'OrderID': 15291251, 'Key': 123456, 'MsgSeqID': 0, 'TradingSessionID': 506, 'BOPrice': 30001, 'BOSymbol': 'BTCUSDT', 'BOOrderQty': 0.1, 'BOSide': 1, 'TIF': 2, 'OrderType': 5, 'OrigOrderID': 48713298, 'StopLimitPrice': 20001, 'Layers': 5, 'SizeIncrement': 4, 'PriceIncrement': 2, 'PriceOffset': 1, 'SymbolEnum': 4}
+2021-07-26 16:45:02,562 [MainThread  ] [websocket           ] [DEBUG]  send: b"\x81\xfe\x01\x88l\xc2\xde\xc8\x17\xe0\xb3\xbb\x0b\xf3\xfc\xf2N\x96\xfc\xe4N\x8f\xbb\xbb\x1f\xa3\xb9\xad8\xbb\xae\xadN\xf8\xef\xe4N\x97\xae\xac\r\xb6\xbb\x9c\x15\xb2\xbb\xeaV\xf0\xf2\xea-\xa1\xbd\xa7\x19\xac\xaa\xeaV\xf3\xee\xf8[\xf2\xee\xe4N\x96\xac\xa9\x08\xa7\xac\x81(\xe0\xe4\xea.\x8d\x8b\xffN\xee\xfc\x9b\t\xac\xba\xa1\x02\xa5\x8a\xa1\x01\xa7\xfc\xf2]\xf4\xec\xff_\xf2\xed\xfd\\\xf0\xeb\xfe]\xf7\xe9\xfdU\xf1\xe8\xe4N\x8d\xac\xac\t\xb0\x97\x8cN\xf8\xef\xfd^\xfb\xef\xfaY\xf3\xf2\xea'\xa7\xa7\xeaV\xf3\xec\xfbX\xf7\xe8\xe4N\x8f\xad\xaf?\xa7\xaf\x81(\xe0\xe4\xf8@\xe0\x8a\xba\r\xa6\xb7\xa6\x0b\x91\xbb\xbb\x1f\xab\xb1\xa6%\x86\xfc\xf2Y\xf2\xe8\xe4N\x80\x91\x98\x1e\xab\xbd\xadN\xf8\xed\xf8\\\xf2\xef\xe4N\x80\x91\x9b\x15\xaf\xbc\xa7\x00\xe0\xe4\xea.\x96\x9d\x9d?\x86\x8a\xea@\xe0\x9c\x87#\xb0\xba\xad\x1e\x93\xaa\xb1N\xf8\xee\xe6]\xee\xfc\x8a#\x91\xb7\xac\t\xe0\xe4\xf9@\xe0\x8a\x81*\xe0\xe4\xfa@\xe0\x91\xba\x08\xa7\xac\x9c\x15\xb2\xbb\xeaV\xf7\xf2\xea#\xb0\xb7\xaf#\xb0\xba\xad\x1e\x8b\x9a\xeaV\xf6\xe6\xff]\xf1\xec\xf1T\xee\xfc\x9b\x18\xad\xae\x84\x05\xaf\xb7\xbc<\xb0\xb7\xab\t\xe0\xe4\xfa\\\xf2\xee\xf9@\xe0\x92\xa9\x15\xa7\xac\xbbN\xf8\xeb\xe4N\x91\xb7\xb2\t\x8b\xb0\xab\x1e\xa7\xb3\xad\x02\xb6\xfc\xf2X\xee\xfc\x98\x1e\xab\xbd\xad%\xac\xbd\xba\t\xaf\xbb\xa6\x18\xe0\xe4\xfa@\xe0\x8e\xba\x05\xa1\xbb\x87\n\xa4\xad\xad\x18\xe0\xe4\xf9@\xe0\x8d\xb1\x01\xa0\xb1\xa4)\xac\xab\xa5N\xf8\xea\xb5"
+2021-07-26 16:45:02,894 [Thread-1    ] [/Users/mac/bit24/codes_py/bit24_api/client_ws.py] [DEBUG]  
+Message type is  new_order
+2021-07-26 16:45:02,895 [Thread-1    ] [/Users/mac/bit24/codes_py/bit24_api/client_ws.py] [DEBUG]  Buffer size is  22
+2021-07-26 16:45:02,895 [Thread-1    ] [/Users/mac/bit24/codes_py/bit24_api/client_ws.py] [DEBUG]  Response:  {'msg1': 'T', 'MessageType': 8, 'UpdateType': 78, 'Account': 100700, 'OrderID': 48713298, 'SymbolEnum': 4, 'OrderType': 5, 'BOPrice': 30001.0, 'BOSide': 2, 'BOOrderQty': 0.0, 'TIF': 2, 'ExecPrice': 30001.0, 'ExecID': 1, 'RemainingQuantity': 0.0, 'ExecShares': 0.1, 'TriggerType': 0, 'BOSymbol': 'BTCUSDT', 'TraderID': 'BOU7', 'SendingTime': 1627303501741934080, 'TradingSessionID': 506, 'Key': 123456, 'MsgSeqID': 0, 'msg1_text': 'new_order', 'SendingTime_text': '2021-07-26T14:45:01.741934', 'SymbolEnum_text': 'BTCUSDT', 'OrderID_text': 48713298, 'BOPrice_text': 30001.0, 'BOOrderQty_text': 0.0, 'OrderType_text': 'PEG', 'BOSide_text': 'SELL', 'TIF_text': 'GTC', 'MessageType_text': 'EXECUTION'}
+2021-07-26 16:45:02,895 [Thread-1    ] [/Users/mac/bit24/codes_py/bit24_api/client_ws.py] [DEBUG]  Text response:  msg1 : new_order
+SendingTime : 2021-07-26T14:45:01.741934
+SymbolEnum : BTCUSDT
+OrderID : 48713298
+BOPrice : 30001.0
+BOOrderQty : 0.0
+OrderType : PEG
+BOSide : SELL
+TIF : GTC
+MessageType : EXECUTION
+
+2021-07-26 16:45:02,895 [Thread-1    ] [/Users/mac/bit24/codes_py/bit24_api/client_ws.py] [DEBUG]  
+Message type is  new_order
+2021-07-26 16:45:02,895 [Thread-1    ] [/Users/mac/bit24/codes_py/bit24_api/client_ws.py] [DEBUG]  Buffer size is  22
+2021-07-26 16:45:02,895 [Thread-1    ] [/Users/mac/bit24/codes_py/bit24_api/client_ws.py] [DEBUG]  Response:  {'msg1': 'T', 'MessageType': 17, 'UpdateType': 78, 'Account': 100700, 'OrderID': 15291251, 'SymbolEnum': 4, 'OrderType': 5, 'BOPrice': 30001.0, 'BOSide': 1, 'BOOrderQty': 0.0, 'TIF': 2, 'ExecPrice': 30001.0, 'ExecID': 1, 'RemainingQuantity': 0.0, 'ExecShares': 0.1, 'TriggerType': 0, 'BOSymbol': 'BTCUSDT', 'TraderID': 'BOU7', 'SendingTime': 1627303502561575936, 'TradingSessionID': 506, 'Key': 123456, 'MsgSeqID': 0, 'msg1_text': 'new_order', 'SendingTime_text': '2021-07-26T14:45:02.561576', 'SymbolEnum_text': 'BTCUSDT', 'OrderID_text': 15291251, 'BOPrice_text': 30001.0, 'BOOrderQty_text': 0.0, 'OrderType_text': 'PEG', 'BOSide_text': 'BUY', 'TIF_text': 'GTC', 'MessageType_text': 'QUOTE_FILL'}
+2021-07-26 16:45:02,895 [Thread-1    ] [/Users/mac/bit24/codes_py/bit24_api/client_ws.py] [DEBUG]  Text response:  msg1 : new_order
+SendingTime : 2021-07-26T14:45:02.561576
+SymbolEnum : BTCUSDT
+OrderID : 15291251
+BOPrice : 30001.0
+BOOrderQty : 0.0
+OrderType : PEG
+BOSide : BUY
+TIF : GTC
+MessageType : QUOTE_FILL
+
+2021-07-26 16:45:02,971 [MainThread  ] [/Users/mac/bit24/codes_py/bit24_api/client_ws.py] [DEBUG]  Sending:  {'msg1': 'f', 'UpdateType': 2, 'Account': 100700, 'TradingSessionID': 506, 'SymbolEnum': 4, 'Key': 123456, 'MsgSeqID': 0, 'SendingTime': 1627303502971712000, 'OrderID': 42552667}
+2021-07-26 16:45:02,972 [MainThread  ] [websocket           ] [DEBUG]  send: b"\x81\xfe\x00\xa1\xbb]T\xd4\xc0\x7f9\xa7\xdclv\xee\x99;v\xf8\x99\x08$\xb0\xda)1\x80\xc2-1\xf6\x81ox\xf6\xfa>7\xbb\xce3 \xf6\x81ld\xe4\x8cmd\xf8\x99\t&\xb5\xdf4:\xb3\xe88'\xa7\xd22:\x9d\xff\x7fn\xe1\x8bkx\xf6\xe8$9\xb6\xd41\x11\xba\xce0v\xee\x8fqv\x9f\xde$v\xee\x8aog\xe0\x8ekx\xf6\xf6.3\x87\xde,\x1d\x90\x99gd\xf8\x99\x0e1\xba\xdf4:\xb3\xef49\xb1\x99ge\xe2\x89jg\xe4\x88hd\xe6\x82je\xe3\x8aod\xe4\x8bqv\x9b\xc991\xa6\xf2\x19v\xee\x8foa\xe1\x89kb\xe3\xc6"
+2021-07-26 16:45:03,354 [Thread-1    ] [/Users/mac/bit24/codes_py/bit24_api/client_ws.py] [DEBUG]  
+Message type is  collateral_response
+2021-07-26 16:45:03,354 [Thread-1    ] [/Users/mac/bit24/codes_py/bit24_api/client_ws.py] [DEBUG]  Buffer size is  13
+2021-07-26 16:45:03,354 [Thread-1    ] [/Users/mac/bit24/codes_py/bit24_api/client_ws.py] [DEBUG]  Response:  {'msg1': 'h', 'MessageType': 31, 'UserName': 'BOU7', 'Account': 100700, 'SymbolEnum': 4, 'BTCEquity': 100.0, 'USDTEquity': 10000000.0, 'FLYEquity': 50000000.0, 'USDEquity': 10000000.0, 'ETHEquity': 2000.0, 'TradingSessionID': 506, 'LastSeqNum': 20101010, 'SendingTime': 1627310703236724862, 'msg1_text': 'collateral_response', 'SendingTime_text': '2021-07-26T16:45:03.236725', 'BTCEquity_text': 100.0, 'USDTEquity_text': 10000000.0, 'FLYEquity_text': 50000000.0, 'USDEquity_text': 10000000.0, 'ETHEquity_text': 2000.0}
+2021-07-26 16:45:03,355 [Thread-1    ] [/Users/mac/bit24/codes_py/bit24_api/client_ws.py] [DEBUG]  Text response:  msg1 : collateral_response
+SendingTime : 2021-07-26T16:45:03.236725
+BTCEquity : 100.0
+USDTEquity : 10000000.0
+FLYEquity : 50000000.0
+USDEquity : 10000000.0
+ETHEquity : 2000.0
+
+2021-07-26 16:45:03,381 [MainThread  ] [/Users/mac/bit24/codes_py/bit24_api/client_ws.py] [DEBUG]  Sending:  {'msg1': 'e', 'UpdateType': 2, 'Account': 100700, 'TradingSessionID': 506, 'SymbolEnum': 4, 'Key': 123456, 'MsgSeqID': 0, 'SendingTime': 1627303503381014016, 'OrderID': 23523052}
+2021-07-26 16:45:03,381 [MainThread  ] [websocket           ] [DEBUG]  send: b'\x81\xfe\x00\xa1\xbf\x99\xdb\x1b\xc4\xbb\xb6h\xd8\xa8\xf9!\x9d\xfc\xf97\x9d\xcc\xab\x7f\xde\xed\xbeO\xc6\xe9\xbe9\x85\xab\xf79\xfe\xfa\xb8t\xca\xf7\xaf9\x85\xa8\xeb+\x88\xa9\xeb7\x9d\xcd\xa9z\xdb\xf0\xb5|\xec\xfc\xa8h\xd6\xf6\xb5R\xfb\xbb\xe1.\x8f\xaf\xf79\xec\xe0\xb6y\xd0\xf5\x9eu\xca\xf4\xf9!\x8b\xb5\xf9P\xda\xe0\xf9!\x8e\xab\xe8/\x8a\xaf\xf79\xf2\xea\xbcH\xda\xe8\x92_\x9d\xa3\xeb7\x9d\xca\xbeu\xdb\xf0\xb5|\xeb\xf0\xb6~\x9d\xa3\xea-\x8d\xae\xe8+\x8c\xac\xeb(\x8c\xa1\xea+\x8e\xad\xeb*\x89\xb5\xf9T\xcd\xfd\xbei\xf6\xdd\xf9!\x8d\xaa\xee)\x8c\xa9\xee)\xc2'
+2021-07-26 16:45:06,464 [MainThread  ] [/Users/mac/bit24/codes_py/bit24_api/client_ws.py] [DEBUG]  Could not get response in 3 sec. Ignore
+2021-07-26 16:45:07,367 [MainThread  ] [websocket           ] [DEBUG]  send: b'\x88\x829\x92\x8b\xac:z'

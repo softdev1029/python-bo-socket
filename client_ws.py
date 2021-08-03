@@ -1,18 +1,19 @@
 """
-simple client of using TCPIP socket
+simple client of using websocket
 """
 import time
-from tcpip.connection import Connection
+import asyncio
 from constant import order_type
 from constant import tif_type, side_type
 import traceback
 
 from helper.logger import logs
 from constant import message_type, symbol_enum, order_message_type
+from ws.connection import Connection
 
 
 logs.set_file_name(__file__)
-conn = Connection("113.197.36.50", 32042)
+conn = Connection("113.197.36.50", 32043)
 conn.start()
 
 
@@ -31,6 +32,8 @@ def wait_for_response(delay=10, errors='raise'):
 
 symbol = 'BTCUSDT'
 
+global messages
+
 try:
 	conn.write_msg(message_type.MSG_CLIENT_LOGON)
 	wait_for_response(10)
@@ -38,11 +41,11 @@ try:
 	data = {}
 	data['BOSymbol'] = symbol
 	data['BOPrice'] = 30001
-	data['BOOrderQty'] = 20
+	data['BOOrderQty'] = 0.1
 	data['BOSide'] = side_type.SELL
 	data['TIF'] = tif_type.GTC
 	data['MessageType'] = order_message_type.ORDER_NEW
-	data['OrderType'] = order_type.ICE
+	data['OrderType'] = order_type.PEG
 	data['OrigOrderID'] = None
 	data['StopLimitPrice'] = 20001
 	data['Layers'] = 5
@@ -54,33 +57,28 @@ try:
 
 	orderID = []
 
-	conn.write_msg(message_type.MSG_NEW_ORDER,
-	               data=data)
+	conn.write_msg(message_type.MSG_COLLATERAL_REQUEST)
+	wait_for_response(10)
+
+	conn.write_msg(message_type.MSG_NEW_ORDER, data=data)
 
 	wait_for_response(10)
-	orderID.append(conn.messages[-1].receive_data['OrderID'])
+	if len(conn.messages) > 0:
+		orderID.append(conn.messages[-1].receive_data['OrderID'])
 
 	conn.write_msg(message_type.MSG_OPEN_ORDER_REQUEST, data=data)
 	wait_for_response(3, errors='ignore')
 
-	data['MessageType'] = order_message_type.CANCEL_REPLACE
+	data['MessageType'] = order_message_type.ORDER_NEW
 	data['OrigOrderID'] = orderID[-1]
-	data['BOPrice'] = 40001
-	data['BOOrderQty'] = 30
-	conn.write_msg(message_type.MSG_NEW_ORDER,
-	               data=data)
+	data['BOPrice'] = 30001
+	data['BOOrderQty'] = 0.1
+	data['BOSide'] = side_type.BUY
+	conn.write_msg(message_type.MSG_NEW_ORDER, data=data)
 	wait_for_response(10)
 	orderID.append(conn.messages[-1].receive_data['OrderID'])
 
-	conn.write_msg(message_type.MSG_OPEN_ORDER_REQUEST, data=data)
-	wait_for_response(3, errors='ignore')
-
-	data['MessageType'] = order_message_type.ORDER_CANCEL
-	data['OrigOrderID'] = orderID[-1]
-
-	conn.write_msg(message_type.MSG_NEW_ORDER,
-	               data=data)
-
+	conn.write_msg(message_type.MSG_COLLATERAL_REQUEST)
 	wait_for_response(10)
 
 	conn.write_msg(message_type.MSG_OPEN_ORDER_REQUEST, data=data)
