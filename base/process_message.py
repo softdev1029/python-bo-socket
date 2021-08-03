@@ -1,4 +1,5 @@
 from base.create_message import create_message, get_message_type_from_header
+from base.on_message import onMessage
 
 RECV_NO_ERROR = -1
 RECV_ERROR_NOT_ENOUGH_HEADER = 0
@@ -42,6 +43,6 @@ def process_message(data):
                     print("Parse error")
                     return (False, RECV_ERROR_PARSE, None, None)
                 else:
-
+                    onMessage(msg)
                     return (True, RECV_NO_ERROR, msg, msg_len)
     return (False, RECV_ERROR_UNKNOWN)

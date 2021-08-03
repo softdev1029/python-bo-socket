@@ -1,0 +1,2 @@
+def onMessage(message):
+    pass
