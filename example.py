@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
 
+from constant.message_type import ORDER_ACK
 import sys
 import traceback
 
 from base.connection import start_connection
-from base.create_message import (
-    create_message,
-    MSG_CLIENT_LOGON,
+from example_message import (
+    create_client_logon,
+    create_client_logout,
+    create_new_limit_order,
 )
-from example_message import create_client_logon, create_client_logout
 
 message_type = ""
 
@@ -20,21 +21,26 @@ host, port = sys.argv[1], int(sys.argv[2])
 
 process_state = "send_logon"
 
+
 def onMessage(ret, reason, msg, msg_len):
     global process_state
     print("Received message: len=", msg_len)
     if ret is False:
         print("Failed Reason: ", reason)
         return
-    
-    if msg.Data1 == b"H": # logon message
-        if msg.LoginStatus == 1: # success
+
+    if msg.Data1 == b"H":  # logon message
+        if msg.LoginStatus == 1:  # success
             print("Logon success")
-            process_state = "send_logout"
-        elif msg.LoginStatus == 2: # failure
+            process_state = "send_order"
+        elif msg.LoginStatus == 2:  # failure
             print("Logon fail")
             msg.print_reject_reason()
-            
+            process_state = "exit"
+    elif msg.Data1 == b"T":  # order message
+        if msg.MessageType == ORDER_ACK:
+            print("Order replied")
+            process_state = "send_logout"
 
 
 sel = start_connection(host, port, onMessage)
@@ -44,12 +50,17 @@ try:
         events = sel.select(timeout=1)
         for key, mask in events:
             socket_controller = key.data
-            
+
             if process_state == "send_logon":
                 socket_controller.msgObj = create_client_logon()
                 socket_controller.is_send = True
                 print("Sending logon message ...\n")
                 process_state = "recv_logon"
+            elif process_state == "send_order":
+                socket_controller.msgObj = create_new_limit_order()
+                socket_controller.is_send = True
+                print("Sending order message ...\n")
+                process_state = "recv_order_reply"
             elif process_state == "send_logout":
                 socket_controller.msgObj = create_client_logout()
                 socket_controller.is_send = True
@@ -69,7 +80,7 @@ try:
 
         if process_state == "exit":
             break
-        
+
         # Check for a socket being monitored to continue.
         if not sel.get_map():
             break
