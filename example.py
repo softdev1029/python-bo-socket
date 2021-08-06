@@ -18,14 +18,23 @@ if len(sys.argv) != 3:
 
 host, port = sys.argv[1], int(sys.argv[2])
 
+process_state = "send_logon"
+
 def onMessage(ret, reason, msg, msg_len):
+    global process_state
     print("Received message: len=", msg_len)
     if ret is False:
         print("Failed Reason: ", reason)
+        return
+    
+    if msg.Data1 == b"H": # logon message
+        if msg.LoginStatus == 1: # success
+            print("Logon success")
+            process_state = "send_logout"
+            
+
 
 sel = start_connection(host, port, onMessage)
-
-process_state = "need_logon"
 
 try:
     while True:
@@ -33,16 +42,18 @@ try:
         for key, mask in events:
             socket_controller = key.data
             
-            if process_state == "need_logon":
+            if process_state == "send_logon":
                 socket_controller.msgObj = create_client_logon()
                 socket_controller.is_send = True
                 print("Sending logon message ...\n")
-                process_state = "need_logout"
-            elif process_state == "need_logout":
+                process_state = "recv_logon"
+            elif process_state == "send_logout":
                 socket_controller.msgObj = create_client_logout()
                 socket_controller.is_send = True
                 print("Sending logout message ...\n")
                 process_state = "exit"
+            else:
+                socket_controller.is_send = False
 
             try:
                 socket_controller.process_events(mask)

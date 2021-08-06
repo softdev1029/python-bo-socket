@@ -34,7 +34,7 @@ class ResponserSocketController(SocketController):
                 0,  # SendingTime
                 1500201,  # MsgSeqNum
                 432451,  # Key
-                0,  # LoginStatus
+                1,  # LoginStatus, success
                 0,  # RejectReason
                 "",  # RiskMaster
             )
