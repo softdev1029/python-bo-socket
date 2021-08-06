@@ -31,6 +31,9 @@ def onMessage(ret, reason, msg, msg_len):
         if msg.LoginStatus == 1: # success
             print("Logon success")
             process_state = "send_logout"
+        elif msg.LoginStatus == 2: # failure
+            print("Logon fail")
+            msg.print_reject_reason()
             
 
 

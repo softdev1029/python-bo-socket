@@ -34,8 +34,10 @@ class ResponserSocketController(SocketController):
                 0,  # SendingTime
                 1500201,  # MsgSeqNum
                 432451,  # Key
-                1,  # LoginStatus, success
-                0,  # RejectReason
+                # 1,  # LoginStatus, success
+                # 0,  # RejectReason
+                2,  # LoginStatus, fail
+                4,  # RejectReason, INVALID_KEY
                 "",  # RiskMaster
             )
             self.msgObj = message
