@@ -1,6 +1,7 @@
 import struct
 from utils.helper import print_bytes_hex
 from base.message import Message
+from base.logger import log
 
 
 class NewLimitOrder(Message):
@@ -186,7 +187,7 @@ class NewLimitOrder(Message):
             print_bytes_hex("Encoded New Limit Order message", self.binary_data, "")
             return True
         except Exception as e:
-            print(e)
+            log(e)
             return False
 
     def decode(self, data):
@@ -237,7 +238,7 @@ class NewLimitOrder(Message):
                 unpacked_data[38],
                 unpacked_data[39],
             )
-            print(
+            log(
                 "\nDecoded New Limit Order message:",
                 "\n\tData1\t\t\t",
                 self.Data1,
@@ -256,13 +257,13 @@ class NewLimitOrder(Message):
             )
 
             is_valid = self.validate()
-            print("Valid:", is_valid)
+            log("Valid:", is_valid)
             if is_valid is False:
                 self.print_reject_reason()
             self.binary_data = data
             return True
         except Exception as e:
-            print(e)
+            log(e)
             return False
 
     def parse_message(self, data):

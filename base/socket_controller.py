@@ -1,4 +1,5 @@
 from base.process_message import process_message
+from base.logger import log
 import selectors
 
 
@@ -46,7 +47,7 @@ class SocketController:
 
     def _write(self):
         if self._send_buffer:
-            print("\nsending", len(self._send_buffer), "bytes to", self.addr, " ...\n")
+            log("Sending", len(self._send_buffer), "bytes to", self.addr, " ...\n")
             try:
                 # Should be ready to write
                 sent = self.sock.send(self._send_buffer)
@@ -69,14 +70,14 @@ class SocketController:
         while need_read:
             recv_len = self._read()
             if recv_len == 0:
-                print("No more receive data\n")
+                log("No more receive data\n")
 
             need_read = recv_len > 0
 
             ret = need_read
             while ret:
                 (ret, reason, msg, msg_len) = process_message(self._recv_buffer)
-                if self.recv_callback is not None:
+                if self.recv_callback is not None and msg_len != None:
                     self.recv_callback(ret, reason, msg, msg_len)
                 if ret:
                     self._recv_buffer = self._recv_buffer[msg_len:]
@@ -92,11 +93,11 @@ class SocketController:
         self._write()
 
     def close(self):
-        print("closing connection to", self.addr)
+        log("closing connection to", self.addr)
         try:
             self.selector.unregister(self.sock)
         except Exception as e:
-            print(
+            log(
                 "error: selector.unregister() exception for",
                 f"{self.addr}: {repr(e)}",
             )
@@ -104,7 +105,7 @@ class SocketController:
         try:
             self.sock.close()
         except OSError as e:
-            print(
+            log(
                 "error: socket.close() exception for",
                 f"{self.addr}: {repr(e)}",
             )

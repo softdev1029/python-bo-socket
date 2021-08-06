@@ -1,6 +1,7 @@
 import struct
 from utils.helper import print_bytes_hex
 from base.message import Message
+from base.logger import log
 
 
 class FiveLevelData(Message):
@@ -61,7 +62,7 @@ class FiveLevelData(Message):
             print_bytes_hex("Encoded Risk User Symbol message", self.binary_data, "")
             return True
         except Exception as e:
-            print(e)
+            log(e)
             return False
 
     def decode(self, data):
@@ -71,11 +72,11 @@ class FiveLevelData(Message):
             )
             unpacked_data = s.unpack(data)
             self.get_data(*unpacked_data)
-            print("Decoded Risk User Symbol message", self.decoded_data)
+            log("Decoded Risk User Symbol message", self.decoded_data)
             self.binary_data = data
             return True
         except Exception as e:
-            print(e)
+            log(e)
             return False
 
 

@@ -1,6 +1,7 @@
 import struct
 from utils.helper import print_bytes_hex
 from base.message import Message
+from base.logger import log
 
 
 class CollateralRequest(Message):
@@ -43,7 +44,7 @@ class CollateralRequest(Message):
             print_bytes_hex("Encoded Collateral Req message", self.binary_data, "")
             return True
         except Exception as e:
-            print(e)
+            log(e)
             return False
 
     def parse_message(self, data):

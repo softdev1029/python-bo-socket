@@ -4,12 +4,13 @@ import socket
 import selectors
 
 import initiator_socket_controller
+from base.logger import log
 
 sel = selectors.DefaultSelector()
 
 def start_connection(host, port, recv_callback):
     addr = (host, port)
-    print("\nstarting connection to", addr, " ...\n")
+    log("Starting connection to", addr, " ...\n")
 
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.setblocking(False)

@@ -1,6 +1,7 @@
 import struct
 from utils.helper import print_bytes_hex
 from base.message import Message
+from base.logger import log
 
 
 class RiskUpdateRequest(Message):
@@ -67,14 +68,14 @@ class RiskUpdateRequest(Message):
             print_bytes_hex("Encoded Risk Update Request message", self.binary_data, "")
             return True
         except Exception as e:
-            print(e)
+            log(e)
             return False
 
     def decode(self, data):
         try:
             s = struct.Struct("= 1s 1s H H H I I H I I Q")
             unpacked_data = s.unpack(data)
-            print(
+            log(
                 "Decoded Risk Update Request message:",
                 "\n\tdata1\t\t\t\t",
                 unpacked_data[0],
@@ -114,11 +115,11 @@ class RiskUpdateRequest(Message):
                 unpacked_data[10],
             )
             # is_valid = self.validate()
-            # print("Valid = ", is_valid)
+            # log("Valid = ", is_valid)
             self.binary_data = data
             return True
         except Exception as e:
-            print(e)
+            log(e)
             return False
 
 

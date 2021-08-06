@@ -1,5 +1,6 @@
 from base.create_message import create_message, get_message_type_from_header
 from base.on_message import onMessage
+from base.logger import log
 
 RECV_NO_ERROR = -1
 RECV_ERROR_NOT_ENOUGH_HEADER = 0
@@ -15,12 +16,12 @@ def parse_header(data):
 
 def process_message(data):
     if len(data) < 3:
-        print("Invalid buffer, length is", len(data))
+        log("Invalid buffer, length is", len(data))
         return (False, RECV_ERROR_NOT_ENOUGH_HEADER, None, None)
     else:
         (msg_key, msg_len) = parse_header(data)
         if len(data) < msg_len:
-            print(
+            log(
                 "Invalid buffer, length is",
                 len(data),
                 "requied len is",
@@ -29,10 +30,10 @@ def process_message(data):
             return (False, RECV_ERROR_NOT_ENOUGH_BODY, None, None)
         else:
             msg_type = get_message_type_from_header(msg_key)
-            print("\nMessage type is", msg_type)
-            print("Buffer size is", len(data), "required len is", msg_len)
+            log("Message type is", msg_type)
+            log("Buffer size is", len(data), "required len is", msg_len)
             if msg_type == "":
-                print("Invalid message type", msg_key)
+                log("Invalid message type", msg_key)
                 return (False, RECV_ERROR_INVALID_MSG_TYPE, None, None)
             else:
                 msg = create_message(msg_type)
@@ -40,7 +41,7 @@ def process_message(data):
 
                 ret = msg.parse_message(parsing_data)
                 if not ret:
-                    print("Parse error")
+                    log("Parse error")
                     return (False, RECV_ERROR_PARSE, None, None)
                 else:
                     onMessage(msg)

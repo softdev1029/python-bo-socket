@@ -1,6 +1,7 @@
 import struct
 import binascii
 from base.message import Message
+from base.logger import log
 
 
 class Collateral(Message):
@@ -37,10 +38,10 @@ class Collateral(Message):
         try:
             s = struct.Struct("= H H 6s I H d d d d d 1s d d d d d d d d d d d I I I")
             unpacked_data = s.unpack(data[4:])
-            print(unpacked_data)
+            log(unpacked_data)
             return True
         except Exception as e:
-            print(e)
+            log(e)
             return False
 
     def parse_message(self, data):

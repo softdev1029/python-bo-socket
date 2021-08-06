@@ -1,5 +1,5 @@
 from constant import constant, reject_code, message_type, order_type, attribute
-
+from base.logger import log
 
 class Message:
     def __init__(self):
@@ -62,7 +62,7 @@ class Message:
         return self.decode(data)
 
     def print_reject_reason(self):
-        print("Reject Code: ", self.RejectReason)
+        log("Reject Code: ", self.RejectReason)
         msg = "Reject Reason: "
         if self.RejectReason == reject_code.ORDER_NOT_FOUND:
             msg += "ORDER_NOT_FOUND"
@@ -198,7 +198,7 @@ class Message:
             msg += "NO_MARKET_MAKER_VOLUME"
         else:
             msg += "UNKNOWN_REJCT"
-        print(msg)
+        log(msg)
 
     def validate(self):
         if (
