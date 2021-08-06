@@ -11,6 +11,10 @@ from base.create_message import create_message
 
 sel = selectors.DefaultSelector()
 
+def onMessage(ret, reason, msg, msg_len):
+    print("Received message: len=", msg_len)
+    if ret is False:
+        print("Failed Reason: ", reason)
 
 def start_connection(host, port):
     lsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -32,7 +36,7 @@ def accept_wrapper(
     conn.setblocking(False)
 
     socket_controller = responser_socket_controller.ResponserSocketController(
-        sel, conn, addr, None
+        sel, conn, addr, None, onMessage
     )
     sel.register(conn, selectors.EVENT_READ, data=socket_controller)
 

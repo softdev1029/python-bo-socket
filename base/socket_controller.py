@@ -3,7 +3,7 @@ import selectors
 
 
 class SocketController:
-    def __init__(self, sel, sock, addr, msgObj):
+    def __init__(self, sel, sock, addr, msgObj, recv_callback):
         self.selector = sel
         self.sock = sock
         self.addr = addr
@@ -14,6 +14,8 @@ class SocketController:
         self.msgObj = msgObj
 
         self.is_send = False
+
+        self.recv_callback = recv_callback
 
     def _set_selector_events_mask(self, mode):
         """Set selector to listen for events: mode is 'r', 'w', or 'rw'."""
@@ -74,6 +76,8 @@ class SocketController:
             ret = need_read
             while ret:
                 (ret, reason, msg, msg_len) = process_message(self._recv_buffer)
+                if self.recv_callback is not None:
+                    self.recv_callback(ret, reason, msg, msg_len)
                 if ret:
                     self._recv_buffer = self._recv_buffer[msg_len:]
 

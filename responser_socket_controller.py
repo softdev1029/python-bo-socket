@@ -4,8 +4,8 @@ import time
 
 
 class ResponserSocketController(SocketController):
-    def __init__(self, sel, sock, addr, msgObj):
-        super(ResponserSocketController, self).__init__(sel, sock, addr, msgObj)
+    def __init__(self, sel, sock, addr, msgObj, recv_callback):
+        super(ResponserSocketController, self).__init__(sel, sock, addr, msgObj, recv_callback)
 
         self._response_created = None
 
