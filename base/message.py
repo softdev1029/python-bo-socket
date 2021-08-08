@@ -1,6 +1,7 @@
 from constant import constant, reject_code, message_type, order_type, attribute
 from base.logger import log
 
+
 class Message:
     def __init__(self):
         self.data = ()
@@ -49,8 +50,13 @@ class Message:
 
         pass
 
-    def set_data(self, *args):
-        pass
+    def set_data(self, *data):
+        self.data = [d if not isinstance(d, str) else d.encode("utf-8") for d in data]
+
+    def set_extend_data(self, *data):
+        self.data.extend(
+            [d if not isinstance(d, str) else d.encode("utf-8") for d in data]
+        )
 
     def encode(self):
         return False

@@ -9,14 +9,6 @@ class BaseLevelData(Message):
         self.data = ()
         self.binary_data = None
 
-    def set_data(self, *data):
-        self.data = [d if not isinstance(d, str) else d.encode("utf-8") for d in data]
-
-    def set_extend_data(self, *data):
-        self.data.extend(
-            [d if not isinstance(d, str) else d.encode("utf-8") for d in data]
-        )
-
     def encode(self):
         try:
             format = "= 1s 1s H H H H H q I H 12s"
