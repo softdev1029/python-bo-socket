@@ -11,7 +11,7 @@ RECV_ERROR_UNKNOWN = 4
 
 
 def parse_header(data):
-    return (chr(data[0]), data[2])
+    return (chr(data[0]), data[2] + data[3] * 256)
 
 
 def process_message(data):

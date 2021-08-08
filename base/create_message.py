@@ -1,4 +1,5 @@
 from market.five_level_data import create_five_level_data
+from market.ten_level_data import create_ten_level_data
 from market.three_level_data import create_three_level_data
 from market.tob_msg import create_tob_msg
 from market.md_exec_report import create_md_exec_report
@@ -27,6 +28,7 @@ MSG_MD_EXEC_REPORT = "md_exec_report"
 MSG_TOB_MSG = "tob_msg"
 MSG_THREE_LEVEL_DATA = "three_level_data"
 MSG_FIVE_LEVEL_DATA = "five_level_data"
+MSG_TEN_LEVEL_DATA = "ten_level_data"
 
 REQUEST_MESSAGE_TYPES = {
     "H": MSG_CLIENT_LOGON,
@@ -40,6 +42,7 @@ REQUEST_MESSAGE_TYPES = {
     "t": MSG_TOB_MSG,
     "M": MSG_THREE_LEVEL_DATA,
     "m": MSG_FIVE_LEVEL_DATA,
+    "O": MSG_TEN_LEVEL_DATA,
 }
 
 MESSAGE_TYPES = {
@@ -55,6 +58,7 @@ MESSAGE_TYPES = {
     "t": MSG_TOB_MSG,
     "M": MSG_THREE_LEVEL_DATA,
     "m": MSG_FIVE_LEVEL_DATA,
+    "O": MSG_TEN_LEVEL_DATA,
 }
 
 
@@ -85,6 +89,8 @@ def create_message(message_type):
         message = create_three_level_data()
     elif message_type == MSG_FIVE_LEVEL_DATA:
         message = create_five_level_data()
+    elif message_type == MSG_TEN_LEVEL_DATA:
+        message = create_ten_level_data()
     else:
         message = create_base_message()
     return message
