@@ -1,3 +1,4 @@
+from market.md_exec_report import create_md_exec_report
 from base.message import create_base_message
 from auth.client_logon import ClientLogon, create_client_logon
 from auth.instrument_request import InstrumentRequest, create_instrument_request
@@ -19,6 +20,7 @@ MSG_OPEN_ORDER_REQUEST = "open_order_request"
 MSG_COLLATERAL_REQUEST = "collateral_request"
 MSG_NEW_LIMIT_ORDER = "new_limit_order"
 MSG_MD_SUBSCRIBE = "md_subscribe"
+MSG_MD_EXEC_REPORT = "md_exec_report"
 
 REQUEST_MESSAGE_TYPES = {
     "H": MSG_CLIENT_LOGON,
@@ -28,6 +30,7 @@ REQUEST_MESSAGE_TYPES = {
     "f": MSG_COLLATERAL_REQUEST,
     "T": MSG_NEW_LIMIT_ORDER,
     "s": MSG_MD_SUBSCRIBE,
+    "V": MSG_MD_EXEC_REPORT,
 }
 
 MESSAGE_TYPES = {
@@ -39,6 +42,7 @@ MESSAGE_TYPES = {
     "f": MSG_COLLATERAL_REQUEST,
     "T": MSG_NEW_LIMIT_ORDER,
     "s": MSG_MD_SUBSCRIBE,
+    "V": MSG_MD_EXEC_REPORT,
 }
 
 
@@ -61,6 +65,8 @@ def create_message(message_type):
         message = create_new_limit_order()
     elif message_type == MSG_MD_SUBSCRIBE:
         message = create_md_subscribe()
+    elif message_type == MSG_MD_EXEC_REPORT:
+        message = create_md_exec_report()
     else:
         message = create_base_message()
     return message
