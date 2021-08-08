@@ -141,7 +141,7 @@ class FiveLevelData(Message):
 def create_five_level_data():
     message = FiveLevelData()
     message.set_data(
-        "M",  # data1
+        "m",  # data1
         "",  # data2
         164,  # data3
         1,  # MessageType, BUY
