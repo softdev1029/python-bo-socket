@@ -8,7 +8,6 @@ class BaseLevelData(Message):
     def __init__(self):
         self.data = ()
         self.binary_data = None
-        self.level_count = 20  # Ten Level Data message
 
     def set_data(self, *data):
         self.data = [d if not isinstance(d, str) else d.encode("utf-8") for d in data]
