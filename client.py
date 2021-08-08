@@ -19,6 +19,10 @@ sel = selectors.DefaultSelector()
 message_type = ""
 
 
+def onMessage(ret, reason, msg, msg_len):
+    pass
+
+
 def start_connection(host, port):
     addr = (host, port)
     print("\nstarting connection to", addr, " ...\n")
@@ -31,7 +35,7 @@ def start_connection(host, port):
 
     events = selectors.EVENT_READ | selectors.EVENT_WRITE
     socket_controller = initiator_socket_controller.InitiatorSocketController(
-        sel, sock, addr, msgObj
+        sel, sock, addr, msgObj, onMessage
     )
     sel.register(sock, events, data=socket_controller)
 

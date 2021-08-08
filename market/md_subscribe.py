@@ -65,7 +65,7 @@ def create_md_subscribe():
     message.set_data(
         "s",  # data1
         "",  # data2
-        40,  # data3
+        32,  # data3
         1,  # MessageType, TOB
         0,  # padding
         100700,  # account

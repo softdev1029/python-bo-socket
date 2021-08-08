@@ -8,6 +8,7 @@ from auth.open_order_request import OpenOrderRequest, create_open_order_request
 from trade.collateral_request import CollateralRequest, create_collateral_request
 from trade.collateral import Collateral
 from transaction.new_limit_order import NewLimitOrder, create_new_limit_order
+from market.md_subscribe import create_md_subscribe
 
 MSG_CLIENT_LOGON = "client_logon"
 MSG_INSTRUMENT_REQUEST = "instrument_request"
@@ -17,6 +18,7 @@ MSG_RISK_USER_SYMBOL = "risk_user_symbol"
 MSG_OPEN_ORDER_REQUEST = "open_order_request"
 MSG_COLLATERAL_REQUEST = "collateral_request"
 MSG_NEW_LIMIT_ORDER = "new_limit_order"
+MSG_MD_SUBSCRIBE = "md_subscribe"
 
 REQUEST_MESSAGE_TYPES = {
     "H": MSG_CLIENT_LOGON,
@@ -25,6 +27,7 @@ REQUEST_MESSAGE_TYPES = {
     "E": MSG_OPEN_ORDER_REQUEST,
     "f": MSG_COLLATERAL_REQUEST,
     "T": MSG_NEW_LIMIT_ORDER,
+    "s": MSG_MD_SUBSCRIBE,
 }
 
 MESSAGE_TYPES = {
@@ -35,6 +38,7 @@ MESSAGE_TYPES = {
     "E": MSG_OPEN_ORDER_REQUEST,
     "f": MSG_COLLATERAL_REQUEST,
     "T": MSG_NEW_LIMIT_ORDER,
+    "s": MSG_MD_SUBSCRIBE,
 }
 
 
@@ -55,6 +59,8 @@ def create_message(message_type):
         message = create_collateral_request()
     elif message_type == MSG_NEW_LIMIT_ORDER:
         message = create_new_limit_order()
+    elif message_type == MSG_MD_SUBSCRIBE:
+        message = create_md_subscribe()
     else:
         message = create_base_message()
     return message
