@@ -1,3 +1,4 @@
+from market.tob_msg import create_tob_msg
 from market.md_exec_report import create_md_exec_report
 from base.message import create_base_message
 from auth.client_logon import ClientLogon, create_client_logon
@@ -21,6 +22,7 @@ MSG_COLLATERAL_REQUEST = "collateral_request"
 MSG_NEW_LIMIT_ORDER = "new_limit_order"
 MSG_MD_SUBSCRIBE = "md_subscribe"
 MSG_MD_EXEC_REPORT = "md_exec_report"
+MSG_TOB_MSG = "tob_msg"
 
 REQUEST_MESSAGE_TYPES = {
     "H": MSG_CLIENT_LOGON,
@@ -31,6 +33,7 @@ REQUEST_MESSAGE_TYPES = {
     "T": MSG_NEW_LIMIT_ORDER,
     "s": MSG_MD_SUBSCRIBE,
     "V": MSG_MD_EXEC_REPORT,
+    "t": MSG_TOB_MSG,
 }
 
 MESSAGE_TYPES = {
@@ -43,6 +46,7 @@ MESSAGE_TYPES = {
     "T": MSG_NEW_LIMIT_ORDER,
     "s": MSG_MD_SUBSCRIBE,
     "V": MSG_MD_EXEC_REPORT,
+    "t": MSG_TOB_MSG,
 }
 
 
@@ -67,6 +71,8 @@ def create_message(message_type):
         message = create_md_subscribe()
     elif message_type == MSG_MD_EXEC_REPORT:
         message = create_md_exec_report()
+    elif message_type == MSG_TOB_MSG:
+        message = create_tob_msg()
     else:
         message = create_base_message()
     return message
