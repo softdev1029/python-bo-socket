@@ -1,3 +1,4 @@
+from market.three_level_data import create_three_level_data
 from market.tob_msg import create_tob_msg
 from market.md_exec_report import create_md_exec_report
 from base.message import create_base_message
@@ -23,6 +24,7 @@ MSG_NEW_LIMIT_ORDER = "new_limit_order"
 MSG_MD_SUBSCRIBE = "md_subscribe"
 MSG_MD_EXEC_REPORT = "md_exec_report"
 MSG_TOB_MSG = "tob_msg"
+MSG_THREE_LEVEL_DATA = "three_level_data"
 
 REQUEST_MESSAGE_TYPES = {
     "H": MSG_CLIENT_LOGON,
@@ -34,6 +36,7 @@ REQUEST_MESSAGE_TYPES = {
     "s": MSG_MD_SUBSCRIBE,
     "V": MSG_MD_EXEC_REPORT,
     "t": MSG_TOB_MSG,
+    "M": MSG_THREE_LEVEL_DATA,
 }
 
 MESSAGE_TYPES = {
@@ -47,6 +50,7 @@ MESSAGE_TYPES = {
     "s": MSG_MD_SUBSCRIBE,
     "V": MSG_MD_EXEC_REPORT,
     "t": MSG_TOB_MSG,
+    "M": MSG_THREE_LEVEL_DATA,
 }
 
 
@@ -73,6 +77,8 @@ def create_message(message_type):
         message = create_md_exec_report()
     elif message_type == MSG_TOB_MSG:
         message = create_tob_msg()
+    elif message_type == MSG_THREE_LEVEL_DATA:
+        message = create_three_level_data()
     else:
         message = create_base_message()
     return message
