@@ -91,7 +91,7 @@ class Message:
         try:
             s = self.make_pack_struct()
             unpacked_data = s.unpack(data)
-            self.get_data(*unpacked_data)
+            self.set_data_from_decoded(*unpacked_data)
             self.print_message()
 
             is_valid = self.validate()
@@ -104,7 +104,7 @@ class Message:
             log(e)
             return False
 
-    def get_data(self, *data):
+    def set_data_from_decoded(self, *data):
         for i, d in enumerate(data):
             self.__setattr__(
                 self._names[i], d if not isinstance(d, bytes) else d.decode("utf-8")

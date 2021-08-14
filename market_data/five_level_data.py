@@ -46,7 +46,7 @@ class FiveLevelData(Message):
         else:
             raise Exception("Message has not valid length")
 
-    def get_data(self, *data):
+    def set_data_from_decoded(self, *data):
 
         self.decoded_data = {
             self._names[i]: d if not isinstance(d, bytes) else d.decode("utf-8")
@@ -71,7 +71,7 @@ class FiveLevelData(Message):
                 "= 1s 1s H H H 6s I H d d d d d B d d d d d d d d d d d I I I"
             )
             unpacked_data = s.unpack(data)
-            self.get_data(*unpacked_data)
+            self.set_data_from_decoded(*unpacked_data)
             log("Decoded Risk User Symbol message", self.decoded_data)
             self.binary_data = data
             return True
