@@ -13,11 +13,12 @@ from example_message import (
 
 message_type = ""
 
-if len(sys.argv) != 3:
-    print("usage:", sys.argv[0], "<host> <port>")
-    sys.exit(1)
+print("This is the example program showing how to use Python binary socket library.\n")
+print("1. Specify the IPv4 address and the port number of the server\n")
 
-host, port = sys.argv[1], int(sys.argv[2])
+host = input("Enter a valid a IPv4 address: ")
+port = input("Enter a valid a port number: ")
+port = int(port)
 
 process_state = "send_logon"
 
@@ -52,19 +53,19 @@ try:
             socket_controller = key.data
 
             if process_state == "send_logon":
+                print("\n2. Send the Logon message\n")
                 socket_controller.msgObj = create_client_logon()
                 socket_controller.is_send = True
-                print("Sending logon message ...\n")
                 process_state = "recv_logon"
             elif process_state == "send_order":
                 socket_controller.msgObj = create_new_limit_order()
                 socket_controller.is_send = True
-                print("Sending order message ...\n")
+                print("\n3. Send the Order message\n")
                 process_state = "recv_order_reply"
             elif process_state == "send_logout":
                 socket_controller.msgObj = create_client_logout()
                 socket_controller.is_send = True
-                print("Sending logout message ...\n")
+                print("\n4. Send the Logout message\n")
                 process_state = "exit"
             else:
                 socket_controller.is_send = False

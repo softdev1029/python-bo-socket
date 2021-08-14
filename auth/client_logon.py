@@ -7,22 +7,26 @@ from base.logger import log
 class ClientLogon(Message):
     def __init__(self):
         super(ClientLogon, self).__init__()
-
-        self.MessageType = 1000
-
-        self.LogonType = None
-        self.TwoFA = None
-        self.UserName = None
-        self.PrimaryOrderEntryIP = None
-        self.SecondaryOrderEntryIP = None
-        self.PrimaryMarketDataIP = None
-        self.SecondaryMarketDataIP = None
-        self.LastSeqNum = None
-        self.LoginStatus = None
-        self.RiskMaster = None
-
-        self.data = ()
-        self.binary_data = None
+        self._names = (
+            "Data1",
+            "Data2",
+            "Data3",
+            "LogonType",
+            "Account",
+            "TwoFA",
+            "UserName",
+            "TradingSessionID",
+            "PrimaryOrderEntryIP",
+            "SecondaryOrderEntryIP",
+            "PrimaryMarketDataIP",
+            "SecondaryMarketDataIP",
+            "SendingTime",
+            "LastSeqNum",
+            "Key",
+            "LoginStatus",
+            "RejectReason",
+            "RiskMaster",
+        )
 
     def set_parsed_data(self, *args):
         i = 0
@@ -61,48 +65,6 @@ class ClientLogon(Message):
         self.RejectReason = args[i]
         i += 1
         self.RiskMaster = args[i]
-
-    def set_data(
-        self,
-        data1,
-        data2,
-        data3,
-        logonType,
-        account,
-        twoFA,
-        userName,
-        tradingSessionID,
-        primaryOrderEntryIP,
-        secondaryOrderEntryIP,
-        primaryMarketDataIP,
-        secondaryMarketDataIP,
-        sendingTime,
-        lastSeqNum,
-        key,
-        loginStatus,
-        rejectReason,
-        riskMaster,
-    ):
-        self.data = (
-            data1.encode("utf-8"),
-            data2.encode("utf-8"),
-            data3,
-            logonType,
-            account,
-            twoFA.encode("utf-8"),
-            userName.encode("utf-8"),
-            tradingSessionID,
-            primaryOrderEntryIP.encode("utf-8"),
-            secondaryOrderEntryIP.encode("utf-8"),
-            primaryMarketDataIP.encode("utf-8"),
-            secondaryMarketDataIP.encode("utf-8"),
-            sendingTime,
-            lastSeqNum,
-            key,
-            loginStatus,
-            rejectReason,
-            riskMaster.encode("utf-8"),
-        )
 
     def encode(self):
         try:

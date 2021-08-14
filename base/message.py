@@ -6,6 +6,7 @@ class Message:
     def __init__(self):
         self.data = ()
         self.binary_data = None
+        self._names = ()
 
         self.Data1 = None
         self.Data2 = None
@@ -52,6 +53,8 @@ class Message:
 
     def set_data(self, *data):
         self.data = [d if not isinstance(d, str) else d.encode("utf-8") for d in data]
+        for i, d in enumerate(self.data):
+            self.__setattr__(self._names[i], d)
 
     def set_extend_data(self, *data):
         self.data.extend(
@@ -66,6 +69,10 @@ class Message:
 
     def parse_message(self, data):
         return self.decode(data)
+
+    def print_message(self):
+        for d in self._names:
+            log("\t", d, ": ", self.__getattribute__(d))
 
     def print_reject_reason(self):
         log("Reject Code: ", self.RejectReason)

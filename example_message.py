@@ -1,6 +1,7 @@
 from auth.client_logon import ClientLogon
 from transaction.new_limit_order import NewLimitOrder
 
+
 def create_client_logon():
     message = ClientLogon()
     message.set_data(
@@ -23,6 +24,8 @@ def create_client_logon():
         0,  # RejectReason
         "",  # RiskMaster
     )
+    message.print_message()
+
     return message
 
 
@@ -49,6 +52,7 @@ def create_client_logout():
         "",  # RiskMaster
     )
     return message
+
 
 def create_new_limit_order():
     message = NewLimitOrder()
