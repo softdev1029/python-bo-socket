@@ -19,6 +19,8 @@ print("1. Specify the IPv4 address and the port number of the server\n")
 host = input("Enter a valid a IPv4 address: ")
 port = input("Enter a valid a port number: ")
 port = int(port)
+# host = "127.0.0.1"
+# port = 4444
 
 process_state = "send_logon"
 
@@ -58,14 +60,14 @@ try:
                 socket_controller.is_send = True
                 process_state = "recv_logon"
             elif process_state == "send_order":
+                print("\n3. Send the Order message\n")
                 socket_controller.msgObj = create_new_limit_order()
                 socket_controller.is_send = True
-                print("\n3. Send the Order message\n")
                 process_state = "recv_order_reply"
             elif process_state == "send_logout":
+                print("\n4. Send the Logout message\n")
                 socket_controller.msgObj = create_client_logout()
                 socket_controller.is_send = True
-                print("\n4. Send the Logout message\n")
                 process_state = "exit"
             else:
                 socket_controller.is_send = False

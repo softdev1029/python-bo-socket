@@ -6,268 +6,55 @@ from base.logger import log
 
 class NewLimitOrder(Message):
     def __init__(self):
-        self.data = ()
-        self.binary_data = None
-
-    # 40 args
-    def set_parsed_data(self, *args):
-        i = 0
-        self.Data1 = args[i]
-        i += 1
-        self.Data2 = args[i]
-        i += 1
-        self.MessageLen = args[i]
-        i += 1
-        self.MessageType = args[i]
-        i += 1
-        self.Padding = args[i]
-        i += 1
-        self.Account = args[i]
-        i += 1
-        self.OrderID = args[i]
-        i += 1
-        self.SymbolEnum = args[i]
-        i += 1
-        self.OrderType = args[i]
-        i += 1
-        self.SymbolType = args[i]
-        i += 1
-        self.BOPrice = args[i]
-        i += 1
-        self.BOSide = args[i]
-        i += 1
-        self.BOOrderQty = args[i]
-        i += 1
-        self.TIF = args[i]
-        i += 1
-        self.StopLimitPrice = args[i]
-        i += 1
-        self.BOSymbol = args[i]
-        i += 1
-        self.OrigOrderID = args[i]
-        i += 1
-        self.BOCancelShares = args[i]
-        i += 1
-        self.ExecID = args[i]
-        i += 1
-        self.ExecShares = args[i]
-        i += 1
-        self.RemainingQuantity = args[i]
-        i += 1
-        self.ExecFee = args[i]
-        i += 1
-        self.ExpirationDate = args[i]
-        i += 1
-        self.TraderID = args[i]
-        i += 1
-        self.RejectReason = args[i]
-        i += 1
-        self.SendingTime = args[i]
-        i += 1
-        self.TradingSessionID = args[i]
-        i += 1
-        self.Key = args[i]
-        i += 1
-        self.DisplaySize = args[i]
-        i += 1
-        self.RefreshSize = args[i]
-        i += 1
-        self.Layers = args[i]
-        i += 1
-        self.SizeIncrement = args[i]
-        i += 1
-        self.PriceIncrement = args[i]
-        i += 1
-        self.PriceOffset = args[i]
-        i += 1
-        self.BOOrigPrice = args[i]
-        i += 1
-        self.ExecPrice = args[i]
-        i += 1
-        self.MsgSeqNum = args[i]
-        i += 1
-        self.TakeProfitPrice = args[i]
-        i += 1
-        self.TriggerType = args[i]
-        i += 1
-        self.Attributes = args[i]
-
-    def set_data(
-        self,
-        data1,
-        data2,
-        data3,
-        messageType,
-        padding,
-        account,
-        orderID,
-        symbolEnum,
-        OrderType,
-        SymbolType,
-        BOPrice,
-        BOSide,
-        BOOrderQty,
-        TIF,
-        StopLimitPrice,
-        BOSymbol,
-        OrigOrderID,
-        BOCancelShares,
-        ExecID,
-        ExecShares,
-        RemainingQuantity,
-        ExecFee,
-        ExpirationDate,
-        TraderID,
-        RejectReason,
-        SendingTime,
-        TradingSessionID,
-        Key,
-        DisplaySize,
-        RefreshSize,
-        Layers,
-        SizeIncrement,
-        PriceIncrement,
-        PriceOffset,
-        BOOrigPrice,
-        ExecPrice,
-        MsgSeqNum,
-        TakeProfitPrice,
-        TriggerType,
-        Attributes,
-    ):
-        self.data = (
-            data1.encode("utf-8"),
-            data2.encode("utf-8"),
-            data3,
-            messageType,
-            padding,
-            account,
-            orderID,
-            symbolEnum,
-            OrderType,
-            SymbolType,
-            BOPrice,
-            BOSide,
-            BOOrderQty,
-            TIF,
-            StopLimitPrice,
-            BOSymbol.encode("utf-8"),
-            OrigOrderID,
-            BOCancelShares,
-            ExecID,
-            ExecShares,
-            RemainingQuantity,
-            ExecFee,
-            ExpirationDate.encode("utf-8"),
-            TraderID.encode("utf-8"),
-            RejectReason,
-            SendingTime,
-            TradingSessionID,
-            Key,
-            DisplaySize,
-            RefreshSize,
-            Layers,
-            SizeIncrement,
-            PriceIncrement,
-            PriceOffset,
-            BOOrigPrice,
-            ExecPrice,
-            MsgSeqNum,
-            TakeProfitPrice,
-            TriggerType,
-            Attributes.encode("utf-8"),
+        super(NewLimitOrder, self).__init__()
+        self.MessageName = "New Limit Order"
+        self._names = (
+            "Data1",
+            "Data2",
+            "Data3",
+            "MessageType",
+            "Padding",
+            "Account",
+            "OrderID",
+            "SymbolEnum",
+            "OrderType",
+            "SymbolType",
+            "BOPrice",
+            "BOSide",
+            "BOOrderQty",
+            "TIF",
+            "StopLimitPrice",
+            "BOSymbol",
+            "OrigOrderID",
+            "BOCancelShares",
+            "ExecID",
+            "ExecShares",
+            "RemainingQuantity",
+            "ExecFee",
+            "ExpirationDate",
+            "TraderID",
+            "RejectReason",
+            "SendingTime",
+            "TradingSessionID",
+            "Key",
+            "DisplaySize",
+            "RefreshSize",
+            "Layers",
+            "SizeIncrement",
+            "PriceIncrement",
+            "PriceOffset",
+            "BOOrigPrice",
+            "ExecPrice",
+            "MsgSeqNum",
+            "TakeProfitPrice",
+            "TriggerType",
+            "Attributes",
         )
 
-    def encode(self):
-        try:
-            s = struct.Struct(
-                "= 1s 1s H H H I Q H H H d H d H d 12s Q d Q d d d 12s 6s H Q i i d d h d d d d d q d H 12s"
-            )
-            self.binary_data = s.pack(*(self.data))
-            print_bytes_hex("Encoded New Limit Order message", self.binary_data, "")
-            return True
-        except Exception as e:
-            log(e)
-            return False
-
-    def decode(self, data):
-        try:
-            s = struct.Struct(
-                "= 1s 1s H H H I Q H H H d H d H d 12s Q d Q d d d 12s 6s H Q i i d d h d d d d d q d H 12s"
-            )
-            unpacked_data = s.unpack(data)
-            self.set_parsed_data(
-                unpacked_data[0],
-                unpacked_data[1],
-                unpacked_data[2],
-                unpacked_data[3],
-                unpacked_data[4],
-                unpacked_data[5],
-                unpacked_data[6],
-                unpacked_data[7],
-                unpacked_data[8],
-                unpacked_data[9],
-                unpacked_data[10],
-                unpacked_data[11],
-                unpacked_data[12],
-                unpacked_data[13],
-                unpacked_data[14],
-                unpacked_data[15],
-                unpacked_data[16],
-                unpacked_data[17],
-                unpacked_data[18],
-                unpacked_data[19],
-                unpacked_data[20],
-                unpacked_data[21],
-                unpacked_data[22],
-                unpacked_data[23],
-                unpacked_data[24],
-                unpacked_data[25],
-                unpacked_data[26],
-                unpacked_data[27],
-                unpacked_data[28],
-                unpacked_data[29],
-                unpacked_data[30],
-                unpacked_data[31],
-                unpacked_data[32],
-                unpacked_data[33],
-                unpacked_data[34],
-                unpacked_data[35],
-                unpacked_data[36],
-                unpacked_data[37],
-                unpacked_data[38],
-                unpacked_data[39],
-            )
-            log(
-                "\nDecoded New Limit Order message:",
-                "\n\tData1\t\t\t",
-                self.Data1,
-                "\n\tMessageLength\t\t",
-                self.MessageLen,
-                "\n\tMessageType\t\t",
-                self.MessageType,
-                "\n\tAccount\t\t\t",
-                self.Account,
-                "\n\tOrderID\t\t\t",
-                self.OrderID,
-                "\n\tSymbolEnum\t\t",
-                self.SymbolEnum,
-                "\n\tBOSide\t\t\t",
-                self.BOSide,
-            )
-
-            is_valid = self.validate()
-            log("Valid:", is_valid)
-            if is_valid is False:
-                self.print_reject_reason()
-            self.binary_data = data
-            return True
-        except Exception as e:
-            log(e)
-            return False
-
-    def parse_message(self, data):
-        return self.decode(data)
+    def make_pack_struct(self):
+        return struct.Struct(
+            "= 1s 1s H H H I Q H H H d H d H d 12s Q d Q d d d 12s 6s H Q i i d d h d d d d d q d H 12s"
+        )
 
 
 def create_new_limit_order():

@@ -48,13 +48,6 @@ class RiskUserSymbol(Message):
         else:
             raise Exception("Message has not valid length")
 
-    def get_data(self, *data):
-
-        self.decoded_data = {
-            self._names[i]: d if not isinstance(d, bytes) else d.decode("utf-8")
-            for i, d in enumerate(data)
-        }
-
     def encode(self):
         try:
             s = struct.Struct(

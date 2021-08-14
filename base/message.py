@@ -1,9 +1,12 @@
+import struct
 from constant import constant, reject_code, message_type, order_type, attribute
 from base.logger import log
+from utils.helper import print_bytes_hex
 
 
 class Message:
     def __init__(self):
+        self.MessageName = ""
         self.data = ()
         self.binary_data = None
         self._names = ()
@@ -11,12 +14,12 @@ class Message:
         self.Data1 = None
         self.Data2 = None
         self.MessageLen = None
-        self.MessageType = None
+        self.MessageType = 0
         self.Padding = None
         self.Account = None
         self.OrderID = None
         self.SymbolEnum = None
-        self.OrderType = None
+        self.OrderType = 0
         self.SymbolType = None
         self.BOPrice = None
         self.BOSide = None
@@ -52,23 +55,60 @@ class Message:
         pass
 
     def set_data(self, *data):
-        self.data = [d if not isinstance(d, str) else d.encode("utf-8") for d in data]
-        for i, d in enumerate(self.data):
-            self.__setattr__(self._names[i], d)
+        if len(data) == len(self._names):
+            self.data = [
+                d if not isinstance(d, str) else d.encode("utf-8") for d in data
+            ]
+            for i, d in enumerate(self.data):
+                self.__setattr__(self._names[i], d)
+        else:
+            raise Exception("Message has not valid length of fields")
 
     def set_extend_data(self, *data):
         self.data.extend(
             [d if not isinstance(d, str) else d.encode("utf-8") for d in data]
         )
 
-    def encode(self):
-        return False
+    def make_pack_struct(self):
+        return struct.Struct()
 
-    def decode(self, data):
-        return False
+    def encode(self):
+        try:
+            s = self.make_pack_struct()
+            self.binary_data = s.pack(*(self.data))
+            print_bytes_hex(
+                "Encoded {} message".format(self.MessageName), self.binary_data, ""
+            )
+            return True
+        except Exception as e:
+            log(e)
+            return False
 
     def parse_message(self, data):
         return self.decode(data)
+
+    def decode(self, data):
+        try:
+            s = self.make_pack_struct()
+            unpacked_data = s.unpack(data)
+            self.get_data(*unpacked_data)
+            self.print_message()
+
+            is_valid = self.validate()
+            log("Valid:", is_valid)
+            if is_valid is False:
+                self.print_reject_reason()
+            self.binary_data = data
+            return True
+        except Exception as e:
+            log(e)
+            return False
+
+    def get_data(self, *data):
+        for i, d in enumerate(data):
+            self.__setattr__(
+                self._names[i], d if not isinstance(d, bytes) else d.decode("utf-8")
+            )
 
     def print_message(self):
         for d in self._names:
@@ -216,7 +256,7 @@ class Message:
     def validate(self):
         if (
             self.MessageType < constant.MSGTYPE_MIN_VALUE
-            or self.MessageType > constant.ORDTYPE_MAX_VALUE
+            or self.MessageType > constant.MSGTYPE_MAX_VALUE
         ):
             self.RejectReason = reject_code.MSG_TYPE_INVALID
             return False

@@ -98,4 +98,5 @@ def create_new_limit_order():
         0,  # TriggerType,
         "",  # Attributes,
     )
+    message.print_message()
     return message
