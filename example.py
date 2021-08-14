@@ -29,10 +29,10 @@ def onMessage(ret, reason, msg, msg_len):
     global process_state
     print("Received message: len=", msg_len)
     if ret is False:
-        print("Failed Reason: ", reason)
+        print("Failed Reason:", reason)
         return
 
-    if msg.Data1 == b"H":  # logon message
+    if msg.Data1 == "H":  # logon message
         if msg.LoginStatus == 1:  # success
             print("Logon success")
             process_state = "send_order"
@@ -40,10 +40,12 @@ def onMessage(ret, reason, msg, msg_len):
             print("Logon fail")
             msg.print_reject_reason()
             process_state = "exit"
-    elif msg.Data1 == b"T":  # order message
+    elif msg.Data1 == "T":  # order message
         if msg.MessageType == ORDER_ACK:
             print("Order replied")
             process_state = "send_logout"
+    else:
+        print("Unexpected message:", msg.Data1)
 
 
 sel = start_connection(host, port, onMessage)

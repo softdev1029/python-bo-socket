@@ -15,6 +15,7 @@ def parse_header(data):
 
 
 def process_message(data):
+    log("Processing the received message ...")
     if len(data) < 3:
         log("Invalid buffer, length is", len(data))
         return (False, RECV_ERROR_NOT_ENOUGH_HEADER, None, None)
