@@ -47,32 +47,33 @@ def onMessage(ret, reason, msg, msg_len):
     else:
         print("Unexpected message:", msg.Data1)
 
+def send_example_messages(socket_controller):
+    global process_state
+    if process_state == "send_logon":
+        print("\n2. Send the Logon message\n")
+        socket_controller.msgObj = create_client_logon()
+        socket_controller.is_send = True
+        process_state = "recv_logon"
+    elif process_state == "send_order":
+        print("\n3. Send the Order message\n")
+        socket_controller.msgObj = create_new_limit_order()
+        socket_controller.is_send = True
+        process_state = "recv_order_reply"
+    elif process_state == "send_logout":
+        print("\n4. Send the Logout message\n")
+        socket_controller.msgObj = create_client_logout()
+        socket_controller.is_send = True
+        process_state = "exit"
+    else:
+        socket_controller.is_send = False
 
-sel = start_connection(host, port, onMessage)
-
-try:
+def socket_thread(sel, send_callback):
     while True:
         events = sel.select(timeout=1)
         for key, mask in events:
             socket_controller = key.data
 
-            if process_state == "send_logon":
-                print("\n2. Send the Logon message\n")
-                socket_controller.msgObj = create_client_logon()
-                socket_controller.is_send = True
-                process_state = "recv_logon"
-            elif process_state == "send_order":
-                print("\n3. Send the Order message\n")
-                socket_controller.msgObj = create_new_limit_order()
-                socket_controller.is_send = True
-                process_state = "recv_order_reply"
-            elif process_state == "send_logout":
-                print("\n4. Send the Logout message\n")
-                socket_controller.msgObj = create_client_logout()
-                socket_controller.is_send = True
-                process_state = "exit"
-            else:
-                socket_controller.is_send = False
+            send_callback(socket_controller)
 
             try:
                 socket_controller.process_events(mask)
@@ -89,7 +90,7 @@ try:
         # Check for a socket being monitored to continue.
         if not sel.get_map():
             break
-except KeyboardInterrupt:
-    print("caught keyboard interrupt, exiting")
-finally:
     sel.close()
+
+sel = start_connection(host, port, onMessage)
+socket_thread(sel, send_example_messages)
