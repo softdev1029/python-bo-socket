@@ -1,7 +1,8 @@
 import traceback
+from _thread import *
 
 
-def socket_thread(sel, process_state, send_callback):
+def socket_loop(sel, process_state, send_callback):
     while True:
         events = sel.select(timeout=1)
         for key, mask in events:
@@ -25,3 +26,14 @@ def socket_thread(sel, process_state, send_callback):
         if not sel.get_map():
             break
     sel.close()
+
+
+def socket_thread(sel, process_state, send_callback):
+    start_new_thread(
+        socket_loop,
+        (
+            sel,
+            process_state,
+            send_callback,
+        ),
+    )

@@ -69,3 +69,6 @@ def send_example_messages(socket_controller):
 
 sel = start_connection(host, port, onMessage)
 socket_thread(sel, process_state, send_example_messages)
+
+while True:
+    pass
