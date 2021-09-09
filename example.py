@@ -1,10 +1,8 @@
 #!/usr/bin/env python3
 
 from constant.message_type import ORDER_ACK
-import sys
-import traceback
-
 from base.connection import start_connection
+from base.thread_handler import socket_thread
 from example_message import (
     create_client_logon,
     create_client_logout,
@@ -47,6 +45,7 @@ def onMessage(ret, reason, msg, msg_len):
     else:
         print("Unexpected message:", msg.Data1)
 
+
 def send_example_messages(socket_controller):
     global process_state
     if process_state == "send_logon":
@@ -67,30 +66,6 @@ def send_example_messages(socket_controller):
     else:
         socket_controller.is_send = False
 
-def socket_thread(sel, send_callback):
-    while True:
-        events = sel.select(timeout=1)
-        for key, mask in events:
-            socket_controller = key.data
-
-            send_callback(socket_controller)
-
-            try:
-                socket_controller.process_events(mask)
-            except Exception:
-                print(
-                    "main: error: exception for",
-                    f"{socket_controller.addr}:\n{traceback.format_exc()}",
-                )
-                socket_controller.close()
-
-        if process_state == "exit":
-            break
-
-        # Check for a socket being monitored to continue.
-        if not sel.get_map():
-            break
-    sel.close()
 
 sel = start_connection(host, port, onMessage)
-socket_thread(sel, send_example_messages)
+socket_thread(sel, process_state, send_example_messages)
