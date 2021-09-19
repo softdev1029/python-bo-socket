@@ -47,11 +47,11 @@ def onMessage(ret, reason, msg, msg_len):
         print("Unexpected message:", msg.Data1)
 
 
-def send_example_messages(socket_controller):
+def send_example_messages(socket_controller, api_key):
     global process_state
     if process_state == "send_logon":
         print("\n2. Send the Logon message\n")
-        socket_controller.msgObj = create_client_logon()
+        socket_controller.msgObj = create_client_logon(api_key)
         socket_controller.is_send = True
         process_state = "recv_logon"
     elif process_state == "send_order":
@@ -70,7 +70,7 @@ def send_example_messages(socket_controller):
 
 sel = start_connection(host, port, onMessage)
 api_key = get_api_keys()
-socket_thread(sel, process_state, send_example_messages)
+socket_thread(sel, process_state, api_key, send_example_messages)
 
 while True:
     pass

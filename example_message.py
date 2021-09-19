@@ -2,7 +2,7 @@ from auth.client_logon import ClientLogon
 from transaction.new_limit_order import NewLimitOrder
 
 
-def create_client_logon():
+def create_client_logon(api_key):
     message = ClientLogon()
     message.set_data(
         "H",  # data1
@@ -10,7 +10,7 @@ def create_client_logon():
         143,  # data3
         1,  # LogonType
         100700,  # Account
-        "1F6A",  # 2FA
+        api_key,  # 2FA
         "BOU7",  # UserName
         506,  # TradingSessionID
         "1",  # PrimaryOESIP
