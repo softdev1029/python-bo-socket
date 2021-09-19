@@ -3,6 +3,7 @@
 from constant.message_type import ORDER_ACK
 from base.connection import start_connection
 from base.thread_handler import socket_thread
+from oauth.base import get_api_keys
 from example_message import (
     create_client_logon,
     create_client_logout,
@@ -14,8 +15,8 @@ message_type = ""
 print("This is the example program showing how to use Python binary socket library.\n")
 print("1. Specify the IPv4 address and the port number of the server\n")
 
-host = input("Enter a valid a IPv4 address: ")
-port = input("Enter a valid a port number: ")
+host = input("Enter a valid IPv4 address: ")
+port = input("Enter a valid port number: ")
 port = int(port)
 # host = "127.0.0.1"
 # port = 4444
@@ -68,6 +69,7 @@ def send_example_messages(socket_controller):
 
 
 sel = start_connection(host, port, onMessage)
+api_key = get_api_keys()
 socket_thread(sel, process_state, send_example_messages)
 
 while True:
