@@ -9,6 +9,9 @@ from example_message import (
     create_client_logout,
     create_new_limit_order,
 )
+import pyotp
+import time
+import base64
 
 message_type = ""
 
@@ -69,8 +72,17 @@ def send_example_messages(socket_controller, api_key):
 
 
 sel = start_connection(host, port, onMessage)
-api_key = get_api_keys()
+
+# api_key = get_api_keys()
+api_key = input("Enter API Trading Key: ")
+
 socket_thread(sel, process_state, api_key, send_example_messages)
 
+totp = pyotp.TOTP(base64.b32encode(bytearray(api_key, "ascii")).decode("utf-8"))
+
+
 while True:
+    totp.now()  # => '492039'
+    print("totp=", totp.now())
+    time.sleep(1)
     pass
