@@ -1,8 +1,12 @@
 from auth.client_logon import ClientLogon
 from transaction.new_limit_order import NewLimitOrder
+import pyotp
+import base64
 
 
 def create_client_logon(api_key):
+    totp = pyotp.TOTP(base64.b32encode(bytearray(api_key, "ascii")).decode("utf-8"))
+
     message = ClientLogon()
     message.set_data(
         "H",  # data1
@@ -10,7 +14,7 @@ def create_client_logon(api_key):
         143,  # data3
         1,  # LogonType
         100700,  # Account
-        api_key,  # 2FA
+        totp.now(),  # 2FA
         "BOU7",  # UserName
         506,  # TradingSessionID
         "1",  # PrimaryOESIP

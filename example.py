@@ -82,7 +82,6 @@ totp = pyotp.TOTP(base64.b32encode(bytearray(api_key, "ascii")).decode("utf-8"))
 
 
 while True:
-    totp.now()  # => '492039'
-    print("totp=", totp.now())
-    time.sleep(1)
+    # print("totp=", totp.now())
+    # time.sleep(1)
     pass
