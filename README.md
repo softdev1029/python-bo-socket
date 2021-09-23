@@ -1,3 +1,7 @@
+# Install
+
+pip install pyotp
+
 # Example application using the python library
 
 The library provides the example server and client instance using the library functions.
