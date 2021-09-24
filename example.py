@@ -79,6 +79,8 @@ api_key = input("Enter API Trading Key: ")
 socket_thread(sel, process_state, api_key, send_example_messages)
 
 totp = pyotp.TOTP(base64.b32encode(bytearray(api_key, "ascii")).decode("utf-8"))
+hotp = pyotp.HOTP(base64.b32encode(bytearray(api_key, "ascii")).decode("utf-8"))
+# print("hotp=", hotp.at(0))
 
 
 while True:
