@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from constant.message_type import ORDER_ACK
-from base.connection import start_connection
+from base.connection import start_connect_to_server
 from base.thread_handler import socket_thread
 from oauth.base import get_api_keys
 from example_message import (
@@ -71,7 +71,7 @@ def send_example_messages(socket_controller, api_key):
         socket_controller.is_send = False
 
 
-sel = start_connection(host, port, onMessage)
+sel = start_connect_to_server(host, port, onMessage)
 
 # api_key = get_api_keys()
 api_key = input("Enter API Trading Key: ")

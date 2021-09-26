@@ -3,12 +3,13 @@
 import socket
 import selectors
 
-import initiator_socket_controller
+from base.initiator_socket_controller import InitiatorSocketController
 from base.logger import log
 
 sel = selectors.DefaultSelector()
 
-def start_connection(host, port, recv_callback):
+
+def start_connect_to_server(host, port, recv_callback):
     addr = (host, port)
     log("Starting connection to", addr, " ...")
 
@@ -19,9 +20,6 @@ def start_connection(host, port, recv_callback):
     log("Successfully connected to the server.")
 
     events = selectors.EVENT_READ | selectors.EVENT_WRITE
-    socket_controller = initiator_socket_controller.InitiatorSocketController(
-        sel, sock, addr, None, recv_callback
-    )
+    socket_controller = InitiatorSocketController(sel, sock, addr, None, recv_callback)
     sel.register(sock, events, data=socket_controller)
     return sel
-

@@ -15,7 +15,7 @@ listening on ('0.0.0.0', 4444)
 The client runs as follows.
 
 ```
-python3 client.py 127.0.0.1 4444
+python3 example_client.py 127.0.0.1 4444
 
 starting connection to ('127.0.0.1', 4444)  ...
 
@@ -64,6 +64,40 @@ Decoded Client Logon message:
         riskMaster                       b'\x00'
 No more receive data
 ```
+
+The current `server.py` replies `logon` message as example.
+You can change it to other message in `ResponserSocketController.process_state`.
+
+In `example_client.py`, to receive the server message, select `0: Go To Receive Mode`.
+
+# Another example application using the python library
+
+Another example of client is defined in `example_client2.py`.
+This client example emulates the whole flow including logon.
+
+## Input the necessary information
+
+As the first step, you should input the server IP address and port number.
+You need to input the API Trading Key, too.
+
+```
+1. Specify the IPv4 address and the port number of the server
+
+Enter a valid IPv4 address: 127.0.0.1
+Enter a valid port number: 4444
+[lib]  Starting connection to ('127.0.0.1', 4444)  ...
+[lib]  Successfully connected to the server.
+Enter API Trading Key: 1
+```
+
+## Send Logon message
+
+As the second step, it tries to logon.
+The client sends `logon` message.
+And the server replies `logon`, too.
+
+And the client sends `New Order` message.
+The server replies `Order Reply` message.
 
 # Library functions
 

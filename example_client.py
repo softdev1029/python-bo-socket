@@ -5,7 +5,7 @@ import socket
 import selectors
 import traceback
 
-import initiator_socket_controller
+from base.initiator_socket_controller import InitiatorSocketController
 
 from base.create_message import (
     create_message,
@@ -34,9 +34,7 @@ def start_connection(host, port):
     msgObj = create_message(message_type)
 
     events = selectors.EVENT_READ | selectors.EVENT_WRITE
-    socket_controller = initiator_socket_controller.InitiatorSocketController(
-        sel, sock, addr, msgObj, onMessage
-    )
+    socket_controller = InitiatorSocketController(sel, sock, addr, msgObj, onMessage)
     sel.register(sock, events, data=socket_controller)
 
 
