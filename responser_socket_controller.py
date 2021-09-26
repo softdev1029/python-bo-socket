@@ -21,6 +21,7 @@ class ResponserSocketController(SocketController):
 
     def write(self):
         global process_state
+        print("process_state=", process_state)
         for i in range(1):
             # time.sleep(3)
             if process_state == "send_logon_reply":
