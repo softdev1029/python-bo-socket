@@ -14,8 +14,9 @@ from auth.risk_user_symbol import RiskUserSymbol, create_risk_user_symbol
 from auth.open_order_request import OpenOrderRequest, create_open_order_request
 from trade.collateral_request import CollateralRequest, create_collateral_request
 from trade.collateral import Collateral
-from transaction.new_limit_order import NewLimitOrder, create_new_limit_order
+from transaction.new_limit_order import NewLimitOrder
 from market.md_subscribe import create_md_subscribe
+from example_message import create_new_limit_order
 
 MSG_CLIENT_LOGON = "client_logon"
 MSG_INSTRUMENT_REQUEST = "instrument_request"

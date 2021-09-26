@@ -50,6 +50,9 @@ class Message:
         self.MsgSeqNum = None
         self.TakeProfitPrice = None
         self.TriggerType = None
+        self.SecondLegPrice = None
+        self.RouteEnum = None
+        self.ModifyType = None
         self.Attributes = None
 
         pass

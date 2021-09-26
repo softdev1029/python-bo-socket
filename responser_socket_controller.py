@@ -90,6 +90,9 @@ class ResponserSocketController(SocketController):
                     79488880,  # MsgSeqNum,
                     0,  # TakeProfitPrice,
                     0,  # TriggerType,
+                    1111,  # SecondLegPrice,
+                    1,  # RouteEnum,
+                    1,  # ModifyType,
                     "",  # Attributes,
                 )
             self.msgObj = message
