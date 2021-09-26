@@ -34,7 +34,7 @@ class ResponserSocketController(SocketController):
                     "1F6A",  # 2FA
                     "BOU7",  # UserName
                     506,  # TradingSessionID
-                    "1",  # PrimaryOESIP
+                    "127.0.0.1:4445",  # PrimaryOESIP
                     "1",  # SecondaryOESIP
                     "1",  # PrimaryMDIP
                     "1",  # SecondaryIP

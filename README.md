@@ -8,7 +8,7 @@ The library provides the example server and client instance using the library fu
 The server runs as follows.
 
 ```
-python3 server.py 0.0.0.0 4444
+python3 example_server.py 0.0.0.0 4444
 listening on ('0.0.0.0', 4444)
 ```
 
