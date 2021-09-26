@@ -27,6 +27,8 @@ port = int(port)
 # port = 4444
 
 api_key = input("Enter API Trading Key: ")
+user_name = input("Enter User Name: ")
+account = int(input("Enter Account: "))
 
 
 process_state = LIB_STATE_SEND_AES_LOGON
@@ -74,6 +76,8 @@ manager = LibraryManager(
     aes_host=host,
     aes_port=port,
     api_key=api_key,
+    user_name=user_name,
+    account=account,
     oes_recv_callback=oes_recv_callback,
     oes_send_callback=oes_send_callback,
 )

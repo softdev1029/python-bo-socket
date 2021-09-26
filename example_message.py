@@ -4,7 +4,7 @@ import pyotp
 import base64
 
 
-def create_client_logon(api_key):
+def create_client_logon(api_key, user_name, accont):
     totp = pyotp.TOTP(base64.b32encode(bytearray(api_key, "ascii")).decode("utf-8"))
     hotp = pyotp.HOTP(base64.b32encode(bytearray(api_key, "ascii")).decode("utf-8"))
 
@@ -14,10 +14,10 @@ def create_client_logon(api_key):
         "",  # data2
         143,  # data3
         1,  # LogonType
-        100700,  # Account
+        accont,  # Account
         # totp.now(),  # 2FA
         hotp.at(0),
-        "BOU7",  # UserName
+        user_name,  # UserName
         506,  # TradingSessionID
         "1",  # PrimaryOESIP
         "1",  # SecondaryOESIP
