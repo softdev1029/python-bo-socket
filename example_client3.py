@@ -59,11 +59,11 @@ def oes_recv_callback(ret, reason, msg, msg_len):
     return process_state
 
 
-def oes_send_callback(socket_controller, api_key):
+def oes_send_callback(socket_controller, oes_key, api_key):
     global process_state
     if process_state == LIB_STATE_SEND_ORDER:
         print("\n3. Send the Order message\n")
-        socket_controller.msgObj = create_new_limit_order()
+        socket_controller.msgObj = create_new_limit_order(oes_key)
         socket_controller.is_send = True
         process_state = "recv_order_reply"
     else:

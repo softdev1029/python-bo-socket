@@ -4,7 +4,7 @@ import pyotp
 import base64
 
 
-def create_client_logon(api_key, user_name, accont):
+def create_client_logon(aes_or_oes_key, api_key, user_name, accont):
     totp = pyotp.TOTP(base64.b32encode(bytearray(api_key, "ascii")).decode("utf-8"))
     hotp = pyotp.HOTP(base64.b32encode(bytearray(api_key, "ascii")).decode("utf-8"))
 
@@ -25,7 +25,7 @@ def create_client_logon(api_key, user_name, accont):
         "1",  # SecondaryIP
         0,  # SendingTime
         1500201,  # MsgSeqNum
-        432451,  # Key
+        aes_or_oes_key,  # Key
         0,  # LoginStatus
         0,  # RejectReason
         "",  # RiskMaster
@@ -35,7 +35,7 @@ def create_client_logon(api_key, user_name, accont):
     return message
 
 
-def create_client_logout():
+def create_client_logout(aes_or_oes_key):
     message = ClientLogon()
     message.set_data(
         "H",  # data1
@@ -52,7 +52,7 @@ def create_client_logout():
         "1",  # SecondaryIP
         0,  # SendingTime
         1500201,  # MsgSeqNum
-        432451,  # Key
+        aes_or_oes_key,  # Key
         0,  # LoginStatus
         0,  # RejectReason
         "",  # RiskMaster
@@ -60,7 +60,7 @@ def create_client_logout():
     return message
 
 
-def create_new_limit_order():
+def create_new_limit_order(aes_or_oes_key):
     message = NewLimitOrder()
     message.set_data(
         "T",  # data1,
@@ -90,7 +90,7 @@ def create_new_limit_order():
         0,  # RejectReason,
         1000,  # SendingTime,
         506,  # TradingSessionID,
-        42341,  # Key,
+        aes_or_oes_key,  # Key,
         0,  # DisplaySize,
         0,  # RefreshSize,
         0,  # Layers,

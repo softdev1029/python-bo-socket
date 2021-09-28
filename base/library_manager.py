@@ -39,6 +39,9 @@ class LibraryManager:
         self.oes_recv_callback = oes_recv_callback
         self.oes_send_callback = oes_send_callback
 
+        self.aes_key = 0
+        self.oes_key = 0
+
     def aes_recv_callback(self, ret, reason, msg, msg_len):
         log("Received message: len=", msg_len)
         if ret is False:
@@ -49,13 +52,19 @@ class LibraryManager:
             if msg.LoginStatus == 1:  # success
                 log("AES Logon success")
 
+                self.aes_key = int(msg.Key)
+
                 oes_ip = msg.PrimaryOrderEntryIP.split(":")
                 if len(oes_ip) == 2:
                     host = oes_ip[0]
                     port = int(oes_ip[1].rstrip("\x00"))
                     sel = start_connect_to_server(host, port, self.oes_recv_callback)
                     socket_thread(
-                        sel, self.manage_state, self.api_key, self.oes_send_callback
+                        sel,
+                        self.manage_state,
+                        self.aes_key,
+                        self.api_key,
+                        self.oes_send_callback,
                     )
 
                     self.manage_state = LIB_STATE_SEND_OES_LOGON
@@ -69,23 +78,27 @@ class LibraryManager:
         else:
             log("Unexpected message:", msg.Data1)
 
-    def aes_send_callback(self, socket_controller, api_key):
+    def aes_send_callback(self, socket_controller, aes_key, api_key):
         if self.manage_state == LIB_STATE_SEND_AES_LOGON:
             log("\nSend the AES Logon message\n")
             socket_controller.msgObj = create_client_logon(
-                self.api_key, self.user_name, self.account
+                self.aes_key, self.api_key, self.user_name, self.account
             )
             socket_controller.is_send = True
             self.manage_state = "recv_logon"
         elif self.manage_state == LIB_STATE_SEND_OES_LOGOUT:
             log("\nSend the AES Logout message\n")
-            socket_controller.msgObj = create_client_logout()
+            socket_controller.msgObj = create_client_logout(self.aes_key)
             socket_controller.is_send = True
             self.manage_state = LIB_STATE_EXIT
         else:
             socket_controller.is_send = False
 
     def oes_recv_callback_wrapper(self, ret, reason, msg, msg_len):
+        if msg.Data1 == "H":  # logon message
+            if msg.LoginStatus == 1:  # success
+                self.oes_key = int(msg.Key)
+
         self.manage_state = self.oes_recv_callback(ret, reason, msg, msg_len)
 
     def oes_send_callback_wrapper(self, socket_controller, api_key):
@@ -100,7 +113,7 @@ class LibraryManager:
             socket_controller.is_send = True
             self.manage_state = LIB_STATE_EXIT
         elif self.manage_state == LIB_STATE_SEND_ORDER:
-            self.oes_send_callback(socket_controller, api_key)
+            self.oes_send_callback(socket_controller, self.oes_key, api_key)
         else:
             socket_controller.is_send = False
 
@@ -108,4 +121,6 @@ class LibraryManager:
         sel = start_connect_to_server(
             self.aes_host, self.aes_port, self.aes_recv_callback
         )
-        socket_thread(sel, self.manage_state, self.api_key, self.aes_send_callback)
+        socket_thread(
+            sel, self.manage_state, self.aes_key, self.api_key, self.aes_send_callback
+        )
