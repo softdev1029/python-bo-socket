@@ -108,10 +108,8 @@ class LibraryManager:
             socket_controller.msgObj = create_client_logout(aes_or_oes_key)
             socket_controller.is_send = True
             self.manage_state = LIB_STATE_EXIT
-        elif self.manage_state == LIB_STATE_SEND_ORDER:
-            self.oes_send_callback(socket_controller, self.oes_key, api_key)
         else:
-            socket_controller.is_send = False
+            self.oes_send_callback(socket_controller, self.oes_key, api_key)
 
     def oes_recv_callback_wrapper(self, ret, reason, msg, msg_len):
         # Step 4: Receive the OES Logon reply

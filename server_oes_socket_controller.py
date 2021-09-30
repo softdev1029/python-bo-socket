@@ -48,6 +48,53 @@ class ResponserSocketController(SocketController):
                     # 4,  # RejectReason, INVALID_KEY
                     "",  # RiskMaster
                 )
+            elif process_state == "send_order_reply":
+                message = NewLimitOrder()
+                message.set_data(
+                    "T",  # data1,
+                    "",  # data2,
+                    238,  # data3,
+                    14,  # messageType ORDER_ACK
+                    0,  # padding,
+                    100700,  # account,
+                    46832151,  # orderID,
+                    1,  # symbolEnum,
+                    1,  # OrderType LMT
+                    1,  # SymbolType SPOT
+                    50100.5,  # BOPrice,
+                    3,  # BOSide BUY
+                    2.0,  # BOOrderQty,
+                    2,  # TIF -> GTC
+                    0,  # StopLimitPrice,
+                    "BTCUSD",  # BOSymbol,
+                    0,  # OrigOrderID,
+                    0,  # BOCancelShares,
+                    0,  # ExecID,
+                    0,  # ExecShares,
+                    0,  # RemainingQuantity,
+                    0,  # ExecFee,
+                    "",  # ExpirationDate,
+                    "",  # TraderID,
+                    0,  # RejectReason,
+                    1000,  # SendingTime,
+                    506,  # TradingSessionID,
+                    42341,  # Key,
+                    0,  # DisplaySize,
+                    0,  # RefreshSize,
+                    0,  # Layers,
+                    0,  # SizeIncrement,
+                    0,  # PriceIncrement,
+                    0,  # PriceOffset,
+                    0,  # BOOrigPrice,
+                    0,  # ExecPrice,
+                    79488880,  # MsgSeqNum,
+                    0,  # TakeProfitPrice,
+                    0,  # TriggerType,
+                    1111,  # SecondLegPrice,
+                    1,  # RouteEnum,
+                    1,  # ModifyType,
+                    "",  # Attributes,
+                )
             self.msgObj = message
             self.msgObj.encode()
             self._send_buffer = self.msgObj.binary_data

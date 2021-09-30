@@ -57,6 +57,7 @@ def oes_recv_callback(ret, reason, msg, msg_len):
     else:
         log("Unexpected message:", msg.Data1)
 
+    print("manage_state2", process_state)
     return process_state
 
 
