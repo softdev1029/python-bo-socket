@@ -47,7 +47,7 @@ class SocketController:
 
     def _write(self):
         if self._send_buffer:
-            log("Sending", len(self._send_buffer), "bytes to", self.addr, " ...\n")
+            log("Sending", len(self._send_buffer), "bytes to", self.addr[0], self.addr[1], " ...\n")
             try:
                 # Should be ready to write
                 sent = self.sock.send(self._send_buffer)

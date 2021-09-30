@@ -11,7 +11,7 @@ sel = selectors.DefaultSelector()
 
 def start_connect_to_server(host, port, recv_callback):
     addr = (host, port)
-    log("Starting connection to", addr, " ...")
+    log("Starting connection to", host, port, " ...")
 
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.setblocking(False)
