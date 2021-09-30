@@ -11,7 +11,7 @@ IS_LOGGING=True
 IS_FILE=True
 
 def convertTuple(tup):
-    st = ''.join(map(str, tup))
+    st = ' '.join(map(str, tup))
     return st
 
 def log(*args):
