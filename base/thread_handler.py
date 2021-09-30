@@ -7,6 +7,7 @@ def socket_loop(sel, process_state, aes_or_oes_key, api_key, send_callback):
         events = sel.select(timeout=1)
         for key, mask in events:
             socket_controller = key.data
+            socket_controller.aes_or_oes_key = aes_or_oes_key
 
             send_callback(socket_controller, aes_or_oes_key, api_key)
 

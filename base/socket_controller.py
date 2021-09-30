@@ -18,6 +18,8 @@ class SocketController:
 
         self.recv_callback = recv_callback
 
+        self.aes_or_oes_key = None
+
     def _set_selector_events_mask(self, mode):
         """Set selector to listen for events: mode is 'r', 'w', or 'rw'."""
         if mode == "r":
@@ -76,7 +78,7 @@ class SocketController:
 
             ret = need_read
             while ret:
-                (ret, reason, msg, msg_len) = process_message(self._recv_buffer)
+                (ret, reason, msg, msg_len) = process_message(self.aes_or_oes_key, self._recv_buffer)
                 if self.recv_callback is not None and msg_len != None:
                     self.recv_callback(ret, reason, msg, msg_len)
                 if ret:

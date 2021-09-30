@@ -71,39 +71,39 @@ MESSAGE_TYPES = {
 }
 
 
-def create_message(message_type):
+def create_message(aes_or_oes_key, message_type):
     if message_type == MSG_CLIENT_LOGON:
-        message = create_client_logon()
+        message = create_client_logon(aes_or_oes_key)
     elif message_type == MSG_INSTRUMENT_REQUEST:
-        message = create_instrument_request()
+        message = create_instrument_request(aes_or_oes_key)
     elif message_type == MSG_INSTRUMENT_RESPONSE:
-        message = create_instrument_response()
+        message = create_instrument_response(aes_or_oes_key)
     elif message_type == MSG_RISK_UPDATE_REQUEST:
-        message = create_risk_update_request()
+        message = create_risk_update_request(aes_or_oes_key)
     elif message_type == MSG_RISK_USER_SYMBOL:
-        message = create_risk_user_symbol()
+        message = create_risk_user_symbol(aes_or_oes_key)
     elif message_type == MSG_OPEN_ORDER_REQUEST:
-        message = create_open_order_request()
+        message = create_open_order_request(aes_or_oes_key)
     elif message_type == MSG_COLLATERAL_REQUEST:
-        message = create_collateral_request()
+        message = create_collateral_request(aes_or_oes_key)
     elif message_type == MSG_NEW_LIMIT_ORDER:
-        message = create_new_limit_order()
+        message = create_new_limit_order(aes_or_oes_key)
     elif message_type == MSG_MD_SUBSCRIBE:
-        message = create_md_subscribe()
+        message = create_md_subscribe(aes_or_oes_key)
     elif message_type == MSG_MD_EXEC_REPORT:
-        message = create_md_exec_report()
+        message = create_md_exec_report(aes_or_oes_key)
     elif message_type == MSG_TOB_MSG:
-        message = create_tob_msg()
+        message = create_tob_msg(aes_or_oes_key)
     elif message_type == MSG_THREE_LEVEL_DATA:
-        message = create_three_level_data()
+        message = create_three_level_data(aes_or_oes_key)
     elif message_type == MSG_FIVE_LEVEL_DATA:
-        message = create_five_level_data()
+        message = create_five_level_data(aes_or_oes_key)
     elif message_type == MSG_TEN_LEVEL_DATA:
-        message = create_ten_level_data()
+        message = create_ten_level_data(aes_or_oes_key)
     elif message_type == MSG_TWENTY_LEVEL_DATA:
-        message = create_twenty_level_data()
+        message = create_twenty_level_data(aes_or_oes_key)
     elif message_type == MSG_THIRTY_LEVEL_DATA:
-        message = create_thirty_level_data()
+        message = create_thirty_level_data(aes_or_oes_key)
     else:
         message = create_base_message()
     return message

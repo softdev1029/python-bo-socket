@@ -1,14 +1,15 @@
 import logging
 import time
 
-LOG_FILENAME = 'logging_example.out' + str(time.time())
-logging.basicConfig(
-    filename=LOG_FILENAME,
-    level=logging.DEBUG,
-)
-
 IS_LOGGING=True
-IS_FILE=True
+IS_FILE=False
+
+if IS_FILE:
+    LOG_FILENAME = 'logging_example.out' + str(time.time())
+    logging.basicConfig(
+        filename=LOG_FILENAME,
+        level=logging.DEBUG,
+    )
 
 def convertTuple(tup):
     st = ' '.join(map(str, tup))

@@ -68,7 +68,7 @@ class InstrumentRequest(Message):
         return self.decode(data)
 
 
-def create_instrument_request():
+def create_instrument_request(aes_or_oes_key):
     message = InstrumentRequest()
     message.set_data(
         "Y",  # data1
@@ -78,7 +78,7 @@ def create_instrument_request():
         0,  # RejectReason
         100700,  # Account
         2,  # RequestType
-        0,  # Key
+        aes_or_oes_key,  # Key
         "",  # SymbolName
         0,  # SymbolType
         0,  # SymbolEnum

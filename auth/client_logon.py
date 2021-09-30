@@ -33,7 +33,7 @@ class ClientLogon(Message):
         return struct.Struct("= 1s 1s H H I 6s 6s I 24s 24s 24s 24s Q I I H H 1s")
 
 
-def create_client_logon():
+def create_client_logon(aes_or_oes_key):
     message = ClientLogon()
     message.set_data(
         "H",  # data1
@@ -50,7 +50,7 @@ def create_client_logon():
         "1",  # SecondaryIP
         0,  # SendingTime
         1500201,  # MsgSeqNum
-        432451,  # Key
+        aes_or_oes_key,  # Key
         0,  # LoginStatus
         0,  # RejectReason
         "",  # RiskMaster

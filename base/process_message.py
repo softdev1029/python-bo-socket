@@ -14,7 +14,7 @@ def parse_header(data):
     return (chr(data[0]), data[2] + data[3] * 256)
 
 
-def process_message(data):
+def process_message(aes_or_oes_key, data):
     log("Processing the received message ...")
     if len(data) < 3:
         log("Invalid buffer, length is", len(data))
@@ -37,7 +37,7 @@ def process_message(data):
                 log("Invalid message type", msg_key)
                 return (False, RECV_ERROR_INVALID_MSG_TYPE, None, None)
             else:
-                msg = create_message(msg_type)
+                msg = create_message(aes_or_oes_key, msg_type)
                 parsing_data = data[:msg_len]
 
                 ret = msg.parse_message(parsing_data)

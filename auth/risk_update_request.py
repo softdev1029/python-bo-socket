@@ -123,7 +123,7 @@ class RiskUpdateRequest(Message):
             return False
 
 
-def create_risk_update_request():
+def create_risk_update_request(aes_or_oes_key):
     message = RiskUpdateRequest()
     message.set_data(
         "w",  # data1
@@ -134,7 +134,7 @@ def create_risk_update_request():
         10070,  # account
         506,  # tradingSessionID
         1,  # SymbolEnum
-        0,  # Key
+        aes_or_oes_key,  # Key
         1005231,  # MsgSeqNum
         0,  # SendingTime
     )
