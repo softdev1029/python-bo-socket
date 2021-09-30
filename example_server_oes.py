@@ -5,8 +5,7 @@ import socket
 import selectors
 import traceback
 
-import responser_socket_controller
-import responser2_socket_controller
+import server_oes_socket_controller
 
 from base.create_message import create_message
 
@@ -38,7 +37,7 @@ def accept_wrapper(
     print("accepted connection from", addr)
     conn.setblocking(False)
 
-    socket_controller = responser_socket_controller.ResponserSocketController(
+    socket_controller = server_oes_socket_controller.ResponserSocketController(
         sel, conn, addr, None, onMessage
     )
     sel.register(conn, selectors.EVENT_READ, data=socket_controller)

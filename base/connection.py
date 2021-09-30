@@ -6,10 +6,8 @@ import selectors
 from base.initiator_socket_controller import InitiatorSocketController
 from base.logger import log
 
-sel = selectors.DefaultSelector()
-
-
 def start_connect_to_server(host, port, recv_callback):
+    sel = selectors.DefaultSelector()
     addr = (host, port)
     log("Starting connection to", host, ":", port, " ...")
 
