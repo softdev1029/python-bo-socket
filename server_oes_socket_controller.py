@@ -50,7 +50,7 @@ class ResponserSocketController(SocketController):
                 )
                 process_state = "send_order_reply"
             elif process_state == "send_order_reply":
-                message = NewLimitOrder()
+                message = Transaction()
                 message.set_data(
                     "T",  # data1,
                     "",  # data2,

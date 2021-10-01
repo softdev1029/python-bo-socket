@@ -57,10 +57,12 @@ def oes_send_callback(socket_controller, oes_key, api_key):
         log("Send the New Order message\n")
         socket_controller.msgObj = create_new_limit_order(oes_key)
         socket_controller.is_send = True
+        process_state == "recv_reply"
     if process_state == LIB_STATE_SEND_CANCEL_REPLACE:
         log("Send the Cancel Replace message\n")
         socket_controller.msgObj = create_cancel_replace(oes_key)
         socket_controller.is_send = True
+        process_state == "recv_reply"
     else:
         socket_controller.is_send = False
 

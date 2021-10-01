@@ -6,8 +6,8 @@ from base.logger import log
 
 class Transaction(Message):
     def __init__(self):
-        super(NewLimitOrder, self).__init__()
-        self.MessageName = "New Limit Order"
+        super(Transaction, self).__init__()
+        self.MessageName = "Transaction"
         self._names = (
             "Data1",
             "Data2",
