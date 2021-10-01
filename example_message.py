@@ -1,5 +1,5 @@
 from auth.client_logon import ClientLogon
-from transaction.new_limit_order import NewLimitOrder
+from transaction.transaction import Transaction
 import pyotp
 import base64
 

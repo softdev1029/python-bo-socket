@@ -4,7 +4,7 @@ from base.message import Message
 from base.logger import log
 
 
-class NewLimitOrder(Message):
+class Transaction(Message):
     def __init__(self):
         super(NewLimitOrder, self).__init__()
         self.MessageName = "New Limit Order"
