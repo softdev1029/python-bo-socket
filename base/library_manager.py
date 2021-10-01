@@ -13,7 +13,9 @@ LIB_STATE_SEND_AES_LOGON = "send_aes_logon"
 LIB_STATE_SEND_AES_LOGOUT = "send_aes_logout"
 LIB_STATE_SEND_OES_LOGON = "send_oes_logon"
 LIB_STATE_SEND_OES_LOGOUT = "send_oes_logout"
-LIB_STATE_SEND_ORDER = "send_order"
+LIB_STATE_SEND_NEW_ORDER = "send_new_order"
+LIB_STATE_SEND_CANCEL_REPLACE = "send_cancel_replace"
+
 LIB_STATE_EXIT = "exit"
 
 
