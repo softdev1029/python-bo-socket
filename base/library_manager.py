@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from constant.message_type import ORDER_ACK
+from constant.message_type import CANCEL_REPLACE, CANCELLED, ORDER_ACK, ORDER_NEW, QUOTE_FILL, REPLACED
 from base.connection import start_connect_to_server
 from base.thread_handler import socket_thread
 from example_message import (
@@ -18,6 +18,7 @@ LIB_STATE_SEND_CANCEL_REPLACE = "send_cancel_replace"
 
 LIB_STATE_EXIT = "exit"
 
+MAX_ORDER = 10
 
 class LibraryManager:
     def __init__(
@@ -43,6 +44,8 @@ class LibraryManager:
 
         self.aes_key = 0
         self.oes_key = 0
+
+        self.counter = 0
 
     def aes_send_callback(self, socket_controller, aes_key, api_key):
         # Step 1: Send AES Logon
@@ -113,12 +116,42 @@ class LibraryManager:
             self.manage_state = LIB_STATE_EXIT
         else:
             self.oes_send_callback(socket_controller, self.oes_key, api_key)
+            if socket_controller.is_send:
+                type = socket_controller.msgObj.MessageType
+                if type == ORDER_NEW or type == CANCEL_REPLACE:
+                    self.counter = self.counter + 1
+                    if self.counter > MAX_ORDER:
+                        socket_controller.is_send = False
 
     def oes_recv_callback_wrapper(self, ret, reason, msg, msg_len):
+        log("Received message: len=", msg_len)
+        if ret is False:
+            log("Failed Reason:", reason)
+            return
+            
         # Step 4: Receive the OES Logon reply
         if msg.Data1 == "H":  # logon message
             if msg.LoginStatus == 1:  # success
+                log("OES Logon success")
                 self.oes_key = int(msg.Key)
+            elif msg.LoginStatus == 2:  # failure
+                log("OES Logon fail")
+                msg.print_reject_reason()
+        elif msg.Data1 == "T":  # order message
+            if msg.MessageType == ORDER_ACK:
+                log("Order replied")
+                self.counter = self.counter - 1
+            elif msg.MessageType == CANCELLED:
+                log("Order cancelled")
+                self.counter = self.counter - 1
+            elif msg.MessageType == REPLACED:
+                log("Order replaced")
+                self.counter = self.counter - 1
+            elif msg.MessageType == QUOTE_FILL:
+                log("Order quote filled")
+                self.counter = self.counter - 1
+        else:
+            log("Unexpected message:", msg.Data1)
 
         self.manage_state = self.oes_recv_callback(ret, reason, msg, msg_len)
 
