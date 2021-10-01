@@ -48,12 +48,13 @@ class ResponserSocketController(SocketController):
                     # 4,  # RejectReason, INVALID_KEY
                     "",  # RiskMaster
                 )
+                process_state = "send_order_reply"
             elif process_state == "send_order_reply":
                 message = NewLimitOrder()
                 message.set_data(
                     "T",  # data1,
                     "",  # data2,
-                    238,  # data3,
+                    250,  # data3,
                     14,  # messageType ORDER_ACK
                     0,  # padding,
                     100700,  # account,

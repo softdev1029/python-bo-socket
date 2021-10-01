@@ -65,7 +65,7 @@ def create_new_limit_order(aes_or_oes_key):
     message.set_data(
         "T",  # data1,
         "",  # data2,
-        238,  # data3,
+        250,  # data3,
         1,  # messageType ORDER_NEW
         0,  # padding,
         100700,  # account,
