@@ -17,11 +17,11 @@ message_type = ""
 log("This is the example program showing how to use Python binary socket library.\n")
 log("1. Specify the IPv4 address and the port number of the server\n")
 
-# host = input("Enter a valid IPv4 address: ")
-# port = input("Enter a valid port number: ")
-# port = int(port)
-host = "127.0.0.1"
-port = 4444
+host = input("Enter a valid IPv4 address: ")
+port = input("Enter a valid port number: ")
+port = int(port)
+# host = "127.0.0.1"
+# port = 4444
 
 api_key = input("Enter API Trading Key: ")
 user_name = input("Enter User Name: ")
