@@ -76,6 +76,7 @@ class LibraryManager:
                 if len(oes_ip) == 2:
                     host = oes_ip[0]
                     port = int(oes_ip[1].rstrip("\x00"))
+                    log("The OES server is", host, ":", port, "\n")
                     sel = start_connect_to_server(host, port, self.oes_recv_callback)
                     socket_thread(
                         sel,
@@ -120,6 +121,7 @@ class LibraryManager:
         self.manage_state = self.oes_recv_callback(ret, reason, msg, msg_len)
 
     def start(self):
+        log("The AES server is", self.aes_host, ":", self.aes_port, "\n")
         sel = start_connect_to_server(
             self.aes_host, self.aes_port, self.aes_recv_callback
         )

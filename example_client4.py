@@ -1,12 +1,6 @@
-#!/usr/bin/env python3
-
 from base.logger import log
 from constant.message_type import ORDER_ACK
-from base.connection import start_connect_to_server
-from base.thread_handler import socket_thread
 from example_message import (
-    create_client_logon,
-    create_client_logout,
     create_new_limit_order,
 )
 from base.library_manager import (
@@ -21,11 +15,11 @@ message_type = ""
 log("This is the example program showing how to use Python binary socket library.\n")
 log("1. Specify the IPv4 address and the port number of the server\n")
 
-host = input("Enter a valid IPv4 address: ")
-port = input("Enter a valid port number: ")
-port = int(port)
-# host = "127.0.0.1"
-# port = 4444
+# host = input("Enter a valid IPv4 address: ")
+# port = input("Enter a valid port number: ")
+# port = int(port)
+host = "127.0.0.1"
+port = 4444
 
 api_key = input("Enter API Trading Key: ")
 user_name = input("Enter User Name: ")
@@ -57,14 +51,13 @@ def oes_recv_callback(ret, reason, msg, msg_len):
     else:
         log("Unexpected message:", msg.Data1)
 
-    print("manage_state2", process_state)
     return process_state
 
 
 def oes_send_callback(socket_controller, oes_key, api_key):
     global process_state
     if process_state == LIB_STATE_SEND_ORDER:
-        log("\n3. Send the Order message\n")
+        log("Send the Order message\n")
         socket_controller.msgObj = create_new_limit_order(oes_key)
         socket_controller.is_send = True
         process_state = "recv_order_reply"

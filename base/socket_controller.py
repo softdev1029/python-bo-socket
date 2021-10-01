@@ -78,6 +78,7 @@ class SocketController:
 
             ret = need_read
             while ret:
+                log("Read", recv_len, "bytes from", self.addr[0], ":", self.addr[1], "\n")
                 (ret, reason, msg, msg_len) = process_message(self.aes_or_oes_key, self._recv_buffer)
                 if self.recv_callback is not None and msg_len != None:
                     self.recv_callback(ret, reason, msg, msg_len)
