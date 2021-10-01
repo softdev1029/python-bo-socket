@@ -118,10 +118,15 @@ class LibraryManager:
             self.oes_send_callback(socket_controller, self.oes_key, api_key)
             if socket_controller.is_send:
                 type = socket_controller.msgObj.MessageType
-                if type == ORDER_NEW or type == CANCEL_REPLACE:
-                    self.counter = self.counter + 1
-                    if self.counter > MAX_ORDER:
+                if self.counter > MAX_ORDER:
                         socket_controller.is_send = False
+                elif type == ORDER_NEW or type == CANCEL_REPLACE:
+                    self.counter = self.counter + 1
+
+        if socket_controller.is_send:
+            socket_controller.msgObj.print_message()
+
+        log("At sending, Message Counter is", self.counter)
 
     def oes_recv_callback_wrapper(self, ret, reason, msg, msg_len):
         log("Received message: len=", msg_len)
@@ -154,6 +159,7 @@ class LibraryManager:
             log("Unexpected message:", msg.Data1)
 
         self.manage_state = self.oes_recv_callback(ret, reason, msg, msg_len)
+        log("At receiving, Message Counter is", self.counter)
 
     def start(self):
         log("The AES server is", self.aes_host, ":", self.aes_port, "\n")

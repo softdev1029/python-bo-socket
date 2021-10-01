@@ -30,7 +30,6 @@ def create_client_logon(aes_or_oes_key, api_key, user_name, accont):
         0,  # RejectReason
         "",  # RiskMaster
     )
-    message.print_message()
 
     return message
 
@@ -107,7 +106,6 @@ def create_new_limit_order(aes_or_oes_key):
         1,  # ModifyType,
         "",  # Attributes,
     )
-    message.print_message()
     return message
 
 def create_cancel_replace(aes_or_oes_key):
@@ -157,5 +155,4 @@ def create_cancel_replace(aes_or_oes_key):
         1,  # ModifyType,
         "",  # Attributes,
     )
-    message.print_message()
     return message
