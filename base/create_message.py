@@ -1,3 +1,4 @@
+from constant.message_type import ORDER_NEW
 from market.five_level_data import create_five_level_data
 from market.ten_level_data import create_ten_level_data
 from market.twenty_level_data import create_twenty_level_data
@@ -16,7 +17,7 @@ from trade.collateral_request import CollateralRequest, create_collateral_reques
 from trade.collateral import Collateral
 from transaction.transaction import Transaction
 from market.md_subscribe import create_md_subscribe
-from example_message import create_new_limit_order
+from example_message import create_transaction
 
 MSG_CLIENT_LOGON = "client_logon"
 MSG_INSTRUMENT_REQUEST = "instrument_request"
@@ -25,7 +26,7 @@ MSG_RISK_UPDATE_REQUEST = "risk_update_request"
 MSG_RISK_USER_SYMBOL = "risk_user_symbol"
 MSG_OPEN_ORDER_REQUEST = "open_order_request"
 MSG_COLLATERAL_REQUEST = "collateral_request"
-MSG_NEW_LIMIT_ORDER = "new_limit_order"
+MSG_TRANSACTION = "transaction"
 MSG_MD_SUBSCRIBE = "md_subscribe"
 MSG_MD_EXEC_REPORT = "md_exec_report"
 MSG_TOB_MSG = "tob_msg"
@@ -41,7 +42,7 @@ REQUEST_MESSAGE_TYPES = {
     "w": MSG_RISK_UPDATE_REQUEST,
     "E": MSG_OPEN_ORDER_REQUEST,
     "f": MSG_COLLATERAL_REQUEST,
-    "T": MSG_NEW_LIMIT_ORDER,
+    "T": MSG_TRANSACTION,
     "s": MSG_MD_SUBSCRIBE,
     "V": MSG_MD_EXEC_REPORT,
     "t": MSG_TOB_MSG,
@@ -59,7 +60,7 @@ MESSAGE_TYPES = {
     "N": MSG_RISK_USER_SYMBOL,
     "E": MSG_OPEN_ORDER_REQUEST,
     "f": MSG_COLLATERAL_REQUEST,
-    "T": MSG_NEW_LIMIT_ORDER,
+    "T": MSG_TRANSACTION,
     "s": MSG_MD_SUBSCRIBE,
     "V": MSG_MD_EXEC_REPORT,
     "t": MSG_TOB_MSG,
@@ -71,7 +72,7 @@ MESSAGE_TYPES = {
 }
 
 
-def create_message(aes_or_oes_key, message_type):
+def create_message(aes_or_oes_key, message_type, transaction_type=ORDER_NEW):
     if message_type == MSG_CLIENT_LOGON:
         message = create_client_logon(aes_or_oes_key)
     elif message_type == MSG_INSTRUMENT_REQUEST:
@@ -86,8 +87,8 @@ def create_message(aes_or_oes_key, message_type):
         message = create_open_order_request(aes_or_oes_key)
     elif message_type == MSG_COLLATERAL_REQUEST:
         message = create_collateral_request(aes_or_oes_key)
-    elif message_type == MSG_NEW_LIMIT_ORDER:
-        message = create_new_limit_order(aes_or_oes_key)
+    elif message_type == MSG_TRANSACTION:
+        message = create_transaction(aes_or_oes_key, transaction_type)
     elif message_type == MSG_MD_SUBSCRIBE:
         message = create_md_subscribe(aes_or_oes_key)
     elif message_type == MSG_MD_EXEC_REPORT:

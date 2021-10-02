@@ -7,7 +7,6 @@ import traceback
 
 import server_aes_socket_controller
 
-from base.create_message import create_message
 
 sel = selectors.DefaultSelector()
 

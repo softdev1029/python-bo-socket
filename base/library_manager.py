@@ -13,8 +13,6 @@ LIB_STATE_SEND_AES_LOGON = "send_aes_logon"
 LIB_STATE_SEND_AES_LOGOUT = "send_aes_logout"
 LIB_STATE_SEND_OES_LOGON = "send_oes_logon"
 LIB_STATE_SEND_OES_LOGOUT = "send_oes_logout"
-LIB_STATE_SEND_NEW_ORDER = "send_new_order"
-LIB_STATE_SEND_CANCEL_REPLACE = "send_cancel_replace"
 
 LIB_STATE_EXIT = "exit"
 
@@ -48,6 +46,7 @@ class LibraryManager:
         self.counter = 0
 
     def aes_send_callback(self, socket_controller, aes_key, api_key):
+        # log("At send_callback to AES ...")
         # Step 1: Send AES Logon
         if self.manage_state == LIB_STATE_SEND_AES_LOGON:
             log("Send the AES Logon message\n")
@@ -66,7 +65,7 @@ class LibraryManager:
 
     def aes_recv_callback(self, ret, reason, msg, msg_len):
         # Step 2: Receive the AES Logon reply
-        log("Received message: len=", msg_len)
+        log("From AES server, Received message: len=", msg_len)
         if ret is False:
             log("Failed Reason:", reason)
             return
@@ -103,6 +102,7 @@ class LibraryManager:
             log("Unexpected message:", msg.Data1)
 
     def oes_send_callback_wrapper(self, socket_controller, aes_or_oes_key, api_key):
+        log("At send_callback to OES ...")
         # Step 3: Send the OES Logon
         if self.manage_state == LIB_STATE_SEND_OES_LOGON:
             log("Send the OES Logon message\n")
@@ -126,10 +126,10 @@ class LibraryManager:
         if socket_controller.is_send:
             socket_controller.msgObj.print_message()
 
-        log("At sending, Message Counter is", self.counter)
+        log("At sending, Message Counter is", self.counter, "Tx/Rx state is", self.manage_state)
 
     def oes_recv_callback_wrapper(self, ret, reason, msg, msg_len):
-        log("Received message: len=", msg_len)
+        log("From OES server, Received message: len=", msg_len)
         if ret is False:
             log("Failed Reason:", reason)
             return
@@ -159,7 +159,7 @@ class LibraryManager:
             log("Unexpected message:", msg.Data1)
 
         self.manage_state = self.oes_recv_callback(ret, reason, msg, msg_len)
-        log("At receiving, Message Counter is", self.counter)
+        log("At receiving, Message Counter is", self.counter, "Tx/Rx state is", self.manage_state)
 
     def start(self):
         log("The AES server is", self.aes_host, ":", self.aes_port, "\n")

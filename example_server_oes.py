@@ -7,8 +7,6 @@ import traceback
 
 import server_oes_socket_controller
 
-from base.create_message import create_message
-
 sel = selectors.DefaultSelector()
 
 

@@ -1,27 +1,25 @@
+import time
 from base.logger import log
-from constant.message_type import CANCELLED, ORDER_ACK, QUOTE_FILL, REPLACED
+from constant.message_type import CANCELLED, ORDER_ACK, QUOTE_FILL, REPLACED, RISK_REJECT
 from example_message import (
-    create_cancel_replace,
-    create_new_limit_order,
+    create_transaction,
 )
 from base.library_manager import (
     LIB_STATE_SEND_AES_LOGON,
     LIB_STATE_SEND_OES_LOGOUT,
-    LIB_STATE_SEND_NEW_ORDER,
-    LIB_STATE_SEND_CANCEL_REPLACE,
     LibraryManager,
 )
 
 message_type = ""
 
-log("This is the example program showing how to use Python binary socket library.\n")
-log("1. Specify the IPv4 address and the port number of the server\n")
+log("This is the example program showing how to use Python binary socket library.")
+log("Specify the IPv4 address and the port number of the AES server.")
 
-host = input("Enter a valid IPv4 address: ")
-port = input("Enter a valid port number: ")
-port = int(port)
-# host = "127.0.0.1"
-# port = 4444
+# host = input("Enter a valid IPv4 address: ")
+# port = input("Enter a valid port number: ")
+# port = int(port)
+host = "127.0.0.1"
+port = 4444
 
 api_key = input("Enter API Trading Key: ")
 user_name = input("Enter User Name: ")
@@ -35,36 +33,40 @@ def oes_recv_callback(ret, reason, msg, msg_len):
 
     if msg.Data1 == "H":  # logon message
         if msg.LoginStatus == 1:  # success
-            process_state = LIB_STATE_SEND_NEW_ORDER
+            process_state = "send_transaction"
         elif msg.LoginStatus == 2:  # failure
             process_state = "exit"
     elif msg.Data1 == "T":  # order message
         if msg.MessageType == ORDER_ACK:
-            process_state = LIB_STATE_SEND_CANCEL_REPLACE
+            pass
         elif msg.MessageType == CANCELLED:
-            process_state = LIB_STATE_SEND_OES_LOGOUT
+            pass
         elif msg.MessageType == REPLACED:
-            process_state = LIB_STATE_SEND_OES_LOGOUT
+            pass
         elif msg.MessageType == QUOTE_FILL:
-            process_state = LIB_STATE_SEND_OES_LOGOUT
+            pass
 
     return process_state
 
+transaction_type = 1
 
 def oes_send_callback(socket_controller, oes_key, api_key):
     global process_state
-    if process_state == LIB_STATE_SEND_NEW_ORDER:
-        log("Send the New Order message\n")
-        socket_controller.msgObj = create_new_limit_order(oes_key)
+    global transaction_type
+
+    if process_state != "exit":
+        log("Sending the Order message ...")
+        socket_controller.msgObj = create_transaction(oes_key, transaction_type)
         socket_controller.is_send = True
-        process_state == "recv_reply"
-    if process_state == LIB_STATE_SEND_CANCEL_REPLACE:
-        log("Send the Cancel Replace message\n")
-        socket_controller.msgObj = create_cancel_replace(oes_key)
-        socket_controller.is_send = True
-        process_state == "recv_reply"
+        transaction_type = transaction_type + 1
+
+        if transaction_type > RISK_REJECT:
+            process_state = "exit"
+
     else:
         socket_controller.is_send = False
+    
+    time.sleep(1)
 
 
 manager = LibraryManager(
