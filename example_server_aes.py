@@ -43,11 +43,13 @@ def accept_wrapper(
     sel.register(conn, selectors.EVENT_READ, data=socket_controller)
 
 
-if len(sys.argv) != 3:
-    print("usage:", sys.argv[0], "<host> <port>")
-    sys.exit(1)
+# if len(sys.argv) != 3:
+#     print("usage:", sys.argv[0], "<host> <port>")
+#     sys.exit(1)
 
-host, port = sys.argv[1], int(sys.argv[2])
+# host, port = sys.argv[1], int(sys.argv[2])
+host = "0.0.0.0"
+port = 4444
 
 start_connection(host, port)
 
