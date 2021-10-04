@@ -59,7 +59,7 @@ def create_client_logout(aes_or_oes_key):
     return message
 
 
-def create_transaction(aes_or_oes_key, type):
+def create_transaction(aes_or_oes_key, type, orderType):
     message = Transaction()
     message.set_data(
         "T",  # data1,
@@ -70,7 +70,7 @@ def create_transaction(aes_or_oes_key, type):
         100700,  # account,
         46832151,  # orderID,
         1,  # symbolEnum,
-        1,  # OrderType LMT
+        orderType,  # OrderType LMT
         1,  # SymbolType SPOT
         50100.5,  # BOPrice,
         3,  # BOSide BUY

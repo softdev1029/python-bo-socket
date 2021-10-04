@@ -1,4 +1,5 @@
 from constant.message_type import ORDER_NEW
+from constant.order_type import LMT
 from market.five_level_data import create_five_level_data
 from market.ten_level_data import create_ten_level_data
 from market.twenty_level_data import create_twenty_level_data
@@ -72,7 +73,7 @@ MESSAGE_TYPES = {
 }
 
 
-def create_message(aes_or_oes_key, message_type, transaction_type=ORDER_NEW):
+def create_message(aes_or_oes_key, message_type, transaction_type=ORDER_NEW, order_type=LMT):
     if message_type == MSG_CLIENT_LOGON:
         message = create_client_logon(aes_or_oes_key)
     elif message_type == MSG_INSTRUMENT_REQUEST:
@@ -88,7 +89,7 @@ def create_message(aes_or_oes_key, message_type, transaction_type=ORDER_NEW):
     elif message_type == MSG_COLLATERAL_REQUEST:
         message = create_collateral_request(aes_or_oes_key)
     elif message_type == MSG_TRANSACTION:
-        message = create_transaction(aes_or_oes_key, transaction_type)
+        message = create_transaction(aes_or_oes_key, transaction_type, order_type)
     elif message_type == MSG_MD_SUBSCRIBE:
         message = create_md_subscribe(aes_or_oes_key)
     elif message_type == MSG_MD_EXEC_REPORT:

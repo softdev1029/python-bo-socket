@@ -1,6 +1,7 @@
 import time
 from base.logger import log
-from constant.message_type import CANCELLED, ORDER_ACK, QUOTE_FILL, REPLACED, RISK_REJECT
+from constant.message_type import CANCEL_REPLACE, CANCELLED, ORDER_ACK, ORDER_CANCEL, ORDER_NEW, QUOTE_FILL, REPLACED, RISK_REJECT
+from constant.order_type import LMT, OCO_ICE, TPSL_LIMIT
 from example_message import (
     create_transaction,
 )
@@ -48,20 +49,31 @@ def oes_recv_callback(ret, reason, msg, msg_len):
 
     return process_state
 
-transaction_type = 1
+transaction_type = ORDER_NEW
+order_type = LMT
 
 def oes_send_callback(socket_controller, oes_key, api_key):
     global process_state
     global transaction_type
+    global order_type
 
     if process_state != "exit":
-        log("Sending the Order message ...")
-        socket_controller.msgObj = create_transaction(oes_key, transaction_type)
+        log("Sending the Order message, msg_type=", transaction_type, "order_type=", order_type)
+        socket_controller.msgObj = create_transaction(oes_key, transaction_type, order_type)
         socket_controller.is_send = True
-        transaction_type = transaction_type + 1
 
-        if transaction_type > RISK_REJECT:
-            process_state = "exit"
+        if transaction_type == ORDER_NEW:
+            transaction_type = CANCEL_REPLACE
+        elif transaction_type == CANCEL_REPLACE:
+            transaction_type = ORDER_CANCEL
+        elif transaction_type == ORDER_CANCEL:
+            transaction_type = ORDER_NEW
+            order_type = order_type + 1
+            if order_type == OCO_ICE:
+                order_type = order_type + 1
+
+            if order_type > TPSL_LIMIT:
+                process_state = "exit"
 
     else:
         socket_controller.is_send = False
