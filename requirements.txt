@@ -1,2 +1,1 @@
-websocket-client==0.59.0
-websockets==9.0.1
+pyotp==2.6.0

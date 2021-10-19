@@ -1,8 +1,119 @@
 # Install
 
-pip install pyotp
+pip install -r requirements.txt
 
 # Example application using the python library
+
+The library provides the example server and client instance using the library functions.
+The AES server runs as follows.
+
+```
+python3 example_server_aes.py 0.0.0.0 4444
+listening on ('0.0.0.0', 4444)
+```
+
+Then, the OES server runs as follows.
+
+```
+python3 example_server_oes.py 0.0.0.0 4445
+listening on ('0.0.0.0', 4444)
+```
+
+The client runs as follows.
+
+```
+python3 example_client4.py 127.0.0.1 4444
+```
+
+First, you should input API Trading Key, User Name and Account.
+
+```
+Enter API Trading Key: 1
+Enter User Name: 1
+Enter Account: 1
+```
+
+Then, it successfully connects to the AES server.
+
+```
+[lib]  The AES server is 127.0.0.1 : 4444 
+
+[lib]  Starting connection to 127.0.0.1 : 4444  ...
+[lib]  Successfully connected to the server.
+```
+
+And it sends the AES Logon message.
+
+```
+[lib]  Send the AES Logon message
+
+[lib]  Encoded Client Logon message 48008F00010001000000353137383436310000000000FA010000310000000000000000000000000000000000000000000000310000000000000000000000000000000000000000000000310000000000000000000000000000000000000000000000310000000000000000000000000000000000000000000000000000000000000029E41600000000000000000000
+[lib]  Sending 143 bytes to 127.0.0.1 : 4444  ..
+```
+
+The AES server replies with the OES server IP and Port.
+
+```
+[lib]  Read 143 bytes from 127.0.0.1 : 4444 
+
+[lib]  Processing the received message ...
+[lib]  Message type is client_logon
+[lib]  Buffer size is 143 required len is 143
+[lib]    Data1 :  H
+[lib]    Data2 :  
+[lib]    Data3 :  143
+[lib]    LogonType :  1
+[lib]    Account :  100700
+[lib]    TwoFA :  1F6A
+[lib]    UserName :  BOU7
+[lib]    TradingSessionID :  506
+[lib]    PrimaryOrderEntryIP :  127.0.0.1:4445
+[lib]    SecondaryOrderEntryIP :  1
+[lib]    PrimaryMarketDataIP :  1
+[lib]    SecondaryMarketDataIP :  1
+[lib]    SendingTime :  0
+[lib]    LastSeqNum :  1500201
+[lib]    Key :  432451
+[lib]    LoginStatus :  1
+[lib]    RejectReason :  0
+[lib]    RiskMaster :  
+[lib]  Valid: True
+```
+
+After getting the information of the OES server, it connects to the OES server.
+
+```
+[lib]  From AES server, Received message: len= 143
+[lib]  AES Logon success
+[lib]  The OES server is 127.0.0.1 : 4445 
+[lib]  Starting connection to 127.0.0.1 : 4445  ...
+[lib]  Successfully connected to the server.
+```
+
+Then, the client sends the OES Logon message.
+
+```
+[lib]  Read 143 bytes from 127.0.0.1 : 4444 
+
+[lib]  At send_callback to OES ...
+[lib]  Processing the received message ...
+[lib]  Send the OES Logon message
+```
+
+The library always updates Tx/Rx counter.
+
+```
+[lib]  At sending, Message Counter is 0 Tx/Rx state is recv_logon
+```
+
+Every 1 second, the client sends the Transaction message with a different Message Type and a different Order Type.
+
+```
+[lib]  At send_callback to OES ...
+[lib]  Sending the Order message, msg_type= 1 order_type= 1
+```
+
+# the 2nd Example application using the python library
 
 The library provides the example server and client instance using the library functions.
 The server runs as follows.
