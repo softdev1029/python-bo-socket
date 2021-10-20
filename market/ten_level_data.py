@@ -6,6 +6,7 @@ from base.logger import log
 
 class TenLevelData(BaseLevelData):
     def __init__(self):
+        super(TenLevelData, self).__init__()
         self.data = ()
         self.binary_data = None
         self.level_count = 20  # Ten Level Data message

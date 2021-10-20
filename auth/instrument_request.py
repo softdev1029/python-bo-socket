@@ -6,6 +6,7 @@ from base.logger import log
 
 class InstrumentRequest(Message):
     def __init__(self):
+        super(InstrumentRequest, self).__init__()
         self.data = ()
         self.binary_data = None
 

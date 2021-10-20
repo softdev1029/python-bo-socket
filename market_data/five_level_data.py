@@ -6,6 +6,7 @@ from base.logger import log
 
 class FiveLevelData(Message):
     def __init__(self):
+        super(FiveLevelData, self).__init__()
         self.decoded_data = {}
         self._names = (
             "data1",

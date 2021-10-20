@@ -6,6 +6,7 @@ from base.logger import log
 
 class ThreeLevelData(Message):
     def __init__(self):
+        super(ThreeLevelData, self).__init__()
         self.data = ()
         self.binary_data = None
 

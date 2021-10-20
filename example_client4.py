@@ -1,6 +1,15 @@
 import time
 from base.logger import log
-from constant.message_type import CANCEL_REPLACE, CANCELLED, ORDER_ACK, ORDER_CANCEL, ORDER_NEW, QUOTE_FILL, REPLACED, RISK_REJECT
+from constant.message_type import (
+    CANCEL_REPLACE,
+    CANCELLED,
+    ORDER_ACK,
+    ORDER_CANCEL,
+    ORDER_NEW,
+    QUOTE_FILL,
+    REPLACED,
+    RISK_REJECT,
+)
 from constant.order_type import LMT, OCO_ICE, TPSL_LIMIT
 from example_message import (
     create_transaction,
@@ -29,6 +38,7 @@ account = int(input("Enter Account: "))
 
 process_state = LIB_STATE_SEND_AES_LOGON
 
+
 def oes_recv_callback(ret, reason, msg, msg_len):
     global process_state
 
@@ -49,8 +59,10 @@ def oes_recv_callback(ret, reason, msg, msg_len):
 
     return process_state
 
+
 transaction_type = ORDER_NEW
 order_type = LMT
+
 
 def oes_send_callback(socket_controller, oes_key, api_key):
     global process_state
@@ -58,8 +70,15 @@ def oes_send_callback(socket_controller, oes_key, api_key):
     global order_type
 
     if process_state != "exit":
-        log("Sending the Order message, msg_type=", transaction_type, "order_type=", order_type)
-        socket_controller.msgObj = create_transaction(oes_key, transaction_type, order_type)
+        log(
+            "Sending the Order message, msg_type=",
+            transaction_type,
+            "order_type=",
+            order_type,
+        )
+        socket_controller.msgObj = create_transaction(
+            oes_key, transaction_type, order_type
+        )
         socket_controller.is_send = True
 
         if transaction_type == ORDER_NEW:
@@ -77,7 +96,7 @@ def oes_send_callback(socket_controller, oes_key, api_key):
 
     else:
         socket_controller.is_send = False
-    
+
     time.sleep(1)
 
 
@@ -94,5 +113,5 @@ manager.start()
 
 while True:
     # log("totp=", totp.now())
-    # time.sleep(1)
+    time.sleep(1)
     pass

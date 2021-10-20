@@ -6,6 +6,7 @@ from base.logger import log
 
 class OpenOrderRequest(Message):
     def __init__(self):
+        super(OpenOrderRequest, self).__init__()
         self.data = ()
         self.binary_data = None
 

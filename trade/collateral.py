@@ -6,6 +6,7 @@ from base.logger import log
 
 class Collateral(Message):
     def __init__(self):
+        super(Collateral, self).__init__()
         self.msgType1 = None
         self.msgType2 = None
         self.length = None

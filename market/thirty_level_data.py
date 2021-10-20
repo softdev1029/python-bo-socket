@@ -6,6 +6,7 @@ from base.logger import log
 
 class ThirtyLevelData(BaseLevelData):
     def __init__(self):
+        super(ThirtyLevelData, self).__init__()
         self.data = ()
         self.binary_data = None
         self.level_count = 60  # Thirty Level Data message

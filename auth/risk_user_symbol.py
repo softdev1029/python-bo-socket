@@ -6,6 +6,7 @@ from base.logger import log
 
 class RiskUserSymbol(Message):
     def __init__(self):
+        super(RiskUserSymbol, self).__init__()
         self.data = ()
         self.binary_data = None
         self.decoded_data = {}
