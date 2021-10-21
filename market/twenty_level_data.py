@@ -1,7 +1,4 @@
-import struct
-from utils.helper import print_bytes_hex
 from market.base_level_data import BaseLevelData
-from base.logger import log
 
 
 class TwentyLevelData(BaseLevelData):

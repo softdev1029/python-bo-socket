@@ -8,15 +8,13 @@ from market.three_level_data import create_three_level_data
 from market.tob_msg import create_tob_msg
 from market.md_exec_report import create_md_exec_report
 from base.message import create_base_message
-from auth.client_logon import ClientLogon, create_client_logon
-from auth.instrument_request import InstrumentRequest, create_instrument_request
-from auth.instrument_response import InstrumentResponse, create_instrument_response
-from auth.risk_update_request import RiskUpdateRequest, create_risk_update_request
-from auth.risk_user_symbol import RiskUserSymbol, create_risk_user_symbol
-from auth.open_order_request import OpenOrderRequest, create_open_order_request
-from trade.collateral_request import CollateralRequest, create_collateral_request
-from trade.collateral import Collateral
-from transaction.transaction import Transaction
+from auth.client_logon import create_client_logon
+from auth.instrument_request import create_instrument_request
+from auth.instrument_response import create_instrument_response
+from auth.risk_update_request import create_risk_update_request
+from auth.risk_user_symbol import create_risk_user_symbol
+from auth.open_order_request import create_open_order_request
+from trade.collateral_request import create_collateral_request
 from market.md_subscribe import create_md_subscribe
 from example_message import create_transaction
 
@@ -73,7 +71,9 @@ MESSAGE_TYPES = {
 }
 
 
-def create_message(aes_or_oes_key, message_type, transaction_type=ORDER_NEW, order_type=LMT):
+def create_message(
+    aes_or_oes_key, message_type, transaction_type=ORDER_NEW, order_type=LMT
+):
     if message_type == MSG_CLIENT_LOGON:
         message = create_client_logon(aes_or_oes_key)
     elif message_type == MSG_INSTRUMENT_REQUEST:

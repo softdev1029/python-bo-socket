@@ -1,5 +1,4 @@
 import struct
-import binascii
 from base.message import Message
 from base.logger import log
 
