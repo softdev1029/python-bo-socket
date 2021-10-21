@@ -8,7 +8,6 @@ from constant.message_type import (
     ORDER_NEW,
     QUOTE_FILL,
     REPLACED,
-    RISK_REJECT,
 )
 from constant.order_type import LMT, OCO_ICE, TPSL_LIMIT
 from example_message import (
@@ -16,7 +15,6 @@ from example_message import (
 )
 from base.library_manager import (
     LIB_STATE_SEND_AES_LOGON,
-    LIB_STATE_SEND_OES_LOGOUT,
     LibraryManager,
 )
 

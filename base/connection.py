@@ -6,6 +6,7 @@ import selectors
 from base.initiator_socket_controller import InitiatorSocketController
 from base.logger import log
 
+
 def start_connect_to_server(host, port, recv_callback):
     sel = selectors.DefaultSelector()
     addr = (host, port)
@@ -13,7 +14,11 @@ def start_connect_to_server(host, port, recv_callback):
 
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.setblocking(False)
-    sock.connect_ex(addr)
+    try:
+        sock.connect_ex(addr)
+    except Exception as e:
+        log("Connecting to server failed", e)
+        return None
 
     log("Successfully connected to the server.")
 
