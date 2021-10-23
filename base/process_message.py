@@ -47,4 +47,4 @@ def process_message(aes_or_oes_key, data):
                 else:
                     onMessage(msg)
                     return (True, RECV_NO_ERROR, msg, msg_len)
-    return (False, RECV_ERROR_UNKNOWN)
+    # return (False, RECV_ERROR_UNKNOWN)

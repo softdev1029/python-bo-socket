@@ -1,89 +1,115 @@
-#!/usr/bin/env python3
-
-import sys
-import socket
-import selectors
-import traceback
-
-from base.initiator_socket_controller import InitiatorSocketController
-
-from base.create_message import (
-    create_message,
-    get_all_request_message_types_string,
-    is_valid_message_type,
-    REQUEST_MESSAGE_TYPES,
+import time
+from base.logger import log
+from constant.message_type import (
+    CANCEL_REPLACE,
+    CANCELLED,
+    ORDER_ACK,
+    ORDER_CANCEL,
+    ORDER_NEW,
+    QUOTE_FILL,
+    REPLACED,
 )
-
-sel = selectors.DefaultSelector()
+from constant.order_type import LMT, OCO_ICE, TPSL_LIMIT
+from example_message import (
+    create_transaction,
+)
+from base.library_manager import (
+    LIB_STATE_SEND_AES_LOGON,
+    LibraryManager,
+)
 
 message_type = ""
 
+log("This is the example program showing how to use Python binary socket library.")
+log("Specify the IPv4 address and the port number of the AES server.")
 
-def onMessage(ret, reason, msg, msg_len):
+# host = input("Enter a valid IPv4 address: ")
+# port = input("Enter a valid port number: ")
+# port = int(port)
+host = "127.0.0.1"
+port = 4444
+
+api_key = input("Enter API Trading Key: ")
+user_name = input("Enter User Name: ")
+account = int(input("Enter Account: "))
+
+
+process_state = LIB_STATE_SEND_AES_LOGON
+
+
+def oes_recv_callback(ret, reason, msg, msg_len):
+    global process_state
+
+    if msg.Data1 == "H":  # logon message
+        if msg.LoginStatus == 1:  # success
+            process_state = "send_transaction"
+        elif msg.LoginStatus == 2:  # failure
+            process_state = "exit"
+    elif msg.Data1 == "T":  # order message
+        if msg.MessageType == ORDER_ACK:
+            pass
+        elif msg.MessageType == CANCELLED:
+            pass
+        elif msg.MessageType == REPLACED:
+            pass
+        elif msg.MessageType == QUOTE_FILL:
+            pass
+
+    return process_state
+
+
+transaction_type = ORDER_NEW
+order_type = LMT
+
+
+def oes_send_callback(socket_controller, oes_key, api_key):
+    global process_state
+    global transaction_type
+    global order_type
+
+    if process_state != "exit":
+        log(
+            "Sending the Order message, msg_type=",
+            transaction_type,
+            "order_type=",
+            order_type,
+        )
+        socket_controller.msgObj = create_transaction(
+            oes_key, transaction_type, order_type
+        )
+        socket_controller.is_send = True
+
+        if transaction_type == ORDER_NEW:
+            transaction_type = CANCEL_REPLACE
+        elif transaction_type == CANCEL_REPLACE:
+            transaction_type = ORDER_CANCEL
+        elif transaction_type == ORDER_CANCEL:
+            transaction_type = ORDER_NEW
+            order_type = order_type + 1
+            if order_type == OCO_ICE:
+                order_type = order_type + 1
+
+            if order_type > TPSL_LIMIT:
+                process_state = "exit"
+
+    else:
+        socket_controller.is_send = False
+
+    time.sleep(1)
+
+
+manager = LibraryManager(
+    aes_host=host,
+    aes_port=port,
+    api_key=api_key,
+    user_name=user_name,
+    account=account,
+    oes_recv_callback=oes_recv_callback,
+    oes_send_callback=oes_send_callback,
+)
+manager.start()
+
+while True:
+    # log("totp=", totp.now())
+    time.sleep(1)
     pass
-
-
-def start_connection(host, port):
-    addr = (host, port)
-    print("\nstarting connection to", addr, " ...\n")
-
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sock.setblocking(False)
-    sock.connect_ex(addr)
-
-    msgObj = create_message(message_type)
-
-    events = selectors.EVENT_READ | selectors.EVENT_WRITE
-    socket_controller = InitiatorSocketController(sel, sock, addr, msgObj, onMessage)
-    sel.register(sock, events, data=socket_controller)
-
-
-if len(sys.argv) != 3:
-    print("usage:", sys.argv[0], "<host> <port>")
-    sys.exit(1)
-
-host, port = sys.argv[1], int(sys.argv[2])
-
-start_connection(host, port)
-
-try:
-    while True:
-        message_type = ""
-        message_type_key = ""
-        while is_valid_message_type(message_type_key) is False:
-
-            try:
-                message_type_key = input(
-                    get_all_request_message_types_string()
-                    + "\nEnter a valid message type: "
-                )
-            except Exception:
-                pass
-
-        events = sel.select(timeout=1)
-        for key, mask in events:
-            socket_controller = key.data
-            if message_type_key == "0":
-                pass
-            else:
-                message_type = REQUEST_MESSAGE_TYPES[message_type_key]
-
-                socket_controller.msgObj = create_message(message_type)
-                socket_controller.is_send = True
-                print("\n")
-
-            try:
-                socket_controller.process_events(mask)
-            except Exception:
-                print(
-                    "main: error: exception for",
-                    f"{socket_controller.addr}:\n{traceback.format_exc()}",
-                )
-                socket_controller.close()
-        # Check for a socket being monitored to continue.
-        if not sel.get_map():
-            break
-except KeyboardInterrupt:
-    print("caught keyboard interrupt, exiting")
-finally:
-    sel.close()

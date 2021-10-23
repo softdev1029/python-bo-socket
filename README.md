@@ -22,7 +22,7 @@ listening on ('0.0.0.0', 4444)
 The client runs as follows.
 
 ```
-python3 example_client4.py 127.0.0.1 4444
+python3 example_client.py 127.0.0.1 4444
 ```
 
 First, you should input API Trading Key, User Name and Account.
@@ -36,7 +36,7 @@ Enter Account: 1
 Then, it successfully connects to the AES server.
 
 ```
-[lib]  The AES server is 127.0.0.1 : 4444 
+[lib]  The AES server is 127.0.0.1 : 4444
 
 [lib]  Starting connection to 127.0.0.1 : 4444  ...
 [lib]  Successfully connected to the server.
@@ -54,13 +54,13 @@ And it sends the AES Logon message.
 The AES server replies with the OES server IP and Port.
 
 ```
-[lib]  Read 143 bytes from 127.0.0.1 : 4444 
+[lib]  Read 143 bytes from 127.0.0.1 : 4444
 
 [lib]  Processing the received message ...
 [lib]  Message type is client_logon
 [lib]  Buffer size is 143 required len is 143
 [lib]    Data1 :  H
-[lib]    Data2 :  
+[lib]    Data2 :
 [lib]    Data3 :  143
 [lib]    LogonType :  1
 [lib]    Account :  100700
@@ -76,7 +76,7 @@ The AES server replies with the OES server IP and Port.
 [lib]    Key :  432451
 [lib]    LoginStatus :  1
 [lib]    RejectReason :  0
-[lib]    RiskMaster :  
+[lib]    RiskMaster :
 [lib]  Valid: True
 ```
 
@@ -85,7 +85,7 @@ After getting the information of the OES server, it connects to the OES server.
 ```
 [lib]  From AES server, Received message: len= 143
 [lib]  AES Logon success
-[lib]  The OES server is 127.0.0.1 : 4445 
+[lib]  The OES server is 127.0.0.1 : 4445
 [lib]  Starting connection to 127.0.0.1 : 4445  ...
 [lib]  Successfully connected to the server.
 ```
@@ -93,7 +93,7 @@ After getting the information of the OES server, it connects to the OES server.
 Then, the client sends the OES Logon message.
 
 ```
-[lib]  Read 143 bytes from 127.0.0.1 : 4444 
+[lib]  Read 143 bytes from 127.0.0.1 : 4444
 
 [lib]  At send_callback to OES ...
 [lib]  Processing the received message ...
