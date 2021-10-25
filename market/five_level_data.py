@@ -9,106 +9,7 @@ class FiveLevelData(Message):
         super(FiveLevelData, self).__init__()
         self.data = ()
         self.binary_data = None
-
-    def set_data(
-        self,
-        data1,
-        data2,
-        data3,
-        messageType,
-        padding,
-        symbolEnum,
-        symbolType,
-        symbolName,
-        lastTradePrice,
-        last24Vol,
-        high,
-        low,
-        # level 1
-        Lvl1BuyPrice,
-        Lvl1BuyVolume,
-        Lvl1NumBuyOrders,
-        Lvl1SellPrice,
-        Lvl1SellVolume,
-        Lvl1NumSellOrders,
-        # level 2
-        Lvl2BuyPrice,
-        Lvl2BuyVolume,
-        Lvl2NumBuyOrders,
-        Lvl2SellPrice,
-        Lvl2SellVolume,
-        Lvl2NumSellOrders,
-        # level 3
-        Lvl3BuyPrice,
-        Lvl3BuyVolume,
-        Lvl3NumBuyOrders,
-        Lvl3SellPrice,
-        Lvl3SellVolume,
-        Lvl3NumSellOrders,
-        # level 4
-        Lvl4BuyPrice,
-        Lvl4BuyVolume,
-        Lvl4NumBuyOrders,
-        Lvl4SellPrice,
-        Lvl4SellVolume,
-        Lvl4NumSellOrders,
-        # level 5
-        Lvl5BuyPrice,
-        Lvl5BuyVolume,
-        Lvl5NumBuyOrders,
-        Lvl5SellPrice,
-        Lvl5SellVolume,
-        Lvl5NumSellOrders,
-    ):
-        self.data = (
-            data1.encode("utf-8"),
-            data2.encode("utf-8"),
-            data3,
-            messageType,
-            padding,
-            symbolEnum,
-            symbolType,
-            symbolName.encode("utf-8"),
-            lastTradePrice,
-            last24Vol,
-            high,
-            low,
-            # level 1
-            Lvl1BuyPrice,
-            Lvl1BuyVolume,
-            Lvl1NumBuyOrders,
-            Lvl1SellPrice,
-            Lvl1SellVolume,
-            Lvl1NumSellOrders,
-            # level 2
-            Lvl2BuyPrice,
-            Lvl2BuyVolume,
-            Lvl2NumBuyOrders,
-            Lvl2SellPrice,
-            Lvl2SellVolume,
-            Lvl2NumSellOrders,
-            # level 3
-            Lvl3BuyPrice,
-            Lvl3BuyVolume,
-            Lvl3NumBuyOrders,
-            Lvl3SellPrice,
-            Lvl3SellVolume,
-            Lvl3NumSellOrders,
-            # level 4
-            Lvl4BuyPrice,
-            Lvl4BuyVolume,
-            Lvl4NumBuyOrders,
-            Lvl4SellPrice,
-            Lvl4SellVolume,
-            Lvl4NumSellOrders,
-            # level 5
-            Lvl5BuyPrice,
-            Lvl5BuyVolume,
-            Lvl5NumBuyOrders,
-            Lvl5SellPrice,
-            Lvl5SellVolume,
-            Lvl5NumSellOrders,
-        )
+        self.level_count = 5  # Five Level Data message
 
     def encode(self):
         try:
@@ -154,40 +55,15 @@ def create_five_level_data():
         60000.5,  # last24Vol
         60000.5,  # high
         60000.5,  # low
-        # level1
-        60000.5,  # buyPrice
-        60000.5,  # buyVolume
-        5,  # numBuyOrders
-        60000.5,  # sellPrice
-        60000.5,  # sellVolume
-        5,  # numSellOrders
-        # level2
-        60000.5,  # buyPrice
-        60000.5,  # buyVolume
-        5,  # numBuyOrders
-        60000.5,  # sellPrice
-        60000.5,  # sellVolume
-        5,  # numSellOrders
-        # level3
-        60000.5,  # buyPrice
-        60000.5,  # buyVolume
-        5,  # numBuyOrders
-        60000.5,  # sellPrice
-        60000.5,  # sellVolume
-        5,  # numSellOrders
-        # level4
-        60000.5,  # buyPrice
-        60000.5,  # buyVolume
-        5,  # numBuyOrders
-        60000.5,  # sellPrice
-        60000.5,  # sellVolume
-        5,  # numSellOrders
-        # level5
-        60000.5,  # buyPrice
-        60000.5,  # buyVolume
-        5,  # numBuyOrders
-        60000.5,  # sellPrice
-        60000.5,  # sellVolume
-        5,  # numSellOrders
     )
+    for i in range(5):
+        message.set_extend_data(
+            60000.5,  # buyPrice
+            60000.5,  # buyVolume
+            5,  # numBuyOrders
+            60000.5,  # sellPrice
+            60000.5,  # sellVolume
+            5,  # numSellOrders
+        )
+
     return message
