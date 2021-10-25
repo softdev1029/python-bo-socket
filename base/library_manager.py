@@ -1,6 +1,15 @@
-#!/usr/bin/env python3
+"""
+It is the main file for library manager.
+"""
 
-from constant.message_type import CANCEL_REPLACE, CANCELLED, ORDER_ACK, ORDER_NEW, QUOTE_FILL, REPLACED
+from constant.message_type import (
+    CANCEL_REPLACE,
+    CANCELLED,
+    ORDER_ACK,
+    ORDER_NEW,
+    QUOTE_FILL,
+    REPLACED,
+)
 from base.connection import start_connect_to_server
 from base.thread_handler import socket_thread
 from example_message import (
@@ -18,7 +27,12 @@ LIB_STATE_EXIT = "exit"
 
 MAX_ORDER = 10
 
+
 class LibraryManager:
+    """
+    It is the main file for library manager.
+    """
+
     def __init__(
         self,
         aes_host,
@@ -106,7 +120,9 @@ class LibraryManager:
         # Step 3: Send the OES Logon
         if self.manage_state == LIB_STATE_SEND_OES_LOGON:
             log("Send the OES Logon message\n")
-            socket_controller.msgObj = create_client_logon(aes_or_oes_key, self.api_key, self.user_name, self.account)
+            socket_controller.msgObj = create_client_logon(
+                aes_or_oes_key, self.api_key, self.user_name, self.account
+            )
             socket_controller.is_send = True
             self.manage_state = "recv_logon"
         elif self.manage_state == LIB_STATE_SEND_OES_LOGOUT:
@@ -119,21 +135,26 @@ class LibraryManager:
             if socket_controller.is_send:
                 type = socket_controller.msgObj.MessageType
                 if self.counter > MAX_ORDER:
-                        socket_controller.is_send = False
+                    socket_controller.is_send = False
                 elif type == ORDER_NEW or type == CANCEL_REPLACE:
                     self.counter = self.counter + 1
 
         if socket_controller.is_send:
             socket_controller.msgObj.print_message()
 
-        log("At sending, Message Counter is", self.counter, "Tx/Rx state is", self.manage_state)
+        log(
+            "At sending, Message Counter is",
+            self.counter,
+            "Tx/Rx state is",
+            self.manage_state,
+        )
 
     def oes_recv_callback_wrapper(self, ret, reason, msg, msg_len):
         log("From OES server, Received message: len=", msg_len)
         if ret is False:
             log("Failed Reason:", reason)
             return
-            
+
         # Step 4: Receive the OES Logon reply
         if msg.Data1 == "H":  # logon message
             if msg.LoginStatus == 1:  # success
@@ -159,7 +180,12 @@ class LibraryManager:
             log("Unexpected message:", msg.Data1)
 
         self.manage_state = self.oes_recv_callback(ret, reason, msg, msg_len)
-        log("At receiving, Message Counter is", self.counter, "Tx/Rx state is", self.manage_state)
+        log(
+            "At receiving, Message Counter is",
+            self.counter,
+            "Tx/Rx state is",
+            self.manage_state,
+        )
 
     def start(self):
         log("The AES server is", self.aes_host, ":", self.aes_port, "\n")

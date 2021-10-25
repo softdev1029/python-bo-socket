@@ -1,8 +1,14 @@
+# This file is for ClientLogon message
+
 import struct
 from base.message import Message
 
 
 class ClientLogon(Message):
+    """
+    This class is for ClientLogon message
+    """
+
     def __init__(self):
         super(ClientLogon, self).__init__()
         self.MessageName = "Client Logon"
@@ -28,10 +34,16 @@ class ClientLogon(Message):
         )
 
     def make_pack_struct(self):
+        """
+        build the binary struct for message
+        """
         return struct.Struct("= 1s 1s H H I 6s 6s I 24s 24s 24s 24s Q I I H H 1s")
 
 
-def create_client_logon(aes_or_oes_key):
+def create_client_logon(aes_or_oes_key: str) -> Message:
+    """
+    Create ClientLogon message
+    """
     message = ClientLogon()
     message.set_data(
         "H",  # data1

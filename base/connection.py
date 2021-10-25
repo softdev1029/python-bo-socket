@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+# This file is for connecting to server.
 
 import socket
 import selectors
@@ -7,7 +7,14 @@ from base.initiator_socket_controller import InitiatorSocketController
 from base.logger import log
 
 
-def start_connect_to_server(host, port, recv_callback):
+def start_connect_to_server(
+    host: str, port: int, recv_callback
+) -> selectors.DefaultSelector:
+    """
+    Server IP address and port should be provided.
+    And the callback handler processing the received message should be provided.
+    """
+
     sel = selectors.DefaultSelector()
     addr = (host, port)
     log("Starting connection to", host, ":", port, " ...")

@@ -1,3 +1,7 @@
+"""
+This file is related to processing messages such as creating/validation.
+"""
+
 from constant.message_type import ORDER_NEW
 from constant.order_type import LMT
 from market.five_level_data import create_five_level_data
@@ -7,7 +11,7 @@ from market.thirty_level_data import create_thirty_level_data
 from market.three_level_data import create_three_level_data
 from market.tob_msg import create_tob_msg
 from market.md_exec_report import create_md_exec_report
-from base.message import create_base_message
+from base.message import Message, create_base_message
 from auth.client_logon import create_client_logon
 from auth.instrument_request import create_instrument_request
 from auth.instrument_response import create_instrument_response
@@ -72,8 +76,13 @@ MESSAGE_TYPES = {
 
 
 def create_message(
-    aes_or_oes_key, message_type, transaction_type=ORDER_NEW, order_type=LMT
-):
+    aes_or_oes_key: str, message_type: str, transaction_type=ORDER_NEW, order_type=LMT
+) -> Message:
+    """
+    Create a message according to the type of message.
+    All message needs AES/OES key.
+    """
+
     if message_type == MSG_CLIENT_LOGON:
         message = create_client_logon(aes_or_oes_key)
     elif message_type == MSG_INSTRUMENT_REQUEST:
@@ -111,7 +120,10 @@ def create_message(
     return message
 
 
-def is_valid_message_type(message_type_key):
+def is_valid_message_type(message_type_key: str) -> bool:
+    """
+    Check if the type of message is valid
+    """
     if message_type_key in MESSAGE_TYPES.keys():
         return True
 
@@ -121,7 +133,10 @@ def is_valid_message_type(message_type_key):
     return False
 
 
-def get_all_request_message_types_string():
+def get_all_request_message_types_string() -> str:
+    """
+    Make the help string for message types
+    """
     res = ""
     res += "0\tGo To Receive Mode\n"
     for i in REQUEST_MESSAGE_TYPES:
@@ -130,6 +145,9 @@ def get_all_request_message_types_string():
 
 
 def get_message_type_from_header(key):
+    """
+    Get the message type from the value of binary message header
+    """
     if key in MESSAGE_TYPES.keys():
         return MESSAGE_TYPES[key]
     return ""
