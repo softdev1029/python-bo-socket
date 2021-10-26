@@ -1,9 +1,15 @@
+# It is the fundamental socket controller.
+
 from base.process_message import process_message
 from base.logger import log
 import selectors
 
 
 class SocketController:
+    """
+    It is the fundamental socket controller.
+    """
+
     def __init__(self, sel, sock, addr, msgObj, recv_callback):
         self.selector = sel
         self.sock = sock
@@ -21,7 +27,10 @@ class SocketController:
         self.aes_or_oes_key = None
 
     def _set_selector_events_mask(self, mode):
-        """Set selector to listen for events: mode is 'r', 'w', or 'rw'."""
+        """
+        Set selector to listen for events: mode is 'r', 'w', or 'rw'.
+        """
+
         if mode == "r":
             events = selectors.EVENT_READ
         elif mode == "w":
@@ -32,8 +41,11 @@ class SocketController:
             raise ValueError(f"Invalid events mask mode {repr(mode)}.")
         self.selector.modify(self.sock, events, data=self)
 
-    # returns the length of received data
     def _read(self):
+        """
+        returns the length of received data
+        """
+
         try:
             # Should be ready to read
             data = self.sock.recv(4096)
@@ -49,7 +61,15 @@ class SocketController:
 
     def _write(self):
         if self._send_buffer:
-            log("Sending", len(self._send_buffer), "bytes to", self.addr[0], ":", self.addr[1], " ...\n")
+            log(
+                "Sending",
+                len(self._send_buffer),
+                "bytes to",
+                self.addr[0],
+                ":",
+                self.addr[1],
+                " ...\n",
+            )
             try:
                 # Should be ready to write
                 sent = self.sock.send(self._send_buffer)
@@ -78,8 +98,18 @@ class SocketController:
 
             ret = need_read
             while ret:
-                log("Read", recv_len, "bytes from", self.addr[0], ":", self.addr[1], "\n")
-                (ret, reason, msg, msg_len) = process_message(self.aes_or_oes_key, self._recv_buffer)
+                log(
+                    "Read",
+                    recv_len,
+                    "bytes from",
+                    self.addr[0],
+                    ":",
+                    self.addr[1],
+                    "\n",
+                )
+                (ret, reason, msg, msg_len) = process_message(
+                    self.aes_or_oes_key, self._recv_buffer
+                )
                 if self.recv_callback is not None and msg_len != None:
                     self.recv_callback(ret, reason, msg, msg_len)
                 if ret:

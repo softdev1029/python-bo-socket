@@ -1,9 +1,16 @@
+# This file is for Collateral message
+
+
 import struct
 from base.message import Message
 from base.logger import log
 
 
 class Collateral(Message):
+    """
+    This class is for Collateral message
+    """
+
     def __init__(self):
         super(Collateral, self).__init__()
         self.msgType1 = None

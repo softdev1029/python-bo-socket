@@ -1,8 +1,9 @@
+# This file defines the main function for processing message
+
 from base.create_example_message import (
     create_example_message,
     get_message_type_from_header,
 )
-from base.on_message import onMessage
 from base.logger import log
 
 RECV_NO_ERROR = -1
@@ -18,6 +19,10 @@ def parse_header(data):
 
 
 def process_message(aes_or_oes_key, data):
+    """
+    It is the main function for processing the received message
+    """
+
     log("Processing the received message ...")
     if len(data) < 3:
         log("Invalid buffer, length is", len(data))
@@ -48,6 +53,5 @@ def process_message(aes_or_oes_key, data):
                     log("Parse error")
                     return (False, RECV_ERROR_PARSE, None, None)
                 else:
-                    onMessage(msg)
                     return (True, RECV_NO_ERROR, msg, msg_len)
     # return (False, RECV_ERROR_UNKNOWN)

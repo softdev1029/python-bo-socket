@@ -1,3 +1,5 @@
+# This file defines the min/max field values of Transaction message
+
 ORDER_MIN_PRICE = 0.00001
 ORDER_MIN_SIZE = 0.00001
 

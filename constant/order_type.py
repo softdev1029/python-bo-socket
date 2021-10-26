@@ -1,3 +1,6 @@
+# This file defines the order types of Transaction message
+
+
 LMT = 1
 MKT = 2
 STOP_MKT = 3

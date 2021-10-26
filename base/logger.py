@@ -1,3 +1,5 @@
+# This file is for defining the library logger
+
 import logging
 import time
 

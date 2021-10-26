@@ -1,3 +1,7 @@
+"""
+This class is for OpenOrderRequest message
+"""
+
 import struct
 from utils.helper import print_bytes_hex
 from base.message import Message
@@ -5,6 +9,10 @@ from base.logger import log
 
 
 class OpenOrderRequest(Message):
+    """
+    This class is for OpenOrderRequest message
+    """
+
     def __init__(self):
         super(OpenOrderRequest, self).__init__()
         self.data = ()

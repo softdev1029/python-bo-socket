@@ -1,3 +1,7 @@
+# This file is for BaseLevelData message
+# Five/Ten/Twenty/Thirty Level Data messages are inherited from this BaseLevelData message
+
+
 import struct
 from utils.helper import print_bytes_hex
 from base.message import Message
@@ -5,6 +9,9 @@ from base.logger import log
 
 
 class BaseLevelData(Message):
+    # This class is for BaseLevelData message
+    # Five/Ten/Twenty/Thirty Level Data messages are inherited from this BaseLevelData message
+
     def __init__(self):
         super(BaseLevelData, self).__init__()
         self.data = ()

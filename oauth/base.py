@@ -1,3 +1,6 @@
+# This file is only for BO project.
+# Here, we define the functions for OAUTH authentication flow.
+
 from base.logger import log
 import requests
 
@@ -11,6 +14,9 @@ API_URL = API_URL + "/oauth/apikeys/"
 
 
 def get_access_token():
+    """
+    This function is for getting Oauth Access Token
+    """
     log("Getting access token from", TOKEN_URL, "...")
     response = requests.post(
         TOKEN_URL,
@@ -27,6 +33,9 @@ def get_access_token():
 
 
 def get_session_token(email, password):
+    """
+    This function is for getting Oauth Session Token
+    """
     log("Getting session token ...")
     response = requests.post(
         LOGIN_URL,
@@ -45,6 +54,9 @@ def get_session_token(email, password):
 
 
 def get_api_keys():
+    """
+    This function is for getting Oauth API Keys
+    """
     email = input("Enter email: ")
     password = input("Enter password: ")
 

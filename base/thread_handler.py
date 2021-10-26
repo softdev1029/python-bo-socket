@@ -1,8 +1,16 @@
+# This file is for socket thread manager.
+
+
 import traceback
 from _thread import *
 
 
 def socket_loop(sel, process_state, aes_or_oes_key, api_key, send_callback):
+    """
+    It is the main function running on a socket thread.
+    It makes a loop processing the recv/send infinitely inside a thread.
+    """
+
     while True:
         events = sel.select(timeout=1)
         for key, mask in events:
@@ -30,6 +38,10 @@ def socket_loop(sel, process_state, aes_or_oes_key, api_key, send_callback):
 
 
 def socket_thread(sel, process_state, aes_or_oes_key, api_key, send_callback):
+    """
+    It makes a new socket thread with a loop function.
+    """
+
     start_new_thread(
         socket_loop,
         (

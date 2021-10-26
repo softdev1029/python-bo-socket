@@ -1,3 +1,5 @@
+# It is for defining fundamental message
+
 import struct
 from constant import constant, reject_code, message_type, order_type, attribute
 from base.logger import log
@@ -5,6 +7,10 @@ from utils.helper import print_bytes_hex
 
 
 class Message:
+    """
+    It is the basic class for all messages
+    """
+
     def __init__(self):
         self.MessageName = ""
         self.data = ()

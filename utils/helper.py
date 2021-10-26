@@ -1,3 +1,5 @@
+# This util file is for helper functions
+
 from base.logger import log
 
 # Byte list prints data in hexadecimal format

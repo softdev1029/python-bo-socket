@@ -1,3 +1,6 @@
+# This file defines the attributes of Transaction message
+
+
 POPPED = 0
 HIDDEN_ATTRIBUTE = 1
 DISPLAYSIZE_ATTRIBUTE = 2

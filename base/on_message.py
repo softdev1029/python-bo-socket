@@ -1,2 +1,0 @@
-def onMessage(message):
-    pass

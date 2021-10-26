@@ -1,7 +1,14 @@
+# This file is for ThirtyLevelData message
+
+
 from market.base_level_data import BaseLevelData
 
 
 class ThirtyLevelData(BaseLevelData):
+    """
+    This class is for ThirtyLevelData message
+    """
+
     def __init__(self):
         super(ThirtyLevelData, self).__init__()
         self.data = ()

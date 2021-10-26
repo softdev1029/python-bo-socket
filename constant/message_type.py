@@ -1,3 +1,6 @@
+# This file defines the message types of Transaction message
+
+
 ORDER_NEW = 1
 CANCEL_REPLACE = 2
 MARGIN_CANCEL_REPLACE = 3

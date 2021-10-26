@@ -1,7 +1,14 @@
+# This file is for TwentyLevelData message
+
+
 from market.base_level_data import BaseLevelData
 
 
 class TwentyLevelData(BaseLevelData):
+    """
+    This class is for TwentyLevelData message
+    """
+
     def __init__(self):
         super(TwentyLevelData, self).__init__()
         self.data = ()

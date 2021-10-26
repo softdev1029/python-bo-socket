@@ -1,3 +1,6 @@
+# This file is for FiveLevelData message
+
+
 import struct
 from utils.helper import print_bytes_hex
 from base.message import Message
@@ -5,6 +8,10 @@ from base.logger import log
 
 
 class FiveLevelData(Message):
+    """
+    This class is for FiveLevelData message
+    """
+
     def __init__(self):
         super(FiveLevelData, self).__init__()
         self.decoded_data = {}
