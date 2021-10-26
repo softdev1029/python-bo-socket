@@ -1,3 +1,5 @@
+# These example functions tell the library user how to make messages
+
 from auth.client_logon import ClientLogon
 from transaction.transaction import Transaction
 import pyotp
@@ -5,6 +7,9 @@ import base64
 
 
 def create_example_client_logon(aes_or_oes_key, api_key, user_name, accont):
+    """
+    This example function tells the library user how to make Client Logon message
+    """
     totp = pyotp.TOTP(base64.b32encode(bytearray(api_key, "ascii")).decode("utf-8"))
     hotp = pyotp.HOTP(base64.b32encode(bytearray(api_key, "ascii")).decode("utf-8"))
 
@@ -35,6 +40,9 @@ def create_example_client_logon(aes_or_oes_key, api_key, user_name, accont):
 
 
 def create_example_client_logout(aes_or_oes_key):
+    """
+    This example function tells the library user how to make Client Logout message
+    """
     message = ClientLogon()
     message.set_data(
         "H",  # data1
@@ -60,6 +68,9 @@ def create_example_client_logout(aes_or_oes_key):
 
 
 def create_example_transaction(aes_or_oes_key, type, orderType):
+    """
+    This example function tells the library user how to make Transaction message
+    """
     message = Transaction()
     message.set_data(
         "T",  # data1,

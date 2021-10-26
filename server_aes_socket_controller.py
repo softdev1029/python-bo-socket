@@ -1,3 +1,6 @@
+# This file is for the example socket controller of AES server
+# It is not part of the python client library and it provides the example server's controller
+
 from auth.client_logon import ClientLogon
 from transaction.transaction import Transaction
 from base.socket_controller import SocketController
@@ -7,6 +10,11 @@ process_state = "send_logon_reply"
 
 
 class ResponserSocketController(SocketController):
+    """
+    This class is for the example socket controller of AES server
+    It is not part of the python client library and it provides the example server's controller
+    """
+
     def __init__(self, sel, sock, addr, msgObj, recv_callback):
         super(ResponserSocketController, self).__init__(
             sel, sock, addr, msgObj, recv_callback
@@ -15,11 +23,18 @@ class ResponserSocketController(SocketController):
         self._response_created = None
 
     def read(self):
+        """
+        When the controller reads one message, it jumps back to the write mode
+        """
         super(ResponserSocketController, self).read()
 
         self._set_selector_events_mask("w")
 
     def write(self):
+        """
+        This socket controller is the example instance.
+        Here, it replies to the logon request message.
+        """
         global process_state
         print("process_state=", process_state)
         for i in range(1):

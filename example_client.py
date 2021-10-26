@@ -1,3 +1,5 @@
+# This is the example client program showing how to use Python binary socket library.
+
 import time
 from base.logger import log
 from constant.message_type import (
@@ -38,6 +40,9 @@ process_state = LIB_STATE_SEND_AES_LOGON
 
 
 def oes_recv_callback(ret, reason, msg, msg_len):
+    """
+    It is the receiving callback function for the client socket with OES server.
+    """
     global process_state
 
     if msg.Data1 == "H":  # logon message
@@ -63,6 +68,9 @@ order_type = LMT
 
 
 def oes_send_callback(socket_controller, oes_key, api_key):
+    """
+    It is the sending callback function for the client socket with OES server.
+    """
     global process_state
     global transaction_type
     global order_type
