@@ -69,7 +69,7 @@ class InstrumentResponse(Message):
         return self.decode(data)
 
 
-def create_instrument_response(aes_or_oes_key):
+def create_example_instrument_response(aes_or_oes_key):
     message = InstrumentResponse()
     message.set_data(
         "Y",  # data1

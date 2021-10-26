@@ -67,7 +67,7 @@ class MDExecReport(Message):
         return self.decode(data)
 
 
-def create_md_exec_report():
+def create_example_md_exec_report():
     message = MDExecReport()
     message.set_data(
         "V",  # data1

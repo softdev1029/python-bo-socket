@@ -9,7 +9,7 @@ class TenLevelData(BaseLevelData):
         self.level_count = 20  # Ten Level Data message
 
 
-def create_ten_level_data():
+def create_example_ten_level_data():
     message = TenLevelData()
     message.set_data(
         "O",  # data1

@@ -218,16 +218,16 @@ The server replies `Order Reply` message.
 
 ## Create a new message
 
-`create_message` function requies `message_type` parameter.
+`create_example_message` function requies `message_type` parameter.
 
 ```
-from base.create_message import (
-    create_message,
+from base.create_example_message import (
+    create_example_message,
     MESSAGE_TYPES,
 )
 
 message_type = MSG_CLIENT_LOGON
-create_message(message_type)
+create_example_message(message_type)
 ```
 
 ## Socket Controller
@@ -242,7 +242,7 @@ create_message(message_type)
 ```
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     addr = (host, port)
-    msgObj = create_message(message_type)
+    msgObj = create_example_message(message_type)
     socket_controller = SocketController(
         sel, sock, addr, msgObj
     )

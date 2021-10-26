@@ -11,7 +11,7 @@ from constant.message_type import (
 )
 from constant.order_type import LMT, OCO_ICE, TPSL_LIMIT
 from example_message import (
-    create_transaction,
+    create_example_transaction,
 )
 from base.library_manager import (
     LIB_STATE_SEND_AES_LOGON,
@@ -74,7 +74,7 @@ def oes_send_callback(socket_controller, oes_key, api_key):
             "order_type=",
             order_type,
         )
-        socket_controller.msgObj = create_transaction(
+        socket_controller.msgObj = create_example_transaction(
             oes_key, transaction_type, order_type
         )
         socket_controller.is_send = True

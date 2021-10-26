@@ -40,7 +40,7 @@ class ClientLogon(Message):
         return struct.Struct("= 1s 1s H H I 6s 6s I 24s 24s 24s 24s Q I I H H 1s")
 
 
-def create_client_logon(aes_or_oes_key: str) -> Message:
+def create_example_client_logon(aes_or_oes_key: str) -> Message:
     """
     Create ClientLogon message
     """

@@ -1,4 +1,7 @@
-from base.create_message import create_message, get_message_type_from_header
+from base.create_example_message import (
+    create_example_message,
+    get_message_type_from_header,
+)
 from base.on_message import onMessage
 from base.logger import log
 
@@ -37,7 +40,7 @@ def process_message(aes_or_oes_key, data):
                 log("Invalid message type", msg_key)
                 return (False, RECV_ERROR_INVALID_MSG_TYPE, None, None)
             else:
-                msg = create_message(aes_or_oes_key, msg_type)
+                msg = create_example_message(aes_or_oes_key, msg_type)
                 parsing_data = data[:msg_len]
 
                 ret = msg.parse_message(parsing_data)

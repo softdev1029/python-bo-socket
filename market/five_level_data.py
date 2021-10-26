@@ -40,7 +40,7 @@ class FiveLevelData(Message):
         return self.decode(data)
 
 
-def create_five_level_data():
+def create_example_five_level_data():
     message = FiveLevelData()
     message.set_data(
         "m",  # data1

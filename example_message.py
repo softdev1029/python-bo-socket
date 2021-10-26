@@ -4,7 +4,7 @@ import pyotp
 import base64
 
 
-def create_client_logon(aes_or_oes_key, api_key, user_name, accont):
+def create_example_client_logon(aes_or_oes_key, api_key, user_name, accont):
     totp = pyotp.TOTP(base64.b32encode(bytearray(api_key, "ascii")).decode("utf-8"))
     hotp = pyotp.HOTP(base64.b32encode(bytearray(api_key, "ascii")).decode("utf-8"))
 
@@ -34,7 +34,7 @@ def create_client_logon(aes_or_oes_key, api_key, user_name, accont):
     return message
 
 
-def create_client_logout(aes_or_oes_key):
+def create_example_client_logout(aes_or_oes_key):
     message = ClientLogon()
     message.set_data(
         "H",  # data1
@@ -59,7 +59,7 @@ def create_client_logout(aes_or_oes_key):
     return message
 
 
-def create_transaction(aes_or_oes_key, type, orderType):
+def create_example_transaction(aes_or_oes_key, type, orderType):
     message = Transaction()
     message.set_data(
         "T",  # data1,

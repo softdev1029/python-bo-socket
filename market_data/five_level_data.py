@@ -81,7 +81,7 @@ class FiveLevelData(Message):
             return False
 
 
-def create_five_level_data():
+def create_example_five_level_data():
     message = FiveLevelData()
     message.set_data(
         "N",  # data1

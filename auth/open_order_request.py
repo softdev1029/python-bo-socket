@@ -61,7 +61,7 @@ class OpenOrderRequest(Message):
         return self.decode(data)
 
 
-def create_open_order_request():
+def create_example_open_order_request():
     message = OpenOrderRequest()
     message.set_data(
         "E",  # data1

@@ -13,8 +13,8 @@ from constant.message_type import (
 from base.connection import start_connect_to_server
 from base.thread_handler import socket_thread
 from example_message import (
-    create_client_logon,
-    create_client_logout,
+    create_example_client_logon,
+    create_example_client_logout,
 )
 from base.logger import log
 
@@ -64,14 +64,14 @@ class LibraryManager:
         # Step 1: Send AES Logon
         if self.manage_state == LIB_STATE_SEND_AES_LOGON:
             log("Send the AES Logon message\n")
-            socket_controller.msgObj = create_client_logon(
+            socket_controller.msgObj = create_example_client_logon(
                 self.aes_key, self.api_key, self.user_name, self.account
             )
             socket_controller.is_send = True
             self.manage_state = "recv_logon"
         elif self.manage_state == LIB_STATE_SEND_OES_LOGOUT:
             log("Send the AES Logout message\n")
-            socket_controller.msgObj = create_client_logout(self.aes_key)
+            socket_controller.msgObj = create_example_client_logout(self.aes_key)
             socket_controller.is_send = True
             self.manage_state = LIB_STATE_EXIT
         else:
@@ -120,14 +120,14 @@ class LibraryManager:
         # Step 3: Send the OES Logon
         if self.manage_state == LIB_STATE_SEND_OES_LOGON:
             log("Send the OES Logon message\n")
-            socket_controller.msgObj = create_client_logon(
+            socket_controller.msgObj = create_example_client_logon(
                 aes_or_oes_key, self.api_key, self.user_name, self.account
             )
             socket_controller.is_send = True
             self.manage_state = "recv_logon"
         elif self.manage_state == LIB_STATE_SEND_OES_LOGOUT:
             log("Send the OES Logout message\n")
-            socket_controller.msgObj = create_client_logout(aes_or_oes_key)
+            socket_controller.msgObj = create_example_client_logout(aes_or_oes_key)
             socket_controller.is_send = True
             self.manage_state = LIB_STATE_EXIT
         else:

@@ -111,7 +111,7 @@ class ThreeLevelData(Message):
         return self.decode(data)
 
 
-def create_three_level_data():
+def create_example_three_level_data():
     message = ThreeLevelData()
     message.set_data(
         "M",  # data1

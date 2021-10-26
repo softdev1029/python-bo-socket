@@ -9,7 +9,7 @@ class TwentyLevelData(BaseLevelData):
         self.level_count = 40  # Twenty Level Data message
 
 
-def create_twenty_level_data():
+def create_example_twenty_level_data():
     message = TwentyLevelData()
     message.set_data(
         "S",  # data1

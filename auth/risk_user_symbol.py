@@ -76,7 +76,7 @@ class RiskUserSymbol(Message):
             return False
 
 
-def create_risk_user_symbol():
+def create_example_risk_user_symbol():
     message = RiskUserSymbol()
     message.set_data(
         "N",  # data1

@@ -123,7 +123,7 @@ class RiskUpdateRequest(Message):
             return False
 
 
-def create_risk_update_request(aes_or_oes_key):
+def create_example_risk_update_request(aes_or_oes_key):
     message = RiskUpdateRequest()
     message.set_data(
         "w",  # data1

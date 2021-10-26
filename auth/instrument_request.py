@@ -69,7 +69,7 @@ class InstrumentRequest(Message):
         return self.decode(data)
 
 
-def create_instrument_request(aes_or_oes_key):
+def create_example_instrument_request(aes_or_oes_key):
     message = InstrumentRequest()
     message.set_data(
         "Y",  # data1

@@ -41,7 +41,7 @@ class MDSubscribe(Message):
         return self.decode(data)
 
 
-def create_md_subscribe():
+def create_example_md_subscribe():
     message = MDSubscribe()
     message.set_data(
         "s",  # data1

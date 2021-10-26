@@ -478,6 +478,6 @@ class Message:
         return True
 
 
-def create_base_message():
+def create_example_base_message():
     message = Message()
     return message

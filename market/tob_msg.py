@@ -77,7 +77,7 @@ class TOBMsg(Message):
         return self.decode(data)
 
 
-def create_tob_msg():
+def create_example_tob_msg():
     message = TOBMsg()
     message.set_data(
         "t",  # data1

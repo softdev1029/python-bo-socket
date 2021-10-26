@@ -52,7 +52,7 @@ class CollateralRequest(Message):
         return self.decode(data)
 
 
-def create_collateral_request():
+def create_example_collateral_request():
     message = CollateralRequest()
     message.set_data("f", "", 34, 0, 0, 100500, 0, 1, 0, 0, 1623152815)
 

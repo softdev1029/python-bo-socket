@@ -9,7 +9,7 @@ class ThirtyLevelData(BaseLevelData):
         self.level_count = 60  # Thirty Level Data message
 
 
-def create_thirty_level_data():
+def create_example_thirty_level_data():
     message = ThirtyLevelData()
     message.set_data(
         "U",  # data1
