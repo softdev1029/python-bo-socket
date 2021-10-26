@@ -25,7 +25,7 @@ LIB_STATE_SEND_OES_LOGOUT = "send_oes_logout"
 
 LIB_STATE_EXIT = "exit"
 
-MAX_ORDER = 10
+MAX_ORDER = 100
 
 
 class LibraryManager:
