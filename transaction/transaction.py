@@ -60,6 +60,16 @@ class Transaction(Message):
 
         self.Data1 = "T"
         self.MessageLen = 250
+        self.Attributes = ["N" for i in range(12)]
+
+    def setAttributes(self, position, value):
+        if position < 0 or position >= 12:
+            return
+
+        if value != "N" and value != "Y":
+            return
+
+        self.Attributes[position] = value
 
     def make_pack_struct(self):
         """

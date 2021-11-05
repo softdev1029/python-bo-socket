@@ -84,6 +84,7 @@ def create_example_transaction(aes_or_oes_key, type, orderType):
     message.OrderType = orderType
     message.BOSymbol = "BTCUSD"
     message.Key = aes_or_oes_key
+    message.setAttributes(2, "Y")
 
     # message.set_data(
     #     "T",  # data1,
