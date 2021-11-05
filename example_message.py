@@ -81,49 +81,53 @@ def create_example_transaction(aes_or_oes_key, type, orderType):
     This example function tells the library user how to make Transaction message
     """
     message = Transaction()
-    message.set_data(
-        "T",  # data1,
-        "",  # data2,
-        250,  # data3,
-        type,  # messageType
-        0,  # padding,
-        100700,  # account,
-        46832151,  # orderID,
-        1,  # symbolEnum,
-        orderType,  # OrderType LMT
-        1,  # SymbolType SPOT
-        50100.5,  # BOPrice,
-        3,  # BOSide BUY
-        2.0,  # BOOrderQty,
-        2,  # TIF -> GTC
-        0,  # StopLimitPrice,
-        "BTCUSD",  # BOSymbol,
-        0,  # OrigOrderID,
-        0,  # BOCancelShares,
-        0,  # ExecID,
-        0,  # ExecShares,
-        0,  # RemainingQuantity,
-        0,  # ExecFee,
-        "",  # ExpirationDate,
-        "",  # TraderID,
-        0,  # RejectReason,
-        1000,  # SendingTime,
-        506,  # TradingSessionID,
-        aes_or_oes_key,  # Key,
-        0,  # DisplaySize,
-        0,  # RefreshSize,
-        0,  # Layers,
-        0,  # SizeIncrement,
-        0,  # PriceIncrement,
-        0,  # PriceOffset,
-        0,  # BOOrigPrice,
-        0,  # ExecPrice,
-        79488880,  # MsgSeqNum,
-        0,  # TakeProfitPrice,
-        0,  # TriggerType,
-        1111,  # SecondLegPrice,
-        1,  # RouteEnum,
-        1,  # ModifyType,
-        "",  # Attributes,
-    )
+    message.OrderType = orderType
+    message.BOSymbol = "BTCUSD"
+    message.Key = aes_or_oes_key
+
+    # message.set_data(
+    #     "T",  # data1,
+    #     "",  # data2,
+    #     250,  # data3,
+    #     type,  # messageType
+    #     0,  # padding,
+    #     100700,  # account,
+    #     46832151,  # orderID,
+    #     1,  # symbolEnum,
+    #     orderType,  # OrderType LMT
+    #     1,  # SymbolType SPOT
+    #     50100.5,  # BOPrice,
+    #     3,  # BOSide BUY
+    #     2.0,  # BOOrderQty,
+    #     2,  # TIF -> GTC
+    #     0,  # StopLimitPrice,
+    #     "BTCUSD",  # BOSymbol,
+    #     0,  # OrigOrderID,
+    #     0,  # BOCancelShares,
+    #     0,  # ExecID,
+    #     0,  # ExecShares,
+    #     0,  # RemainingQuantity,
+    #     0,  # ExecFee,
+    #     "",  # ExpirationDate,
+    #     "",  # TraderID,
+    #     0,  # RejectReason,
+    #     1000,  # SendingTime,
+    #     506,  # TradingSessionID,
+    #     aes_or_oes_key,  # Key,
+    #     0,  # DisplaySize,
+    #     0,  # RefreshSize,
+    #     0,  # Layers,
+    #     0,  # SizeIncrement,
+    #     0,  # PriceIncrement,
+    #     0,  # PriceOffset,
+    #     0,  # BOOrigPrice,
+    #     0,  # ExecPrice,
+    #     79488880,  # MsgSeqNum,
+    #     0,  # TakeProfitPrice,
+    #     0,  # TriggerType,
+    #     1111,  # SecondLegPrice,
+    #     1,  # RouteEnum,
+    #     1,  # ModifyType,
+    #     "",  # Attributes,
+    # )
     return message

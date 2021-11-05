@@ -21,45 +21,45 @@ class Message:
         self.Data2 = ""
         self.MessageLen = 0
         self.MessageType = 0
-        self.Padding = None
-        self.Account = None
-        self.OrderID = None
-        self.SymbolEnum = None
+        self.Padding = 0
+        self.Account = 0
+        self.OrderID = 0
+        self.SymbolEnum = 0
         self.OrderType = 0
-        self.SymbolType = None
-        self.BOPrice = None
-        self.BOSide = None
-        self.BOOrderQty = None
-        self.TIF = None
-        self.StopLimitPrice = None
-        self.BOSymbol = None
-        self.OrigOrderID = None
-        self.BOCancelShares = None
-        self.ExecID = None
-        self.ExecShares = None
-        self.RemainingQuantity = None
-        self.ExecFee = None
-        self.ExpirationDate = None
-        self.TraderID = None
+        self.SymbolType = 0
+        self.BOPrice = 0
+        self.BOSide = 0
+        self.BOOrderQty = 0
+        self.TIF = 0
+        self.StopLimitPrice = 0
+        self.BOSymbol = ""
+        self.OrigOrderID = 0
+        self.BOCancelShares = 0
+        self.ExecID = 0
+        self.ExecShares = 0
+        self.RemainingQuantity = 0
+        self.ExecFee = 0
+        self.ExpirationDate = ""
+        self.TraderID = ""
         self.RejectReason = 0
         self.SendingTime = 0
         self.TradingSessionID = 0
-        self.Key = None
-        self.DisplaySize = None
-        self.RefreshSize = None
-        self.Layers = None
-        self.SizeIncrement = None
-        self.PriceIncrement = None
-        self.PriceOffset = None
-        self.BOOrigPrice = None
-        self.ExecPrice = None
-        self.MsgSeqNum = None
-        self.TakeProfitPrice = None
-        self.TriggerType = None
-        self.SecondLegPrice = None
-        self.RouteEnum = None
-        self.ModifyType = None
-        self.Attributes = None
+        self.Key = 0
+        self.DisplaySize = 0
+        self.RefreshSize = 0
+        self.Layers = 0
+        self.SizeIncrement = 0
+        self.PriceIncrement = 0
+        self.PriceOffset = 0
+        self.BOOrigPrice = 0
+        self.ExecPrice = 0
+        self.MsgSeqNum = 0
+        self.TakeProfitPrice = 0
+        self.TriggerType = 0
+        self.SecondLegPrice = 0
+        self.RouteEnum = 0
+        self.ModifyType = 0
+        self.Attributes = ""
 
         pass
 
@@ -94,6 +94,9 @@ class Message:
                         for name in self._names
                     ]
                 )
+            # print("To check each Message Field type...")
+            # for n in self.data:
+            #     print(n)
             self.binary_data = s.pack(*(self.data))
             print_bytes_hex(
                 "Encoded {} message".format(self.MessageName), self.binary_data, ""

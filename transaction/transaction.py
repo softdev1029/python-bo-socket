@@ -58,6 +58,9 @@ class Transaction(Message):
             "Attributes",
         )
 
+        self.Data1 = "T"
+        self.MessageLen = 250
+
     def make_pack_struct(self):
         """
         build the binary struct for message
