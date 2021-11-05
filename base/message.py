@@ -13,13 +13,13 @@ class Message:
 
     def __init__(self):
         self.MessageName = ""
-        self.data = ()
+        self.data = None
         self.binary_data = None
         self._names = ()
 
-        self.Data1 = None
-        self.Data2 = None
-        self.MessageLen = None
+        self.Data1 = ""
+        self.Data2 = ""
+        self.MessageLen = 0
         self.MessageType = 0
         self.Padding = None
         self.Account = None
@@ -41,9 +41,9 @@ class Message:
         self.ExecFee = None
         self.ExpirationDate = None
         self.TraderID = None
-        self.RejectReason = None
-        self.SendingTime = None
-        self.TradingSessionID = None
+        self.RejectReason = 0
+        self.SendingTime = 0
+        self.TradingSessionID = 0
         self.Key = None
         self.DisplaySize = None
         self.RefreshSize = None
@@ -84,6 +84,16 @@ class Message:
     def encode(self):
         try:
             s = self.make_pack_struct()
+            if self.data is None:
+                self.data = []
+                self.data.extend(
+                    [
+                        self.__getattribute__(name)
+                        if not isinstance(self.__getattribute__(name), str)
+                        else self.__getattribute__(name).encode("utf-8")
+                        for name in self._names
+                    ]
+                )
             self.binary_data = s.pack(*(self.data))
             print_bytes_hex(
                 "Encoded {} message".format(self.MessageName), self.binary_data, ""

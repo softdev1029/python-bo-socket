@@ -12,7 +12,7 @@ from market.three_level_data import create_example_three_level_data
 from market.tob_msg import create_example_tob_msg
 from market.md_exec_report import create_example_md_exec_report
 from base.message import Message, create_example_base_message
-from auth.client_logon import create_example_client_logon
+from example_message import create_example_client_logon
 from auth.instrument_request import create_example_instrument_request
 from auth.instrument_response import create_example_instrument_response
 from auth.risk_update_request import create_example_risk_update_request

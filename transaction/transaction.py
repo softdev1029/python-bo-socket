@@ -15,7 +15,7 @@ class Transaction(Message):
         self._names = (
             "Data1",
             "Data2",
-            "Data3",
+            "MessageLen",
             "MessageType",
             "Padding",
             "Account",

@@ -1,12 +1,13 @@
 # These example functions tell the library user how to make messages
 
 from auth.client_logon import ClientLogon
+from constant.constant import LOGON_TYPE_LOGON, LOGON_TYPE_LOGOUT
 from transaction.transaction import Transaction
 import pyotp
 import base64
 
 
-def create_example_client_logon(aes_or_oes_key, api_key, user_name, accont):
+def create_example_client_logon(aes_or_oes_key, api_key="", user_name="", accont=0):
     """
     This example function tells the library user how to make Client Logon message
     """
@@ -14,27 +15,33 @@ def create_example_client_logon(aes_or_oes_key, api_key, user_name, accont):
     hotp = pyotp.HOTP(base64.b32encode(bytearray(api_key, "ascii")).decode("utf-8"))
 
     message = ClientLogon()
-    message.set_data(
-        "H",  # data1
-        "",  # data2
-        143,  # data3
-        1,  # LogonType
-        accont,  # Account
-        # totp.now(),  # 2FA
-        hotp.at(0),
-        user_name,  # UserName
-        506,  # TradingSessionID
-        "1",  # PrimaryOESIP
-        "1",  # SecondaryOESIP
-        "1",  # PrimaryMDIP
-        "1",  # SecondaryIP
-        0,  # SendingTime
-        1500201,  # MsgSeqNum
-        aes_or_oes_key,  # Key
-        0,  # LoginStatus
-        0,  # RejectReason
-        "",  # RiskMaster
-    )
+    message.LogonType = LOGON_TYPE_LOGON
+    message.Account = accont
+    message.TwoFA = hotp.at(0)
+    message.UserName = user_name
+    message.Key = aes_or_oes_key
+
+    # message.set_data(
+    #     "H",  # data1
+    #     "",  # data2
+    #     143,  # data3
+    #     1,  # LogonType
+    #     accont,  # Account
+    #     # totp.now(),  # 2FA
+    #     hotp.at(0),
+    #     user_name,  # UserName
+    #     506,  # TradingSessionID
+    #     "1",  # PrimaryOESIP
+    #     "1",  # SecondaryOESIP
+    #     "1",  # PrimaryMDIP
+    #     "1",  # SecondaryIP
+    #     0,  # SendingTime
+    #     1500201,  # MsgSeqNum
+    #     aes_or_oes_key,  # Key
+    #     0,  # LoginStatus
+    #     0,  # RejectReason
+    #     "",  # RiskMaster
+    # )
 
     return message
 
@@ -44,26 +51,28 @@ def create_example_client_logout(aes_or_oes_key):
     This example function tells the library user how to make Client Logout message
     """
     message = ClientLogon()
-    message.set_data(
-        "H",  # data1
-        "",  # data2
-        143,  # data3
-        2,  # LogonType
-        100700,  # Account
-        "1F6A",  # 2FA
-        "BOU7",  # UserName
-        506,  # TradingSessionID
-        "1",  # PrimaryOESIP
-        "1",  # SecondaryOESIP
-        "1",  # PrimaryMDIP
-        "1",  # SecondaryIP
-        0,  # SendingTime
-        1500201,  # MsgSeqNum
-        aes_or_oes_key,  # Key
-        0,  # LoginStatus
-        0,  # RejectReason
-        "",  # RiskMaster
-    )
+    message.LogonType = LOGON_TYPE_LOGOUT
+    message.Key = aes_or_oes_key
+    # message.set_data(
+    #     "H",  # data1
+    #     "",  # data2
+    #     143,  # data3
+    #     2,  # LogonType
+    #     100700,  # Account
+    #     "1F6A",  # 2FA
+    #     "BOU7",  # UserName
+    #     506,  # TradingSessionID
+    #     "1",  # PrimaryOESIP
+    #     "1",  # SecondaryOESIP
+    #     "1",  # PrimaryMDIP
+    #     "1",  # SecondaryIP
+    #     0,  # SendingTime
+    #     1500201,  # MsgSeqNum
+    #     aes_or_oes_key,  # Key
+    #     0,  # LoginStatus
+    #     0,  # RejectReason
+    #     "",  # RiskMaster
+    # )
     return message
 
 
