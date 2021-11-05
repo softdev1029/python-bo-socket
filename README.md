@@ -230,6 +230,26 @@ message_type = MSG_CLIENT_LOGON
 create_example_message(message_type)
 ```
 
+If you want to create a new `ClientLogon` message,
+
+```
+    message = ClientLogon()
+    message.LogonType = LOGON_TYPE_LOGOUT
+    message.Key = aes_or_oes_key
+```
+
+If you want to create a new `Transaction` message,
+
+```
+    message = Transaction()
+    message.OrderType = orderType
+    message.BOSymbol = "BTCUSD"
+    message.Key = aes_or_oes_key
+    message.setAttributes(2, TRANSACTION_ATTRIBUTE_Y)
+```
+
+So, it the case of setAttributes(), you need 2 parameters, the position in the array and then the value, either 'Y' or 'N' but when the message is created, the Attributes array should have all fields set to 'N'.
+
 ## Socket Controller
 
 `SocketController` requires the following parameters:
