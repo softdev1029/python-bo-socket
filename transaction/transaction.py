@@ -2,6 +2,11 @@
 
 import struct
 from base.message import Message
+from constant.constant import (
+    TRANSACTION_ATTRIBUTE_LEN,
+    TRANSACTION_ATTRIBUTE_N,
+    TRANSACTION_ATTRIBUTE_Y,
+)
 
 
 class Transaction(Message):
@@ -60,13 +65,15 @@ class Transaction(Message):
 
         self.Data1 = "T"
         self.MessageLen = 250
-        self.Attributes = ["N" for i in range(12)]
+        self.Attributes = [
+            TRANSACTION_ATTRIBUTE_N for i in range(TRANSACTION_ATTRIBUTE_LEN)
+        ]
 
     def setAttributes(self, position, value):
-        if position < 0 or position >= 12:
+        if position < 0 or position >= TRANSACTION_ATTRIBUTE_LEN:
             return
 
-        if value != "N" and value != "Y":
+        if value != TRANSACTION_ATTRIBUTE_Y and value != TRANSACTION_ATTRIBUTE_N:
             return
 
         self.Attributes[position] = value

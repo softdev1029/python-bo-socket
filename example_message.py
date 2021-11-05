@@ -1,7 +1,11 @@
 # These example functions tell the library user how to make messages
 
 from auth.client_logon import ClientLogon
-from constant.constant import LOGON_TYPE_LOGON, LOGON_TYPE_LOGOUT
+from constant.constant import (
+    LOGON_TYPE_LOGON,
+    LOGON_TYPE_LOGOUT,
+    TRANSACTION_ATTRIBUTE_Y,
+)
 from transaction.transaction import Transaction
 import pyotp
 import base64
@@ -84,7 +88,7 @@ def create_example_transaction(aes_or_oes_key, type, orderType):
     message.OrderType = orderType
     message.BOSymbol = "BTCUSD"
     message.Key = aes_or_oes_key
-    message.setAttributes(2, "Y")
+    message.setAttributes(2, TRANSACTION_ATTRIBUTE_Y)
 
     # message.set_data(
     #     "T",  # data1,
