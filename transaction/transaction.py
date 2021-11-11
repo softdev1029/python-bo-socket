@@ -3,9 +3,9 @@
 import struct
 from base.message import Message
 from constant.constant import (
-    TRANSACTION_ATTRIBUTE_LEN,
-    TRANSACTION_ATTRIBUTE_N,
-    TRANSACTION_ATTRIBUTE_Y,
+    TRANS_ATTR_LEN,
+    TRANS_ATTR_N,
+    TRANS_ATTR_Y,
 )
 
 
@@ -65,15 +65,13 @@ class Transaction(Message):
 
         self.Data1 = "T"
         self.MessageLen = 250
-        self.Attributes = [
-            TRANSACTION_ATTRIBUTE_N for i in range(TRANSACTION_ATTRIBUTE_LEN)
-        ]
+        self.Attributes = [TRANS_ATTR_N for i in range(TRANS_ATTR_LEN)]
 
     def setAttributes(self, position, value):
-        if position < 0 or position >= TRANSACTION_ATTRIBUTE_LEN:
+        if position < 0 or position >= TRANS_ATTR_LEN:
             return
 
-        if value != TRANSACTION_ATTRIBUTE_Y and value != TRANSACTION_ATTRIBUTE_N:
+        if value != TRANS_ATTR_Y and value != TRANS_ATTR_N:
             return
 
         self.Attributes[position] = value
