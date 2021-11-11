@@ -4,9 +4,9 @@ from auth.client_logon import ClientLogon
 from constant.constant import (
     LOGON_TYPE_LOGON,
     LOGON_TYPE_LOGOUT,
-    TRANS_ATTR_HIDDEN,
     TRANS_ATTR_Y,
 )
+from constant import transaction_attribute_type
 from transaction.transaction import Transaction
 import pyotp
 import base64
@@ -89,7 +89,7 @@ def create_example_transaction(aes_or_oes_key, type, orderType):
     message.OrderType = orderType
     message.BOSymbol = "BTCUSD"
     message.Key = aes_or_oes_key
-    message.setAttributes(TRANS_ATTR_HIDDEN, TRANS_ATTR_Y)
+    message.setAttributes(transaction_attribute_type.TRANS_ATTR_DISPLY, TRANS_ATTR_Y)
 
     # message.set_data(
     #     "T",  # data1,
