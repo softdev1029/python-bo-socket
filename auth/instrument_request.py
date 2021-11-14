@@ -55,7 +55,7 @@ class InstrumentRequest(Message):
     def encode(self):
         try:
             s = struct.Struct("= 1s 1s H H I I H I 24s H H I Q I")
-            self.binary_data = s.pack(*(self.data))
+            self.binary_data = s.pack(*self.data)
             print_bytes_hex("Encoded Instrument Request message", self.binary_data, "")
             return True
         except Exception as e:

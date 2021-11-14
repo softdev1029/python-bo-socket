@@ -2,7 +2,7 @@
 It is the main file for library manager.
 """
 
-from constant.message_type import (
+from constant.order_message_type import (
     CANCEL_REPLACE,
     CANCELLED,
     ORDER_ACK,
@@ -17,6 +17,8 @@ from example_message import (
     create_example_client_logout,
 )
 from base.logger import log
+from constant.types_management import MAX_ORDER
+
 
 LIB_STATE_SEND_AES_LOGON = "send_aes_logon"
 LIB_STATE_SEND_AES_LOGOUT = "send_aes_logout"
@@ -24,8 +26,6 @@ LIB_STATE_SEND_OES_LOGON = "send_oes_logon"
 LIB_STATE_SEND_OES_LOGOUT = "send_oes_logout"
 
 LIB_STATE_EXIT = "exit"
-
-MAX_ORDER = 100
 
 
 class LibraryManager:

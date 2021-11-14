@@ -2,7 +2,7 @@
 # It is not part of the python client library and it provides the example server's controller
 
 from auth.client_logon import ClientLogon
-from transaction.transaction import Transaction
+from transaction.transaction import Order
 from base.socket_controller import SocketController
 import time
 

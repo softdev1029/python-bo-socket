@@ -2,7 +2,7 @@
 # It is not part of the python client library and it provides the example server's controller
 
 from auth.client_logon import ClientLogon
-from transaction.transaction import Transaction
+from transaction.transaction import Order
 from base.socket_controller import SocketController
 import time
 
@@ -65,7 +65,7 @@ class ResponserSocketController(SocketController):
                 )
                 process_state = "send_order_reply"
             elif process_state == "send_order_reply":
-                message = Transaction()
+                message = Order()
                 message.set_data(
                     "T",  # data1,
                     "",  # data2,

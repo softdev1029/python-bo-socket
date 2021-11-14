@@ -2,7 +2,7 @@
 
 import time
 from base.logger import log
-from constant.message_type import (
+from constant.order_message_type import (
     CANCEL_REPLACE,
     CANCELLED,
     ORDER_ACK,

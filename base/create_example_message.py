@@ -2,8 +2,28 @@
 This file is related to processing messages such as creating/validation.
 """
 
-from constant.message_type import ORDER_NEW
+from constant.order_message_type import ORDER_NEW
 from constant.order_type import LMT
+from constant.types_management import message, request_message
+from constant.message_type import (
+    MSG_CLIENT_LOGON,
+    MSG_INSTRUMENT_REQUEST,
+    MSG_INSTRUMENT_RESPONSE,
+    MSG_RISK_UPDATE_REQUEST,
+    MSG_RISK_USER_SYMBOL,
+    MSG_OPEN_ORDER_REQUEST,
+    MSG_COLLATERAL_REQUEST,
+    MSG_TRANSACTION,
+    MSG_MD_SUBSCRIBE,
+    MSG_MD_EXEC_REPORT,
+    MSG_TOB_MSG,
+    MSG_THREE_LEVEL_DATA,
+    MSG_FIVE_LEVEL_DATA,
+    MSG_TEN_LEVEL_DATA,
+    MSG_TWENTY_LEVEL_DATA,
+    MSG_THIRTY_LEVEL_DATA
+    )
+
 from market.five_level_data import create_example_five_level_data
 from market.ten_level_data import create_example_ten_level_data
 from market.twenty_level_data import create_example_twenty_level_data
@@ -21,58 +41,6 @@ from auth.open_order_request import create_example_open_order_request
 from trade.collateral_request import create_example_collateral_request
 from market.md_subscribe import create_example_md_subscribe
 from example_message import create_example_transaction
-
-MSG_CLIENT_LOGON = "client_logon"
-MSG_INSTRUMENT_REQUEST = "instrument_request"
-MSG_INSTRUMENT_RESPONSE = "instrument_response"
-MSG_RISK_UPDATE_REQUEST = "risk_update_request"
-MSG_RISK_USER_SYMBOL = "risk_user_symbol"
-MSG_OPEN_ORDER_REQUEST = "open_order_request"
-MSG_COLLATERAL_REQUEST = "collateral_request"
-MSG_TRANSACTION = "transaction"
-MSG_MD_SUBSCRIBE = "md_subscribe"
-MSG_MD_EXEC_REPORT = "md_exec_report"
-MSG_TOB_MSG = "tob_msg"
-MSG_THREE_LEVEL_DATA = "three_level_data"
-MSG_FIVE_LEVEL_DATA = "five_level_data"
-MSG_TEN_LEVEL_DATA = "ten_level_data"
-MSG_TWENTY_LEVEL_DATA = "twenty_level_data"
-MSG_THIRTY_LEVEL_DATA = "thirty_level_data"
-
-REQUEST_MESSAGE_TYPES = {
-    "H": MSG_CLIENT_LOGON,
-    "Y": MSG_INSTRUMENT_REQUEST,
-    "w": MSG_RISK_UPDATE_REQUEST,
-    "E": MSG_OPEN_ORDER_REQUEST,
-    "f": MSG_COLLATERAL_REQUEST,
-    "T": MSG_TRANSACTION,
-    "s": MSG_MD_SUBSCRIBE,
-    "V": MSG_MD_EXEC_REPORT,
-    "t": MSG_TOB_MSG,
-    "M": MSG_THREE_LEVEL_DATA,
-    "m": MSG_FIVE_LEVEL_DATA,
-    "O": MSG_TEN_LEVEL_DATA,
-    "S": MSG_TWENTY_LEVEL_DATA,
-    "U": MSG_THIRTY_LEVEL_DATA,
-}
-
-MESSAGE_TYPES = {
-    "H": MSG_CLIENT_LOGON,
-    "Y": MSG_INSTRUMENT_REQUEST,
-    "w": MSG_RISK_UPDATE_REQUEST,
-    "N": MSG_RISK_USER_SYMBOL,
-    "E": MSG_OPEN_ORDER_REQUEST,
-    "f": MSG_COLLATERAL_REQUEST,
-    "T": MSG_TRANSACTION,
-    "s": MSG_MD_SUBSCRIBE,
-    "V": MSG_MD_EXEC_REPORT,
-    "t": MSG_TOB_MSG,
-    "M": MSG_THREE_LEVEL_DATA,
-    "m": MSG_FIVE_LEVEL_DATA,
-    "O": MSG_TEN_LEVEL_DATA,
-    "S": MSG_TWENTY_LEVEL_DATA,
-    "U": MSG_THIRTY_LEVEL_DATA,
-}
 
 
 def create_example_message(
@@ -126,7 +94,7 @@ def is_valid_message_type(message_type_key: str) -> bool:
     """
     Check if the type of message is valid
     """
-    if message_type_key in MESSAGE_TYPES.keys():
+    if message.is_valid(message_type_key):
         return True
 
     if message_type_key == "0":
@@ -141,8 +109,7 @@ def get_all_request_message_types_string() -> str:
     """
     res = ""
     res += "0\tGo To Receive Mode\n"
-    for i in REQUEST_MESSAGE_TYPES:
-        res += i + "\t" + REQUEST_MESSAGE_TYPES[i] + "\n"
+    res += str(request_message)
     return res
 
 
@@ -150,6 +117,5 @@ def get_message_type_from_header(key):
     """
     Get the message type from the value of binary message header
     """
-    if key in MESSAGE_TYPES.keys():
-        return MESSAGE_TYPES[key]
-    return ""
+
+    return key

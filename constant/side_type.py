@@ -1,0 +1,3 @@
+BUY = 1
+SELL = 2
+SELLSHORT = 3

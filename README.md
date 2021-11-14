@@ -245,26 +245,10 @@ If you want to create a new `Transaction` message,
     message.OrderType = orderType
     message.BOSymbol = "BTCUSD"
     message.Key = aes_or_oes_key
-    message.setAttributes(TRANS_ATTR_HIDDEN, TRANS_ATTR_Y)
+    message.setAttributes(2, TRANSACTION_ATTRIBUTE_Y)
 ```
 
 So, it the case of setAttributes(), you need 2 parameters, the position in the array and then the value, either 'Y' or 'N' but when the message is created, the Attributes array should have all fields set to 'N'.
-The following attribute positions are defined as contants.
-
-```
-TRANS_ATTR_RESERVED = 0
-TRANS_ATTR_HIDDEN = 1
-TRANS_ATTR_DISPLY = 2
-TRANS_ATTR_SIZEINCREMENT = 3
-TRANS_ATTR_POST = 4
-TRANS_ATTR_PRICEINCREMENT = 5
-TRANS_ATTR_OFFSET = 6
-TRANS_ATTR_STOP_MKT = 7
-TRANS_ATTR_STOP_LMT = 8
-TRANS_ATTR_PEG = 9
-TRANS_ATTR_TSL = 10
-TRANS_ATTR_TSM = 11
-```
 
 ## Socket Controller
 

@@ -1,31 +1,30 @@
 # These example functions tell the library user how to make messages
 
 from auth.client_logon import ClientLogon
-from constant.constant import (
-    LOGON_TYPE_LOGON,
-    LOGON_TYPE_LOGOUT,
-    TRANS_ATTR_Y,
+from constant.logon_type import (
+    LOGIN,
+    LOGOUT,
 )
-from constant import transaction_attribute_type
-from transaction.transaction import Transaction
-import pyotp
+from transaction.transaction import Order
+from constant import attribute_type
 import base64
+
 
 
 def create_example_client_logon(aes_or_oes_key, api_key="", user_name="", accont=0):
     """
     This example function tells the library user how to make Client Logon message
     """
-    totp = pyotp.TOTP(base64.b32encode(bytearray(api_key, "ascii")).decode("utf-8"))
-    hotp = pyotp.HOTP(base64.b32encode(bytearray(api_key, "ascii")).decode("utf-8"))
+    # totp = pyotp.TOTP(base64.b32encode(bytearray(api_key, "ascii")).decode("utf-8"))
+    # hotp = pyotp.HOTP(base64.b32encode(bytearray(api_key, "ascii")).decode("utf-8"))
 
     message = ClientLogon()
-    message.LogonType = LOGON_TYPE_LOGON
-    message.Account = accont
-    message.TwoFA = hotp.at(0)
-    message.UserName = user_name
-    message.Key = aes_or_oes_key
-
+    message.login(account=accont, username=user_name, key=aes_or_oes_key, api_key=api_key)
+    # message.LogonType = LOGIN
+    # message.Account = accont
+    # message.TwoFA = hotp.at(0)
+    # message.UserName = user_name
+    # message.Key = aes_or_oes_key
     # message.set_data(
     #     "H",  # data1
     #     "",  # data2
@@ -56,7 +55,7 @@ def create_example_client_logout(aes_or_oes_key):
     This example function tells the library user how to make Client Logout message
     """
     message = ClientLogon()
-    message.LogonType = LOGON_TYPE_LOGOUT
+    message.LogonType = LOGOUT
     message.Key = aes_or_oes_key
     # message.set_data(
     #     "H",  # data1
@@ -85,11 +84,11 @@ def create_example_transaction(aes_or_oes_key, type, orderType):
     """
     This example function tells the library user how to make Transaction message
     """
-    message = Transaction()
+    message = Order()
     message.OrderType = orderType
     message.BOSymbol = "BTCUSD"
     message.Key = aes_or_oes_key
-    message.setAttributes(transaction_attribute_type.TRANS_ATTR_DISPLY, TRANS_ATTR_Y)
+    message.set_attributes(attribute_type.HIDDEN_TYPE)
 
     # message.set_data(
     #     "T",  # data1,

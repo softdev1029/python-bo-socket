@@ -1,6 +1,3 @@
-# This file defines the reject codes
-
-
 ORDER_NOT_FOUND = 1
 USER_NOT_FOUND = 2
 ACCOUNT_NOT_FOUND = 3
